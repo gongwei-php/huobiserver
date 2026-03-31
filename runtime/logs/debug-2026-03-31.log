@@ -1,0 +1,8 @@
+[2026-03-31 11:16:43] error.ERROR: The token violates some mandatory constraints, details:
+- The token is expired {"exception":"[object] (Lcobucci\\JWT\\Validation\\RequiredConstraintsViolated(code: 0): The token violates some mandatory constraints, details:
+- The token is expired at /var/html/server/vendor/lcobucci/jwt/src/Validation/RequiredConstraintsViolated.php:24)"} {"request_id":"f1d60dfe-9570-4a7c-a151-4c89a08e4a27"}
+[2026-03-31 11:16:43] error.ERROR: The token violates some mandatory constraints, details:
+- The token is expired {"exception":"[object] (Lcobucci\\JWT\\Validation\\RequiredConstraintsViolated(code: 0): The token violates some mandatory constraints, details:
+- The token is expired at /var/html/server/vendor/lcobucci/jwt/src/Validation/RequiredConstraintsViolated.php:24)"} {"request_id":"e5917f91-7277-4f4a-8689-5e2b42f93ad2"}
+[2026-03-31 12:12:35] error.ERROR: you must configure with `--enable-openssl` to support ssl connection when compiling Swoole {"exception":"[object] (Swoole\\Coroutine\\Http\\Client\\Exception(code: 93): you must configure with `--enable-openssl` to support ssl connection when compiling Swoole at /var/html/huobiserver/vendor/hyperf/guzzle/src/CoroutineHandler.php:94)"} {"request_id":"37f0f547-70d6-48ce-8332-c4c59aa1c398"}
+[2026-03-31 12:12:36] error.ERROR: you must configure with `--enable-openssl` to support ssl connection when compiling Swoole {"exception":"[object] (Swoole\\Coroutine\\Http\\Client\\Exception(code: 93): you must configure with `--enable-openssl` to support ssl connection when compiling Swoole at /var/html/huobiserver/vendor/hyperf/guzzle/src/CoroutineHandler.php:94)"} {"request_id":"4a23dd8d-9ace-4056-a239-c072de84493c"}
