@@ -1,0 +1,25 @@
+{
+    "name": "luckydog/crud-code",
+    "version": "1.1.0",
+    "type": "mixed",
+    "description": "Crud Code Generator By Command",
+    "homepage": "https://www.mineadmin.com",
+    "author": [
+        {
+            "name": "luckydog",
+            "email": "943891935@qq.com"
+        }
+    ],
+    "composer": {
+        "require": {},
+        "psr-4": {
+            "Plugin\\Luckydog\\CrudCode\\": "src"
+        },
+        "installScript": "Plugin\\Luckydog\\CrudCode\\InstallScript",
+        "uninstallScript": "Plugin\\Luckydog\\CrudCode\\UninstallScript",
+        "config": "Plugin\\Luckydog\\CrudCode\\ConfigProvider"
+    },
+    "package": {
+        "dependencies": []
+    }
+}
