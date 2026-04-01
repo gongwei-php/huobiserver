@@ -9,7 +9,7 @@ CREATE TABLE `hb_member_wallet` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_user_id` (`user_id`) COMMENT '一个用户一条记录',
   KEY `idx_user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户钱包主表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户钱包主表';
 
 DROP TABLE IF EXISTS `hb_member_wallet_log_202603`;
 CREATE TABLE `hb_member_wallet_log_202603` (
@@ -25,7 +25,7 @@ CREATE TABLE `hb_member_wallet_log_202603` (
   PRIMARY KEY (`id`),
   KEY `idx_user_id` (`user_id`),
   KEY `idx_created_at` (`created_at`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='资产流水表_202603';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='资产流水表_202603';
 
 DROP TABLE IF EXISTS `hb_menber`;
 CREATE TABLE `hb_menber` (
