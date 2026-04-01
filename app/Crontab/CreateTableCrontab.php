@@ -8,10 +8,10 @@ use Hyperf\Crontab\Annotation\Crontab;
 use Hyperf\DbConnection\Db;
 
 #[Crontab(
-    name: "create_wallet_log_table",
+    name: "create_table",
     rule: "0 0 1,28 * *",
     callback: "execute",
-    memo: "每月1号、28号创建下个月钱包流水表"
+    memo: "每月1号、28号创建下个月表"
 )]
 class CreateTableCrontab
 {
