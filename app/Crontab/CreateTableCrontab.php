@@ -20,7 +20,7 @@ class CreateTableCrontab
         $suffix = date('Ym', strtotime('+1 month'));
         $table = 'hb_member_wallet_log_' . $suffix;
 
-        $exists = Db::select("SHOW TABLES LIKE ?", [$table]);
+        $exists = Db::select("SHOW TABLES LIKE '{$table}'");
         if ($exists) {
             var_dump("表已存在：" . $table);
             return true;
