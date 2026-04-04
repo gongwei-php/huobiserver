@@ -29,6 +29,7 @@ use App\Service\Api\MemberService;
 use Hyperf\Collection\Arr;
 use Hyperf\Engine\Contract\Http\V2\RequestInterface;
 use Hyperf\HttpServer\Annotation\Middleware;
+use Hyperf\Logger\LoggerFactory;
 use Mine\Jwt\Jwt;
 use Mine\Jwt\Factory;
 use Mine\Jwt\Traits\RequestScopedTokenTrait;
@@ -40,7 +41,8 @@ final class MemberController extends AbstractController
 
     public function __construct(
         private readonly MemberService $memberService,
-        private readonly CurrentMember $currentMember
+        private readonly CurrentMember $currentMember,
+        private readonly LoggerFactory $loggerFactory,
     ) {}
 
     #[Post(
@@ -63,6 +65,7 @@ final class MemberController extends AbstractController
     ))]
     public function login(MemberRequest $request): Result
     {
+        $this->loggerFactory->get('error')->error('request', ['request' => $request]);
         $validated = $request->validated();
         $account = (string) $validated['account'];
         $password = (string) $validated['password'];
@@ -71,7 +74,6 @@ final class MemberController extends AbstractController
             $this->memberService->login(
                 $account,
                 $password,
-                $request->ip(),
             )
         );
     }
