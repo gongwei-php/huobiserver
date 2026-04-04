@@ -20,4 +20,16 @@ final class MemberRepository extends IRepository
 
         return $is_exist;
     }
+
+    public function findByPhone(string $phone): Member|bool
+    {
+        $is_exist = $this->model->newQuery()
+            ->where('phone', $phone)
+            ->first();
+        if (!$is_exist) {
+            return false;
+        }
+
+        return $is_exist;
+    }
 }

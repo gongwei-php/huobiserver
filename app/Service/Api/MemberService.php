@@ -46,6 +46,16 @@ final class MemberService extends IService implements CheckTokenInterface
                 'data' => $data
             ];
         }
+        $is_exists = $this->repository->findByPhone($phone);
+        if ($is_exists) {
+            $msg = '해당 휴대폰 번호는 이미 등록된 번호입니다';
+            return [
+                'code' => $code,
+                'msg' => $msg,
+                'data' => $data
+            ];
+        }
+
         $params = [
             'account' => $account,
             'password' => $password,

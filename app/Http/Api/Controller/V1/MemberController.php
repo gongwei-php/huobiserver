@@ -65,10 +65,15 @@ final class MemberController extends AbstractController
         $phone = (string) $request->post('phone', '');
         $password = (string) $request->post('password', '');
         $repassword = (string) $request->post('repassword', '');
+        $account = trim($account);
+        $phone = trim($phone);
+        $password = trim($password);
+        $repassword = trim($repassword);
+        $cleanPhone = str_replace(['-', ' ', '.'], '', $phone);
         if (empty($account)) {
             return $this->error('사용자 계정은 비워둘 수 없습니다!');
         }
-        if (empty($phone)) {
+        if (empty($cleanPhone)) {
             return $this->error('사용자 휴대폰 번호는 비워둘 수 없습니다!');
         }
         if (empty($password)) {
@@ -77,6 +82,11 @@ final class MemberController extends AbstractController
         if ($password !== $repassword) {
             return $this->error('비밀번호가 일치하지 않습니다!');
         }
+        $pattern = '/^01[016789][-. ]?\d{3,4}[-. ]?\d{4}$/';
+        if (!preg_match($pattern, $cleanPhone)) {
+            return $this->error('유효한 휴대폰 번호를 입력해 주세요!');
+        }
+
         $register =  $this->memberService->register(
             $account,
             $phone,
