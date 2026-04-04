@@ -99,7 +99,7 @@ final class MemberController extends AbstractController
         if ($code == 0) {
             return $this->error($msg);
         }
-        return $this->success(json_encode($data, JSON_UNESCAPED_UNICODE));
+        return $this->success($data);
     }
 
     #[Post(
