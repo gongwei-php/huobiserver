@@ -8,49 +8,40 @@
  - @Link   https://github.com/mineadmin
 -->
 <script setup lang="ts">
-import type { UserVo } from '~/base/api/user'
-import { create, save } from '~/base/api/user'
+import type { MemberVo } from '~/base/api/member'
+import { create, save } from '~/base/api/member'
 import getFormItems from './data/getFormItems.tsx'
 import type { MaFormExpose } from '@mineadmin/form'
 import useForm from '@/hooks/useForm.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
 import type { UseDialogExpose } from '@/hooks/useDialog.ts'
 import useDialog from '@/hooks/useDialog.ts'
-import DataScope from '../member/component/dataScope.vue'
 
-defineOptions({ name: 'permission:user:form' })
+defineOptions({ name: 'member:form' })
 const { formType = 'add', data = null } = defineProps<{
   formType?: 'add' | 'edit'
-  data?: UserVo | null
+  data?: MemberVo | null
 }>()
 
 const t = useTrans().globalTrans
-const userForm = ref<MaFormExpose>()
-const userModel = ref<UserVo>({})
-const scopeRef = ref()
-const deptData = inject('deptData')
+const memberForm = ref<MaFormExpose>()
+const memberModel = ref<MemberVo>({})
 
 // 弹窗配置
 const maDialog: UseDialogExpose = useDialog({
   lgWidth: '750px',
   ok: () => {
-    if (userModel.value.policy.policy_type === 'CUSTOM_FUNC') {
-      userModel.value.policy.value = [userModel.value.policy.func_name]
-    }
-    if (userModel.value.policy.policy_type === 'CUSTOM_DEPT') {
-      userModel.value.policy.value = scopeRef.value.deptRef.elTree?.getCheckedKeys()
-    }
     maDialog.close()
   },
 })
 
-useForm('userForm').then((form: MaFormExpose) => {
+useForm('memberForm').then((form: MaFormExpose) => {
   if (formType === 'edit' && data) {
     Object.keys(data).map((key: string) => {
-      userModel.value[key] = data[key]
+      memberModel.value[key] = data[key]
     })
   }
-  form.setItems(getFormItems(formType, t, userModel.value, deptData, maDialog, scopeRef))
+  form.setItems(getFormItems(formType, t, memberModel.value))
   form.setOptions({
     labelWidth: '90px',
   })
@@ -59,10 +50,7 @@ useForm('userForm').then((form: MaFormExpose) => {
 // 创建操作
 function add(): Promise<any> {
   return new Promise((resolve, reject) => {
-    if (userModel.value.policy?.value?.length === 0) {
-      userModel.value.policy = undefined
-    }
-    create(userModel.value).then((res: any) => {
+    create(memberModel.value).then((res: any) => {
       res.code === ResultCode.SUCCESS ? resolve(res) : reject(res)
     })
   })
@@ -71,10 +59,7 @@ function add(): Promise<any> {
 // 更新操作
 function edit(): Promise<any> {
   return new Promise((resolve, reject) => {
-    if (userModel.value.policy === null) {
-      userModel.value.policy = []
-    }
-    save(userModel.value.id as number, userModel.value).then((res: any) => {
+    save(memberModel.value.id as number, memberModel.value).then((res: any) => {
       res.code === ResultCode.SUCCESS ? resolve(res) : reject(res)
     })
   })
@@ -83,16 +68,13 @@ function edit(): Promise<any> {
 defineExpose({
   add,
   edit,
-  maForm: userForm,
+  maForm: memberForm,
 })
 </script>
 
 <template>
   <div>
-    <ma-form ref="userForm" v-model="userModel" />
-    <component :is="maDialog.Dialog">
-      <DataScope ref="scopeRef" v-model="userModel.policy" :label="t('baseUserManage.username')" />
-    </component>
+    <ma-form ref="memberForm" v-model="memberModel" />
   </div>
 </template>
 

@@ -11,6 +11,7 @@ import type { PageList, ResponseStruct } from '#/global'
 
 export interface MemberVo {
   id?: number
+  vip_level_id?: number
   account?: string
   phone?: string
   avatar?: string

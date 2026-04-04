@@ -14,23 +14,13 @@ import MaDictSelect from '@/components/ma-dict-picker/ma-dict-select.vue'
 export default function getSearchItems(t: any): MaSearchItem[] {
   return [
     {
-      label: () => t('baseUserManage.username'),
-      prop: 'username',
+      label: () => t('baseMemberManage.account'),
+      prop: 'account',
       render: 'input',
     },
     {
-      label: () => t('baseUserManage.nickname'),
-      prop: 'nickname',
-      render: 'input',
-    },
-    {
-      label: () => t('baseUserManage.phone'),
+      label: () => t('baseMemberManage.phone'),
       prop: 'phone',
-      render: 'input',
-    },
-    {
-      label: () => t('baseUserManage.email'),
-      prop: 'email',
       render: 'input',
     },
     {

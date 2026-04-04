@@ -4,6 +4,8 @@ namespace App\Repository\Api;
 
 use App\Model\Api\Member;
 use App\Repository\IRepository;
+use Hyperf\Collection\Arr;
+use Hyperf\Database\Model\Builder;
 
 final class MemberRepository extends IRepository
 {
@@ -31,5 +33,22 @@ final class MemberRepository extends IRepository
         }
 
         return $is_exist;
+    }
+
+    public function handleSearch(Builder $query, array $params): Builder
+    {
+        return $query
+            ->when(Arr::get($params, 'unique_account'), static function (Builder $query, $uniqueAccount) {
+                $query->where('account', $uniqueAccount);
+            })
+            ->when(Arr::get($params, 'account'), static function (Builder $query, $account) {
+                $query->where('account', 'like', '%' . $account . '%');
+            })
+            ->when(Arr::get($params, 'phone'), static function (Builder $query, $phone) {
+                $query->where('phone', $phone);
+            })
+            ->when(Arr::exists($params, 'status'), static function (Builder $query) use ($params) {
+                $query->where('status', Arr::get($params, 'status'));
+            });
     }
 }

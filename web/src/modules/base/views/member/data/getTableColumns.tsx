@@ -22,8 +22,8 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
   const dictStore = useDictStore()
   const msg = useMessage()
 
-  const showBtn = (auth: string | string[], row: MemberVo) => {
-    return hasAuth(auth) && row.id !== 1
+  const showBtn = (auth: string | string[]) => {
+    return hasAuth(auth)
   }
 
   return [
@@ -37,25 +37,15 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     { type: 'index' },
     // 普通列
     {
-      label: () => t('baseUserManage.avatar'), prop: 'avatar', width: '120px',
+      label: () => t('baseMemberManage.avatar'), prop: 'avatar', width: '120px',
       cellRender: ({ row }) => (
         <div class="flex-center">
-          <el-avatar src={(row.avatar === '' || !row.avatar) ? defaultAvatar : row.avatar} alt={row.username} />
+          <el-avatar src={(row.avatar === '' || !row.avatar) ? defaultAvatar : row.avatar} alt={row.account} />
         </div>
       ),
     },
-    { label: () => t('baseUserManage.username'), prop: 'username' },
-    { label: () => t('baseUserManage.nickname'), prop: 'nickname' },
-    {
-      label: () => t('baseUserManage.userType'), prop: 'user_type',
-      cellRender: ({ row }) => (
-        <ElTag type={dictStore.t('base-userType', row.user_type, 'color')}>
-          {t(dictStore.t('base-userType', row.user_type, 'i18n'))}
-        </ElTag>
-      ),
-    },
-    { label: () => t('baseUserManage.phone'), prop: 'phone' },
-    { label: () => t('baseUserManage.email'), prop: 'email' },
+    { label: () => t('baseMemberManage.account'), prop: 'account' },
+    { label: () => t('baseMemberManage.phone'), prop: 'phone' },
     {
       label: () => t('crud.status'), prop: 'status',
       cellRender: ({ row }) => (
@@ -73,7 +63,7 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
           {
             name: 'edit',
             icon: 'material-symbols:person-edit',
-            show: ({ row }) => showBtn('permission:user:update', row),
+            show: () => showBtn('member:update'),
             text: () => t('crud.edit'),
             onClick: ({ row }) => {
               dialog.setTitle(t('crud.edit'))
@@ -81,32 +71,22 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
             },
           },
           {
-            name: 'setRole',
-            show: ({ row }) => showBtn(['permission:user:getRole', 'permission:user:setRole'], row),
-            icon: 'material-symbols:person-add-rounded',
-            text: () => t('baseUserManage.setRole'),
-            onClick: ({ row }) => {
-              dialog.setTitle(t('baseUserManage.setRole'))
-              dialog.open({ formType: 'setRole', data: row })
-            },
-          },
-          {
             name: 'initPassword',
-            show: ({ row }) => showBtn('permission:user:password', row),
+            show: () => showBtn('member:password'),
             icon: 'material-symbols:passkey',
-            text: () => t('baseUserManage.initPassword'),
+            text: () => t('baseMemberManage.initPassword'),
             onClick: ({ row }) => {
-              msg.confirm(t('baseUserManage.setPassword')).then(async () => {
+              msg.confirm(t('baseMemberManage.setPassword')).then(async () => {
                 const response = await resetPassword(row.id)
                 if (response.code === ResultCode.SUCCESS) {
-                  msg.success(t('baseUserManage.setPasswordSuccess'))
+                  msg.success(t('baseMemberManage.setPasswordSuccess'))
                 }
               })
             },
           },
           {
             name: 'del',
-            show: ({ row }) => showBtn('permission:user:delete', row),
+            show: () => showBtn('member:delete'),
             icon: 'mdi:delete',
             text: () => t('crud.delete'),
             onClick: ({ row }, proxy: MaProTableExpose) => {
@@ -118,12 +98,6 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
                 }
               })
             },
-          },
-          {
-            name: 'noAllowSuperAdmin',
-            show: ({ row }) => row.id === 1,
-            disabled: () => true,
-            text: () => t('crud.superAdminNoEdit'),
           },
         ],
       },
