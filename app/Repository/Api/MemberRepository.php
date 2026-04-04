@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Repository\Api;
+namespace App\Repository\Api;
 
 use App\Model\Api\Member;
 use App\Repository\IRepository;

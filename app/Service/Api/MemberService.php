@@ -9,7 +9,7 @@ use Mine\Jwt\Factory;
 use Mine\Jwt\JwtInterface;
 use App\Exception\BusinessException;
 use App\Exception\JwtInBlackException;
-use app\Repository\Api\MemberRepository;
+use App\Repository\Api\MemberRepository;
 use App\Http\Common\ResultCode;
 use App\Model\Api\Member;
 use App\Service\IService;
