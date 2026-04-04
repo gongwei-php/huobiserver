@@ -18,8 +18,6 @@ use App\Http\Api\Vo\MemberLoginVo;
 use App\Http\Common\Controller\AbstractController;
 use App\Http\Common\Result;
 use App\Http\CurrentMember;
-use App\Model\Api\Member;
-use app\Repository\Api\MemberRepository;
 use App\Schema\MemberSchema;
 use Hyperf\Swagger\Annotation\HyperfServer;
 use Hyperf\Swagger\Annotation\Post;
@@ -30,8 +28,6 @@ use Hyperf\Collection\Arr;
 use Hyperf\Engine\Contract\Http\V2\RequestInterface;
 use Hyperf\HttpServer\Annotation\Middleware;
 use Psr\Log\LoggerInterface;
-use Mine\Jwt\Jwt;
-use Mine\Jwt\Factory;
 use Mine\Jwt\Traits\RequestScopedTokenTrait;
 
 #[HyperfServer(name: 'http')]

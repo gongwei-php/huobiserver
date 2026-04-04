@@ -14,7 +14,7 @@ use App\Http\Common\ResultCode;
 use App\Model\Api\Member;
 use App\Service\IService;
 use Hyperf\DbConnection\Db;
-use PhpCsFixer\Cache\CacheInterface;
+use Psr\SimpleCache\CacheInterface;
 
 final class MemberService extends IService implements CheckTokenInterface
 {
