@@ -16,6 +16,7 @@ use App\Http\Common\Request\Traits\NoAuthorizeTrait;
 use App\Schema\MemberSchema;
 use Hyperf\Validation\Request\FormRequest;
 use Hyperf\Collection\Arr;
+use Mine\Support\Request\ClientIpRequestTrait;
 
 #[\Mine\Swagger\Attributes\FormRequest(
     schema: MemberSchema::class,
@@ -26,6 +27,7 @@ use Hyperf\Collection\Arr;
 )]
 class MemberRequest extends FormRequest
 {
+    use ClientIpRequestTrait;
     use NoAuthorizeTrait;
 
     public function rules(): array
