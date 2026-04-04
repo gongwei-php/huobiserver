@@ -15,6 +15,7 @@ namespace App\Http\Api\Request\V1;
 use App\Http\Common\Request\Traits\NoAuthorizeTrait;
 use App\Schema\MemberSchema;
 use Hyperf\Validation\Request\FormRequest;
+use Hyperf\Collection\Arr;
 
 #[\Mine\Swagger\Attributes\FormRequest(
     schema: MemberSchema::class,
@@ -41,5 +42,10 @@ class MemberRequest extends FormRequest
             'account' => trans('user.account'),
             'password' => trans('user.password'),
         ];
+    }
+
+    public function ip(): string
+    {
+        return Arr::first($this->getClientIps(), static fn($ip) => $ip, '0.0.0.0');
     }
 }
