@@ -1,0 +1,71 @@
+<?php
+
+declare(strict_types=1);
+/**
+ * This file is part of MineAdmin.
+ *
+ * @link     https://www.mineadmin.com
+ * @document https://doc.mineadmin.com
+ * @contact  root@imoi.cn
+ * @license  https://github.com/mineadmin/MineAdmin/blob/master/LICENSE
+ */
+
+namespace App\Schema;
+
+use App\Model\Enums\Member\Status;
+use App\Model\Api\Member;
+use Hyperf\Swagger\Annotation\Property;
+use Hyperf\Swagger\Annotation\Schema;
+
+#[Schema]
+final class MemberSchema implements \JsonSerializable
+{
+    #[Property(property: 'id', title: '用户ID，主键', type: 'int')]
+    public ?int $id;
+
+    #[Property(property: 'account', title: '用户账号', type: 'string')]
+    public ?string $account;
+
+    #[Property(property: 'phone', title: '手机', type: 'string')]
+    public ?string $phone;
+
+    #[Property(property: 'avatar', title: '用户头像', type: 'string')]
+    public ?string $avatar;
+
+    #[Property(property: 'status', title: '状态 (1正常 2停用)', type: 'int')]
+    public ?Status $status;
+
+    #[Property(property: 'login_ip', title: '最后登陆IP', type: 'string')]
+    public ?string $loginIp;
+
+    #[Property(property: 'login_time', title: '最后登陆时间', type: 'string')]
+    public mixed $loginTime;
+
+    #[Property(property: 'created_at', title: '创建时间', type: 'string')]
+    public mixed $createdAt;
+
+    #[Property(property: 'updated_at', title: '更新时间', type: 'string')]
+    public mixed $updatedAt;
+
+    #[Property(property: 'remark', title: '备注', type: 'string')]
+    public ?string $remark;
+
+    public function __construct(Member $model)
+    {
+        $this->id = $model->id;
+        $this->account = $model->account;
+        $this->phone = $model->phone;
+        $this->avatar = $model->avatar;
+        $this->status = $model->status;
+        $this->loginIp = $model->login_ip;
+        $this->loginTime = $model->login_time;
+        $this->createdAt = $model->created_at;
+        $this->updatedAt = $model->updated_at;
+        $this->remark = $model->remark;
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return ['id' => $this->id, 'account' => $this->account, 'phone' => $this->phone, 'avatar' => $this->avatar, 'status' => $this->status, 'login_ip' => $this->loginIp, 'login_time' => $this->loginTime, 'created_at' => $this->createdAt, 'updated_at' => $this->updatedAt, 'remark' => $this->remark];
+    }
+}

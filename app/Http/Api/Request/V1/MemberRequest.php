@@ -13,23 +13,24 @@ declare(strict_types=1);
 namespace App\Http\Api\Request\V1;
 
 use App\Http\Common\Request\Traits\NoAuthorizeTrait;
-use App\Schema\UserSchema;
+use App\Schema\MemberSchema;
 use Hyperf\Validation\Request\FormRequest;
 
 #[\Mine\Swagger\Attributes\FormRequest(
-    schema: UserSchema::class,
+    schema: MemberSchema::class,
     only: [
-        'username', 'password',
+        'account',
+        'password',
     ]
 )]
-class UserRequest extends FormRequest
+class MemberRequest extends FormRequest
 {
     use NoAuthorizeTrait;
 
     public function rules(): array
     {
         return [
-            'username' => 'required|string|max:16',
+            'account' => 'required|string|max:16',
             'password' => 'required|string|max:32',
         ];
     }
@@ -37,7 +38,7 @@ class UserRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'username' => trans('user.username'),
+            'account' => trans('user.account'),
             'password' => trans('user.password'),
         ];
     }
