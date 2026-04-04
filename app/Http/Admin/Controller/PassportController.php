@@ -29,6 +29,7 @@ use Hyperf\Swagger\Annotation as OA;
 use Hyperf\Swagger\Annotation\Post;
 use Mine\Jwt\Traits\RequestScopedTokenTrait;
 use Mine\Swagger\Attributes\ResultResponse;
+use Psr\Log\LoggerInterface;
 
 #[OA\HyperfServer(name: 'http')]
 final class PassportController extends AbstractController
@@ -37,7 +38,8 @@ final class PassportController extends AbstractController
 
     public function __construct(
         private readonly PassportService $passportService,
-        private readonly CurrentUser $currentUser
+        private readonly CurrentUser $currentUser,
+        private readonly LoggerInterface $logger,
     ) {}
 
     #[Post(
@@ -60,6 +62,7 @@ final class PassportController extends AbstractController
     ))]
     public function login(PassportLoginRequest $request): Result
     {
+        $this->logger->error('request', ['request' => $request]);
         $username = (string) $request->input('username');
         $password = (string) $request->input('password');
         $browser = $request->header('User-Agent') ?: 'unknown';
