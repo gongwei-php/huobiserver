@@ -9,11 +9,15 @@ final class MemberRepository extends IRepository
 {
     public function __construct(protected readonly Member $model) {}
 
-    public function findByAccount(string $account): Member
+    public function findByAccount(string $account): Member|bool
     {
-        // @phpstan-ignore-next-line
-        return $this->model->newQuery()
+        $is_exist = $this->model->newQuery()
             ->where('account', $account)
-            ->firstOrFail();
+            ->first();
+        if (!$is_exist) {
+            return false;
+        }
+
+        return $is_exist;
     }
 }

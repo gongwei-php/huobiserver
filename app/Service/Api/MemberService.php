@@ -32,7 +32,7 @@ final class MemberService extends IService implements CheckTokenInterface
     /**
      * @return array<string,int|string>
      */
-    public function login(string $account, string $password, string $ip = '0.0.0.0'): array
+    public function login(string $account, string $password): array
     {
         $member = $this->repository->findByAccount($account);
 
