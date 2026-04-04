@@ -27,8 +27,8 @@ CREATE TABLE `hb_member_wallet_log_202603` (
   KEY `idx_created_at` (`created_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='资产流水表_202603';
 
-DROP TABLE IF EXISTS `hb_menber`;
-CREATE TABLE `hb_menber` (
+DROP TABLE IF EXISTS `hb_member`;
+CREATE TABLE `hb_member` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
   `vip_level_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户vip等级id',
   `account` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '用户账号',
@@ -44,8 +44,8 @@ CREATE TABLE `hb_menber` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='用户基础表';
 
-DROP TABLE IF EXISTS `hb_menber_auth`;
-CREATE TABLE `hb_menber_auth` (
+DROP TABLE IF EXISTS `hb_member_auth`;
+CREATE TABLE `hb_member_auth` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
   `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户id',
   `card_front_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '证件照正面照片地址',

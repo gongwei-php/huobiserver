@@ -49,4 +49,7 @@ enum ResultCode: int
 
     #[Message('result.disabled')]
     case DISABLED = 423;
+
+    #[Message('user.not.found')]
+    case USER_NOT_FOUND = 424;
 }

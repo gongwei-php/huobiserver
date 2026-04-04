@@ -35,7 +35,9 @@ final class MemberService extends IService implements CheckTokenInterface
     public function login(string $account, string $password): array
     {
         $member = $this->repository->findByAccount($account);
-
+        if (!$member) {
+            throw new BusinessException(ResultCode::USER_NOT_FOUND, trans('auth.password_error'));
+        }
         if (! $member->verifyPassword($password)) {
             throw new BusinessException(ResultCode::UNPROCESSABLE_ENTITY, trans('auth.password_error'));
         }
