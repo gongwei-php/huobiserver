@@ -165,7 +165,7 @@ final class MemberController extends AbstractController
         return $this->success(
             Arr::only(
                 $this->currentMember->member()?->toArray() ?: [],
-                ['account', 'avatar', 'phone', 'email']
+                ['account', 'avatar', 'phone', 'vip_level_id', 'login_ip', 'login_time']
             )
         );
     }
