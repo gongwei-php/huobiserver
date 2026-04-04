@@ -14,14 +14,13 @@ namespace App\Http\Admin\Controller;
 
 use App\Http\Admin\Controller\AbstractController;
 use App\Http\Admin\Middleware\PermissionMiddleware;
-use App\Http\Admin\Request\Permission\BatchGrantDataPermissionForPositionRequest;
 use App\Http\Admin\Request\Permission\PositionRequest;
 use App\Http\Common\Middleware\AccessTokenMiddleware;
 use App\Http\Common\Middleware\OperationMiddleware;
 use App\Http\Common\Result;
-use App\Http\CurrentUser;
+use App\Http\CurrentMember;
 use App\Schema\PositionSchema;
-use App\Service\Permission\PositionService;
+use App\Service\MemberService;
 use Hyperf\HttpServer\Annotation\Middleware;
 use Hyperf\Swagger\Annotation\Delete;
 use Hyperf\Swagger\Annotation\Get;
@@ -41,16 +40,16 @@ use Mine\Swagger\Attributes\ResultResponse;
 class MemberController extends AbstractController
 {
     public function __construct(
-        protected readonly CurrentUser $currentUser,
-        protected readonly PositionService $service
+        protected readonly CurrentMember $currentMember,
+        protected readonly MemberService $service
     ) {}
 
     #[Get(
         path: '/admin/member/list',
         operationId: 'memberList',
-        summary: '岗位列表',
+        summary: '会员列表',
         security: [['Bearer' => [], 'ApiKey' => []]],
-        tags: ['岗位管理'],
+        tags: ['会员管理'],
     )]
     #[PageResponse(instance: PositionSchema::class)]
     #[Permission(code: 'member:index')]
@@ -65,27 +64,12 @@ class MemberController extends AbstractController
         );
     }
 
-    #[Put(
-        path: '/admin/member/{id}/data_permission',
-        operationId: 'positionDataPermission',
-        summary: '设置岗位数据权限',
-        security: [['Bearer' => [], 'ApiKey' => []]],
-        tags: ['岗位管理'],
-    )]
-    #[Permission(code: 'member:data_permission')]
-    #[ResultResponse(instance: new Result())]
-    public function batchDataPermission(int $id, BatchGrantDataPermissionForPositionRequest $request): Result
-    {
-        $this->service->batchDataPermission($id, $request->validated());
-        return $this->success();
-    }
-
     #[Post(
         path: '/admin/member',
-        operationId: 'positionCreate',
-        summary: '创建岗位',
+        operationId: 'memberCreate',
+        summary: '创建会员',
         security: [['Bearer' => [], 'ApiKey' => []]],
-        tags: ['岗位管理'],
+        tags: ['会员管理'],
     )]
     #[RequestBody(
         content: new JsonContent(ref: PositionRequest::class)
@@ -95,17 +79,17 @@ class MemberController extends AbstractController
     public function create(PositionRequest $request): Result
     {
         $this->service->create(array_merge($request->validated(), [
-            'created_by' => $this->currentUser->id(),
+            'created_by' => $this->currentMember->id(),
         ]));
         return $this->success();
     }
 
     #[Put(
         path: '/admin/member/{id}',
-        operationId: 'positionSave',
-        summary: '保存岗位',
+        operationId: 'memberSave',
+        summary: '保存会员',
         security: [['Bearer' => [], 'ApiKey' => []]],
-        tags: ['岗位管理'],
+        tags: ['会员管理'],
     )]
     #[RequestBody(
         content: new JsonContent(ref: PositionRequest::class)
@@ -115,17 +99,17 @@ class MemberController extends AbstractController
     public function save(int $id, PositionRequest $request): Result
     {
         $this->service->updateById($id, array_merge($request->validated(), [
-            'updated_by' => $this->currentUser->id(),
+            'updated_by' => $this->currentMember->id(),
         ]));
         return $this->success();
     }
 
     #[Delete(
         path: '/admin/member',
-        operationId: 'positionDelete',
-        summary: '删除岗位',
+        operationId: 'memberDelete',
+        summary: '删除会员',
         security: [['Bearer' => [], 'ApiKey' => []]],
-        tags: ['岗位管理'],
+        tags: ['会员管理'],
     )]
     #[ResultResponse(instance: new Result())]
     #[Permission(code: 'member:delete')]
