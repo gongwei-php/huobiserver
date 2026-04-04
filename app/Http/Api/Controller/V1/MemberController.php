@@ -42,6 +42,57 @@ final class MemberController extends AbstractController
     ) {}
 
     #[Post(
+        path: '/api/v1/register',
+        operationId: 'ApiV1Register',
+        summary: '用户注册',
+        tags: ['api'],
+    )]
+    #[ResultResponse(
+        instance: new Result(data: new MemberLoginVo()),
+        title: '注册成功',
+        description: '注册成功返回对象',
+        example: '{"code":200,"message":"成功","data":{"access_token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MjIwOTQwNTYsIm5iZiI6MTcyMjA5NDAiwiZXhwIjoxNzIyMDk0MzU2fQ.7EKiNHb_ZeLJ1NArDpmK6sdlP7NsDecsTKLSZn_3D7k","refresh_token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MjIwOTQwNTYsIm5iZiI6MTcyMjA5NDAiwiZXhwIjoxNzIyMDk0MzU2fQ.7EKiNHb_ZeLJ1NArDpmK6sdlP7NsDecsTKLSZn_3D7k","expire_at":300}}'
+    )]
+    #[OA\RequestBody(content: new OA\JsonContent(
+        ref: MemberRequest::class,
+        title: '登录请求参数',
+        required: ['account', 'phone', 'password', 'repassword'],
+        example: '{"account":"admin","phone":"13135773645","password":"123456","repassword":"123456"}'
+    ))]
+    public function register(MemberRequest $request): Result
+    {
+        $account = (string) $request->post('account', '');
+        $phone = (string) $request->post('phone', '');
+        $password = (string) $request->post('password', '');
+        $repassword = (string) $request->post('repassword', '');
+        if (empty($account)) {
+            return $this->error('사용자 계정은 비워둘 수 없습니다!');
+        }
+        if (empty($phone)) {
+            return $this->error('사용자 휴대폰 번호는 비워둘 수 없습니다!');
+        }
+        if (empty($password)) {
+            return $this->error('사용자 비밀번호는 비워둘 수 없습니다!');
+        }
+        if ($password !== $repassword) {
+            return $this->error('비밀번호가 일치하지 않습니다!');
+        }
+        $register =  $this->memberService->register(
+            $account,
+            $phone,
+            $password,
+            $request->ip(),
+        );
+        $code = $register['code'] ?? 0;
+        $msg = $register['msg'] ?? '';
+        $data = $register['data'] ?? [];
+        if ($code == 0) {
+            return $this->error($msg);
+        }
+        return $this->success($data);
+    }
+
+    #[Post(
         path: '/api/v1/login',
         operationId: 'ApiV1Login',
         summary: '用户登录',
@@ -61,7 +112,6 @@ final class MemberController extends AbstractController
     ))]
     public function login(MemberRequest $request): Result
     {
-        $this->logger->error('request', ['request' => $request]);
         $validated = $request->validated();
         $account = (string) $validated['account'];
         $password = (string) $validated['password'];

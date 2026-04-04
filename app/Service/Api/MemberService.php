@@ -32,6 +32,51 @@ final class MemberService extends IService implements CheckTokenInterface
     /**
      * @return array<string,int|string>
      */
+    public function register(string $account, string $phone, string $password, string $ip): array
+    {
+        $code = 0;
+        $msg = '';
+        $data = [];
+        $is_exists = $this->repository->findByAccount($account);
+        if ($is_exists) {
+            $msg = '해당 사용자가 등록되어 있으니 직접 로그인해 주세요';
+            return [
+                'code' => $code,
+                'msg' => $msg,
+                'data' => $data
+            ];
+        }
+        $params = [
+            'account' => $account,
+            'password' => $password,
+            'vip_level_id' => 0,
+            'phone' => $phone,
+            'avatar' => '',
+            'status' => 1,
+            'login_ip' => $ip,
+            'login_time' => time(),
+            'remark' => ''
+        ];
+        $member = parent::create($params);
+
+        $jwt = $this->getJwt();
+
+        $code = 1;
+        $msg = '';
+        return [
+            'code' => $code,
+            'msg' => $msg,
+            'data' => [
+                'access_token' => $jwt->builderAccessToken((string) $member->id)->toString(),
+                'refresh_token' => $jwt->builderRefreshToken((string) $member->id)->toString(),
+                'expire_at' => (int) $jwt->getConfig('ttl', 0),
+            ]
+        ];
+    }
+
+    /**
+     * @return array<string,int|string>
+     */
     public function login(string $account, string $password): array
     {
         $member = $this->repository->findByAccount($account);
