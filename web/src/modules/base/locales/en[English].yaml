@@ -17,6 +17,18 @@ baseUserManage:
   initPassword: Init password
   setPassword: Whether to reset the password to 123456?
   setPasswordSuccess: The password was reset successfully
+baseMemberManage:
+  avatar: Avatar
+  account: Account
+  phone: Phone
+  password: Password
+  mainTitle: Member Rule
+  subTitle: Provide members with the functions of adding, editing, and deleting
+  dataScope: Data Scope
+  setDataScope: Set data scope
+  initPassword: Init password
+  setPassword: Whether to reset the password to 123456?
+  setPasswordSuccess: The password was reset successfully
 baseRoleManage:
   mainTitle: Role Rule
   subTitle: Provide user roles and permission settings

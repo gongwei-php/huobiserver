@@ -8,13 +8,13 @@
  * @Link   https://github.com/mineadmin
  */
 import type { MaProTableColumns, MaProTableExpose } from '@mineadmin/pro-table'
-import type { UserVo } from '~/base/api/user.ts'
+import type { MemberVo } from '~/base/api/member.ts'
 import type { UseDialogExpose } from '@/hooks/useDialog.ts'
 
 import defaultAvatar from '@/assets/images/defaultAvatar.jpg'
 import { ElTag } from 'element-plus'
 import { useMessage } from '@/hooks/useMessage.ts'
-import { deleteByIds, resetPassword } from '~/base/api/user.ts'
+import { deleteByIds, resetPassword } from '~/base/api/member.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
 import hasAuth from '@/utils/permission/hasAuth.ts'
 
@@ -22,20 +22,22 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
   const dictStore = useDictStore()
   const msg = useMessage()
 
-  const showBtn = (auth: string | string[], row: UserVo) => {
+  const showBtn = (auth: string | string[], row: MemberVo) => {
     return hasAuth(auth) && row.id !== 1
   }
 
   return [
     // 多选列
-    { type: 'selection', showOverflowTooltip: false, label: () => t('crud.selection'),
+    {
+      type: 'selection', showOverflowTooltip: false, label: () => t('crud.selection'),
       cellRender: ({ row }): any => row.id === 1 ? '-' : undefined,
-      selectable: (row: UserVo) => ![1].includes(row.id as number),
+      selectable: (row: MemberVo) => ![1].includes(row.id as number),
     },
     // 索引序号列
     { type: 'index' },
     // 普通列
-    { label: () => t('baseUserManage.avatar'), prop: 'avatar', width: '120px',
+    {
+      label: () => t('baseUserManage.avatar'), prop: 'avatar', width: '120px',
       cellRender: ({ row }) => (
         <div class="flex-center">
           <el-avatar src={(row.avatar === '' || !row.avatar) ? defaultAvatar : row.avatar} alt={row.username} />
@@ -44,7 +46,8 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     },
     { label: () => t('baseUserManage.username'), prop: 'username' },
     { label: () => t('baseUserManage.nickname'), prop: 'nickname' },
-    { label: () => t('baseUserManage.userType'), prop: 'user_type',
+    {
+      label: () => t('baseUserManage.userType'), prop: 'user_type',
       cellRender: ({ row }) => (
         <ElTag type={dictStore.t('base-userType', row.user_type, 'color')}>
           {t(dictStore.t('base-userType', row.user_type, 'i18n'))}
@@ -53,7 +56,8 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     },
     { label: () => t('baseUserManage.phone'), prop: 'phone' },
     { label: () => t('baseUserManage.email'), prop: 'email' },
-    { label: () => t('crud.status'), prop: 'status',
+    {
+      label: () => t('crud.status'), prop: 'status',
       cellRender: ({ row }) => (
         <ElTag type={dictStore.t('system-status', row.status, 'color')}>
           {t(dictStore.t('system-status', row.status, 'i18n'))}
