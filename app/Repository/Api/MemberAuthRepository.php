@@ -2,10 +2,14 @@
 
 namespace App\Repository\Api;
 
+use App\Model\Api\Member;
 use App\Model\Api\MemberAuth;
 use App\Repository\IRepository;
 use Hyperf\Collection\Arr;
 use Hyperf\Database\Model\Builder;
+use Hyperf\Collection\Collection;
+use Hyperf\Contract\LengthAwarePaginatorInterface;
+use Hyperf\Paginator\AbstractPaginator;
 
 final class MemberAuthRepository extends IRepository
 {
@@ -24,6 +28,45 @@ final class MemberAuthRepository extends IRepository
         }
 
         return $is_exist;
+    }
+
+    public function page(array $params = [], ?int $page = null, ?int $pageSize = null): array
+    {
+        $result = $this->perQuery($this->getQuery(), $params)->paginate(
+            perPage: $pageSize,
+            pageName: static::PER_PAGE_PARAM_NAME,
+            page: $page,
+        );
+        return $this->handlePage($result);
+    }
+
+    public function handleItems(Collection $items): Collection
+    {
+        $memberModel = new Member();
+        $memberRepository = new MemberRepository($memberModel);
+        $memberIds = $items->pluck('member_id')->filter()->unique()->toArray();
+        $members = $memberRepository->getMembersByIds($memberIds);
+        $memberMap = collect($members)->keyBy('id');
+
+        foreach ($items as $item) {
+            $item->member = $memberMap->get($item->member_id);
+        }
+
+        return $items;
+    }
+
+    public function handlePage(LengthAwarePaginatorInterface $paginator): array
+    {
+        if ($paginator instanceof AbstractPaginator) {
+            $items = $paginator->getCollection();
+        } else {
+            $items = Collection::make($paginator->items());
+        }
+        $items = $this->handleItems($items);
+        return [
+            'list' => $items->toArray(),
+            'total' => $paginator->total(),
+        ];
     }
 
     public function handleSearch(Builder $query, array $params): Builder
