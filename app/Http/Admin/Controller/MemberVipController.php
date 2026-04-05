@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace App\Http\Admin\Controller;
 
 use App\Http\Admin\Controller\AbstractController;
-use App\Http\Api\Request\V1\MemberRequest;
+use App\Http\Api\Request\V1\MemberVipRequest;
 use App\Http\Common\Middleware\AccessTokenMiddleware;
 use App\Http\Common\Middleware\OperationMiddleware;
 use App\Http\Common\Result;
@@ -70,11 +70,11 @@ class MemberVipController extends AbstractController
         tags: ['等级管理'],
     )]
     #[RequestBody(
-        content: new JsonContent(ref: MemberRequest::class)
+        content: new JsonContent(ref: MemberVipRequest::class)
     )]
     #[Permission(code: 'member::vip:save')]
     #[ResultResponse(instance: new Result())]
-    public function create(MemberRequest $request): Result
+    public function create(MemberVipRequest $request): Result
     {
         $this->service->create(array_merge($request->validated(), [
             'updated_by' => $this->currentUser->id(),
@@ -90,11 +90,11 @@ class MemberVipController extends AbstractController
         tags: ['等级管理'],
     )]
     #[RequestBody(
-        content: new JsonContent(ref: MemberRequest::class)
+        content: new JsonContent(ref: MemberVipRequest::class)
     )]
     #[Permission(code: 'member::vip:update')]
     #[ResultResponse(instance: new Result())]
-    public function save(int $id, MemberRequest $request): Result
+    public function save(int $id, MemberVipRequest $request): Result
     {
         $this->service->updateById($id, array_merge($request->validated(), [
             'updated_by' => $this->currentUser->id(),

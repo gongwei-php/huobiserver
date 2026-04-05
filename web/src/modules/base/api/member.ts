@@ -18,7 +18,7 @@ export interface MemberVo {
   status?: 1 | 2
   login_ip?: string
   login_time?: string
-  remark?: string
+  updated_by?: number
   password?: string
 }
 

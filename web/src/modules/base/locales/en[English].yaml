@@ -29,6 +29,10 @@ baseMemberManage:
   initPassword: Init password
   setPassword: Whether to reset the password to 123456?
   setPasswordSuccess: The password was reset successfully
+baseMemberVipManage:
+  level: Level
+  mainTitle: Level Rule
+  subTitle: Provide levels with the functions of adding, editing, and deleting
 baseRoleManage:
   mainTitle: Role Rule
   subTitle: Provide user roles and permission settings
