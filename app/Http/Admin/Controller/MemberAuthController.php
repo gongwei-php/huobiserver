@@ -70,12 +70,9 @@ class MemberAuthController extends AbstractController
         security: [['Bearer' => [], 'ApiKey' => []]],
         tags: ['同意'],
     )]
-    #[RequestBody(
-        content: new JsonContent(ref: MemberAuthRequest::class)
-    )]
     #[Permission(code: 'member::auth:agree')]
     #[ResultResponse(instance: new Result())]
-    public function agree(int $id, MemberAuthRequest $request): Result
+    public function agree(int $id): Result
     {
         $this->service->agreeById($id, $this->currentUser->id());
         return $this->success();
@@ -87,9 +84,6 @@ class MemberAuthController extends AbstractController
         summary: '拒绝实名',
         security: [['Bearer' => [], 'ApiKey' => []]],
         tags: ['拒绝'],
-    )]
-    #[RequestBody(
-        content: new JsonContent(ref: MemberAuthRequest::class)
     )]
     #[Permission(code: 'member::auth:refuse')]
     #[ResultResponse(instance: new Result())]

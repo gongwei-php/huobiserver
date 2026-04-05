@@ -30,12 +30,9 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     // 多选列
     {
       type: 'selection', showOverflowTooltip: false, label: () => t('crud.selection'),
-      cellRender: ({ row }): any => row.id === 1 ? '-' : undefined,
+      cellRender: ({ row }): any => row.id ? row.id : undefined,
       selectable: (row: MemberAuthVo) => ![1].includes(row.id as number),
     },
-    // 索引序号列
-    { type: 'index' },
-    // 普通列
     { label: () => t('baseMemberAuthManage.member_id'), prop: 'member_id' },
     {
       label: () => t('baseMemberAuthManage.member_account'), prop: 'member_account',
