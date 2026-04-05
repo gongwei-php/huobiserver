@@ -7,6 +7,7 @@ use App\Repository\IRepository;
 use Hyperf\Collection\Arr;
 use Hyperf\Database\Model\Builder;
 use Psr\Log\LoggerInterface;
+use Hyperf\Database\Query\Builder as QueryBuilder;
 
 final class MemberVipRepository extends IRepository
 {
@@ -35,7 +36,19 @@ final class MemberVipRepository extends IRepository
     public function perQuery(Builder $query, array $params): Builder
     {
         $query = parent::perQuery($query, $params);
-        $this->log->error('query:' . $query);
+        $this->log->error('vip 搜索参数', $params);
+        if ($query->getQuery() instanceof QueryBuilder) {
+            $rawSql = $query->getQuery()->toSql();          // 带 ? 的 SQL
+            $bindings = $query->getQuery()->getBindings();   // 绑定参数
+
+            // 拼接成完整可执行 SQL
+            foreach ($bindings as $binding) {
+                $rawSql = preg_replace('/\?/', "'{$binding}'", $rawSql, 1);
+            }
+
+            // 写日志
+            $this->log->error('VIP 执行 SQL：' . $rawSql);
+        }
         return $query;
     }
 
