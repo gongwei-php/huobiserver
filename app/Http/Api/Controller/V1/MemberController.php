@@ -181,8 +181,8 @@ final class MemberController extends AbstractController
     #[ResultResponse(
         instance: new Result(data: new MemberLoginVo())
     )]
-    public function refresh(CurrentMember $user): Result
+    public function refresh(CurrentMember $member): Result
     {
-        return $this->success($user->refresh());
+        return $this->success($member->refresh());
     }
 }

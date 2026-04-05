@@ -22,10 +22,13 @@ use Mine\Support\Request\ClientIpRequestTrait;
     schema: MemberSchema::class,
     only: [
         'account',
-        'password',
+        'avatar',
+        'login_ip',
+        'phone',
+        'vip_level_id',
     ]
 )]
-class MemberRequest extends FormRequest
+class MemberUpdateRequest extends FormRequest
 {
     use ClientIpRequestTrait;
     use NoAuthorizeTrait;
@@ -34,7 +37,10 @@ class MemberRequest extends FormRequest
     {
         return [
             'account' => 'required|string',
-            'password' => 'required|string|max:32',
+            'avatar' => 'string',
+            'login_ip' => 'string',
+            'phone' => 'required|string',
+            'vip_level_id' => 'required|int'
         ];
     }
 
@@ -42,7 +48,10 @@ class MemberRequest extends FormRequest
     {
         return [
             'account' => trans('user.account'),
-            'password' => trans('user.password'),
+            'phone' => trans('user.phone'),
+            'avatar' => trans('user.avatar'),
+            'login_ip' => trans('user.login_ip'),
+            'vip_level_id' => trans('user.vip_level_id'),
         ];
     }
 

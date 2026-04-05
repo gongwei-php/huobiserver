@@ -41,14 +41,14 @@ final class MemberSchema implements \JsonSerializable
     #[Property(property: 'login_time', title: '最后登陆时间', type: 'string')]
     public mixed $loginTime;
 
+    #[Property(property: 'updated_by', title: '操作员id', type: 'int')]
+    public ?int $updated_by;
+
     #[Property(property: 'created_at', title: '创建时间', type: 'string')]
     public mixed $createdAt;
 
     #[Property(property: 'updated_at', title: '更新时间', type: 'string')]
     public mixed $updatedAt;
-
-    #[Property(property: 'remark', title: '备注', type: 'string')]
-    public ?string $remark;
 
     public function __construct(Member $model)
     {
@@ -61,11 +61,11 @@ final class MemberSchema implements \JsonSerializable
         $this->loginTime = $model->login_time;
         $this->createdAt = $model->created_at;
         $this->updatedAt = $model->updated_at;
-        $this->remark = $model->remark;
+        $this->updated_by = $model->updated_by;
     }
 
     public function jsonSerialize(): mixed
     {
-        return ['id' => $this->id, 'account' => $this->account, 'phone' => $this->phone, 'avatar' => $this->avatar, 'status' => $this->status, 'login_ip' => $this->loginIp, 'login_time' => $this->loginTime, 'created_at' => $this->createdAt, 'updated_at' => $this->updatedAt, 'remark' => $this->remark];
+        return ['id' => $this->id, 'account' => $this->account, 'phone' => $this->phone, 'avatar' => $this->avatar, 'status' => $this->status, 'login_ip' => $this->loginIp, 'login_time' => $this->loginTime, 'created_at' => $this->createdAt, 'updated_at' => $this->updatedAt, 'updated_by' => $this->updated_by];
     }
 }

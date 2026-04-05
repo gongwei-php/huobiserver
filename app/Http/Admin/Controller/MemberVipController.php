@@ -17,9 +17,9 @@ use App\Http\Api\Request\V1\MemberRequest;
 use App\Http\Common\Middleware\AccessTokenMiddleware;
 use App\Http\Common\Middleware\OperationMiddleware;
 use App\Http\Common\Result;
-use App\Http\currentUser;
-use App\Schema\MemberSchema;
-use App\Service\MemberService;
+use App\Http\CurrentUser;
+use App\Schema\MemberVipSchema;
+use App\Service\Api\MemberVipService;
 use Hyperf\HttpServer\Annotation\Middleware;
 use Hyperf\Swagger\Annotation\Delete;
 use Hyperf\Swagger\Annotation\Get;
@@ -35,22 +35,22 @@ use Mine\Swagger\Attributes\ResultResponse;
 #[HyperfServer(name: 'http')]
 #[Middleware(middleware: AccessTokenMiddleware::class, priority: 100)]
 #[Middleware(middleware: OperationMiddleware::class, priority: 98)]
-class MemberController extends AbstractController
+class MemberVipController extends AbstractController
 {
     public function __construct(
-        protected readonly currentUser $currentUser,
-        protected readonly MemberService $service
+        protected readonly MemberVipService $service,
+        protected readonly CurrentUser $currentUser,
     ) {}
 
     #[Get(
-        path: '/admin/member/list',
+        path: '/admin/member/vip/list',
         operationId: 'memberList',
-        summary: '会员列表',
+        summary: '等级列表',
         security: [['Bearer' => [], 'ApiKey' => []]],
-        tags: ['会员管理'],
+        tags: ['等级管理'],
     )]
-    #[PageResponse(instance: MemberSchema::class)]
-    #[Permission(code: 'member:index')]
+    #[PageResponse(instance: MemberVipSchema::class)]
+    #[Permission(code: 'member::vip:index')]
     public function pageList(): Result
     {
         return $this->success(
@@ -63,16 +63,16 @@ class MemberController extends AbstractController
     }
 
     #[Post(
-        path: '/admin/member/add',
+        path: '/admin/member/vip/add',
         operationId: 'memberCreate',
-        summary: '创建会员',
+        summary: '创建等级',
         security: [['Bearer' => [], 'ApiKey' => []]],
-        tags: ['会员管理'],
+        tags: ['等级管理'],
     )]
     #[RequestBody(
         content: new JsonContent(ref: MemberRequest::class)
     )]
-    #[Permission(code: 'member:save')]
+    #[Permission(code: 'member::vip:save')]
     #[ResultResponse(instance: new Result())]
     public function create(MemberRequest $request): Result
     {
@@ -83,16 +83,16 @@ class MemberController extends AbstractController
     }
 
     #[Put(
-        path: '/admin/member/update/{id}',
+        path: '/admin/member/vip/update/{id}',
         operationId: 'memberSave',
-        summary: '保存会员',
+        summary: '保存等级',
         security: [['Bearer' => [], 'ApiKey' => []]],
-        tags: ['会员管理'],
+        tags: ['等级管理'],
     )]
     #[RequestBody(
         content: new JsonContent(ref: MemberRequest::class)
     )]
-    #[Permission(code: 'member:update')]
+    #[Permission(code: 'member::vip:update')]
     #[ResultResponse(instance: new Result())]
     public function save(int $id, MemberRequest $request): Result
     {
@@ -102,31 +102,15 @@ class MemberController extends AbstractController
         return $this->success();
     }
 
-    #[Put(
-        path: '/admin/member/password',
-        operationId: 'updatePassword',
-        summary: '重置密码',
-        security: [['Bearer' => [], 'ApiKey' => []]],
-        tags: ['会员管理']
-    )]
-    #[Permission(code: 'member:password')]
-    #[ResultResponse(new Result())]
-    public function resetPassword(): Result
-    {
-        return $this->service->resetPassword($this->getRequest()->input('id'))
-            ? $this->success()
-            : $this->error();
-    }
-
     #[Delete(
-        path: '/admin/member/delete',
+        path: '/admin/member/vip/delete',
         operationId: 'memberDelete',
-        summary: '删除会员',
+        summary: '删除等级',
         security: [['Bearer' => [], 'ApiKey' => []]],
-        tags: ['会员管理'],
+        tags: ['等级管理'],
     )]
     #[ResultResponse(instance: new Result())]
-    #[Permission(code: 'member:delete')]
+    #[Permission(code: 'member::vip:delete')]
     public function delete(): Result
     {
         $this->service->deleteById($this->getRequestData());

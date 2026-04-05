@@ -22,13 +22,13 @@ export interface MemberVo {
   password?: string
 }
 
-export interface UserSearchVo {
+export interface MemberSearchVo {
   account?: String
   phone?: string
   status?: number
 }
 
-export function page(data: UserSearchVo): Promise<ResponseStruct<PageList<MemberVo>>> {
+export function page(data: MemberSearchVo): Promise<ResponseStruct<PageList<MemberVo>>> {
   return useHttp().get('/admin/member/list', { params: data })
 }
 

@@ -65,7 +65,6 @@ final class MemberService extends IService implements CheckTokenInterface
             'status' => 1,
             'login_ip' => $ip,
             'login_time' => date('Y-m-d H:i:s'),
-            'remark' => ''
         ];
         $member = parent::create($params);
 

@@ -25,9 +25,9 @@ use Hyperf\DbConnection\Model\Model;
  * @property Status $status 状态 (1正常 2停用)
  * @property string $login_ip 最后登陆IP
  * @property string $login_time 最后登陆时间
+ * @property int $updated_by 操作员ID
  * @property Carbon $created_at 创建时间
  * @property Carbon $updated_at 更新时间
- * @property string $remark 备注
  * @property mixed $password 密码
  */
 final class Member extends Model
@@ -46,7 +46,7 @@ final class Member extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected array $fillable = ['id', 'account', 'password', 'phone', 'avatar', 'status', 'login_ip', 'login_time', 'created_at', 'updated_at', 'remark'];
+    protected array $fillable = ['id', 'account', 'password', 'phone', 'avatar', 'status', 'login_ip', 'login_time', 'created_at', 'updated_at', 'updated_by'];
 
     /**
      * The attributes that should be cast to native types.
