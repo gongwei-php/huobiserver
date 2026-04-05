@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Model\Api\Member;
 use App\Repository\Api\MemberRepository;
 use Hyperf\Collection\Collection;
 
@@ -23,10 +24,13 @@ final class MemberService  extends IService
 
     public function handleItems(Collection $items): Collection
     {
-        $items = $items->map(function ($item) {
-            $item->member = $item->getMember();
-            return $item;
-        });
+        $memberIds = $items->pluck('member_id')->filter()->unique()->toArray();
+        $members = $this->repository->getMembersByIds($memberIds);
+        $memberMap = collect($members)->keyBy('id');
+
+        foreach ($items as $item) {
+            $item->member = $memberMap->get($item->member_id);
+        }
         return $items;
     }
 

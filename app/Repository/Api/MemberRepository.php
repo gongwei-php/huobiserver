@@ -5,6 +5,7 @@ namespace App\Repository\Api;
 use App\Model\Api\Member;
 use App\Repository\IRepository;
 use Hyperf\Collection\Arr;
+use Hyperf\Collection\Collection;
 use Hyperf\Database\Model\Builder;
 
 final class MemberRepository extends IRepository
@@ -33,6 +34,17 @@ final class MemberRepository extends IRepository
         }
 
         return $is_exist;
+    }
+
+    public function getMembersByIds(array $ids = []): array|Collection
+    {
+        if (empty($ids)) {
+            return [];
+        }
+
+        return $this->model->newQuery()
+            ->whereIn('id', $ids)
+            ->get();
     }
 
     public function handleSearch(Builder $query, array $params): Builder
