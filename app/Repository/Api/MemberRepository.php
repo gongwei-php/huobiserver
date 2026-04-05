@@ -43,6 +43,7 @@ final class MemberRepository extends IRepository
         }
 
         return $this->model->newQuery()
+            ->select(['id', 'account', 'phone'])
             ->whereIn('id', $ids)
             ->get();
     }
