@@ -52,7 +52,7 @@ class MemberVipController extends AbstractController
         tags: ['等级管理'],
     )]
     #[PageResponse(instance: MemberVipSchema::class)]
-    #[Permission(code: 'member::vip:index')]
+    #[Permission(code: 'member:vip:index')]
     public function pageList(): Result
     {
         return $this->success(
@@ -76,7 +76,7 @@ class MemberVipController extends AbstractController
     #[RequestBody(
         content: new JsonContent(ref: MemberVipRequest::class)
     )]
-    #[Permission(code: 'member::vip:save')]
+    #[Permission(code: 'member:vip:save')]
     #[ResultResponse(instance: new Result())]
     public function create(MemberVipRequest $request): Result
     {
@@ -96,7 +96,7 @@ class MemberVipController extends AbstractController
     #[RequestBody(
         content: new JsonContent(ref: MemberVipRequest::class)
     )]
-    #[Permission(code: 'member::vip:update')]
+    #[Permission(code: 'member:vip:update')]
     #[ResultResponse(instance: new Result())]
     public function save(int $id, MemberVipRequest $request): Result
     {
@@ -114,7 +114,7 @@ class MemberVipController extends AbstractController
         tags: ['等级管理'],
     )]
     #[ResultResponse(instance: new Result())]
-    #[Permission(code: 'member::vip:delete')]
+    #[Permission(code: 'member:vip:delete')]
     public function delete(): Result
     {
         $this->service->deleteById($this->getRequestData());
