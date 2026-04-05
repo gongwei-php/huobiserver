@@ -35,8 +35,8 @@ baseMemberVipManage:
   mainTitle: Level Rule
   subTitle: Provide levels with the functions of adding, editing, and deleting
 baseMemberAuthManage:
-  user_id: User Id
-  user_account: User Account
+  member_id: Member Id
+  member_account: Member Account
   card_front_url: Address for front-facing ID photo
   card_back_url: Address for back-facing ID photo
   mainTitle: Auth Rule
