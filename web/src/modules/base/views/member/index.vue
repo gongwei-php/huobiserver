@@ -15,6 +15,7 @@ import type { UseDialogExpose } from '@/hooks/useDialog.ts'
 
 import MemberForm from './form.vue'
 import { deleteByIds, page } from '~/base/api/member'
+import { page as levelList } from '~/base/api/membervip'
 import getSearchItems from './data/getSearchItems.tsx'
 import getTableColumns from './data/getTableColumns.tsx'
 import useDialog from '@/hooks/useDialog.ts'
@@ -103,10 +104,29 @@ const options = ref<MaProTableOptions>({
     proTableRef.value.setRequestParams({ department_id: undefined }, false)
   },
 })
+
+const levelData = ref<any[]>([{ id: 0, name: '所有等级' }]) // 初始值就给一个，防止空
+
+provide('levelData', levelData)
+
+// 请求等级数据
+function getLevel() {
+  levelList({}).then((res) => {
+    let list = res.data.list as any[]
+    const formatList = list.map((item: any) => ({
+      id: item.id,
+      name: `VIP${item.level}级`
+    }))
+    // 重新赋值
+    levelData.value = [{ id: 0, name: '所有等级' }, ...formatList]
+  })
+}
+
+getLevel()
 // 架构配置
 const schema = ref<MaProTableSchema>({
   // 搜索项
-  searchItems: getSearchItems(t),
+  searchItems: getSearchItems(t, levelData),
   // 表格列
   tableColumns: getTableColumns(maDialog, formRef, t),
 })

@@ -20,6 +20,7 @@ baseUserManage:
 baseMemberManage:
   avatar: Avatar
   account: Account
+  vip_level_id: VIP Level
   phone: Phone
   password: Password
   mainTitle: Member Rule

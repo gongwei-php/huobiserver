@@ -20,6 +20,7 @@ baseUserManage:
 baseMemberManage:
   avatar: 頭像
   account: 帳號
+  vip_level_id: VIP 等级
   phone: 手機
   password: 密碼
   mainTitle: 會員管理

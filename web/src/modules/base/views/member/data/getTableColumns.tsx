@@ -48,6 +48,7 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     },
     { label: () => t('baseMemberManage.account'), prop: 'account' },
     { label: () => t('baseMemberManage.phone'), prop: 'phone' },
+    { label: () => t('baseMemberManage.vip_level_id'), prop: 'vip_level_id' },
     {
       label: () => t('crud.status'), prop: 'status',
       cellRender: ({ row }) => (

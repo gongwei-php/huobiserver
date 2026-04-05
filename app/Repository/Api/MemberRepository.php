@@ -47,6 +47,9 @@ final class MemberRepository extends IRepository
             ->when(Arr::get($params, 'phone'), static function (Builder $query, $phone) {
                 $query->where('phone', $phone);
             })
+            ->when(Arr::get($params, 'vip_level_id'), static function (Builder $query, $vip_level_id) {
+                $query->where('vip_level_id', $vip_level_id);
+            })
             ->when(Arr::exists($params, 'status'), static function (Builder $query) use ($params) {
                 $query->where('status', Arr::get($params, 'status'));
             });

@@ -22,6 +22,7 @@ baseUserManage:
 baseMemberManage:
   avatar: 头像
   account: 账号
+  vip_level_id: VIP 等级
   phone: 手机
   password: 密码
   mainTitle: 会员管理

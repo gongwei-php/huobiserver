@@ -16,12 +16,12 @@ export interface MemberVipVo {
   updated_by?: number
 }
 
-export interface MemberSearchVo {
+export interface MemberVipSearchVo {
   level?: number
-  status?: number
+  [key: string]: any
 }
 
-export function page(data: MemberSearchVo): Promise<ResponseStruct<PageList<MemberVipVo>>> {
+export function page(data: MemberVipSearchVo): Promise<ResponseStruct<PageList<MemberVipVo>>> {
   return useHttp().get('/admin/member/vip/list', { params: data })
 }
 
