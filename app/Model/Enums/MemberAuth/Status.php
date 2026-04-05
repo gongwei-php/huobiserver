@@ -28,7 +28,7 @@ enum Status: int
     case Agree = 2;
 
     #[Message('memberauth.enums.status.3')]
-    case Refuse = 2;
+    case Refuse = 3;
 
     public function isWait(): bool
     {
