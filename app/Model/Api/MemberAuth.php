@@ -26,7 +26,7 @@ use Hyperf\DbConnection\Model\Model;
  * @property int $updated_by 操作员ID
  * @property Carbon $created_at 创建时间
  * @property Carbon $updated_at 更新时间
- * @property Collection|Member[] $membe 会员
+ * @property Collection|Member[] $member 会员
  */
 final class MemberAuth extends Model
 {
