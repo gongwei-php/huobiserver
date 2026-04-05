@@ -13,13 +13,12 @@ declare(strict_types=1);
 namespace App\Http\Admin\Controller;
 
 use App\Http\Admin\Controller\AbstractController;
-use App\Http\Admin\Middleware\PermissionMiddleware;
-use App\Http\Admin\Request\Permission\PositionRequest;
+use App\Http\Api\Request\V1\MemberRequest;
 use App\Http\Common\Middleware\AccessTokenMiddleware;
 use App\Http\Common\Middleware\OperationMiddleware;
 use App\Http\Common\Result;
 use App\Http\CurrentMember;
-use App\Schema\PositionSchema;
+use App\Schema\MemberSchema;
 use App\Service\MemberService;
 use Hyperf\HttpServer\Annotation\Middleware;
 use Hyperf\Swagger\Annotation\Delete;
@@ -35,7 +34,6 @@ use Mine\Swagger\Attributes\ResultResponse;
 
 #[HyperfServer(name: 'http')]
 #[Middleware(middleware: AccessTokenMiddleware::class, priority: 100)]
-#[Middleware(middleware: PermissionMiddleware::class, priority: 99)]
 #[Middleware(middleware: OperationMiddleware::class, priority: 98)]
 class MemberController extends AbstractController
 {
@@ -51,7 +49,7 @@ class MemberController extends AbstractController
         security: [['Bearer' => [], 'ApiKey' => []]],
         tags: ['会员管理'],
     )]
-    #[PageResponse(instance: PositionSchema::class)]
+    #[PageResponse(instance: MemberSchema::class)]
     #[Permission(code: 'member:index')]
     public function pageList(): Result
     {
@@ -72,11 +70,11 @@ class MemberController extends AbstractController
         tags: ['会员管理'],
     )]
     #[RequestBody(
-        content: new JsonContent(ref: PositionRequest::class)
+        content: new JsonContent(ref: MemberRequest::class)
     )]
     #[Permission(code: 'member:save')]
     #[ResultResponse(instance: new Result())]
-    public function create(PositionRequest $request): Result
+    public function create(MemberRequest $request): Result
     {
         $this->service->create(array_merge($request->validated(), [
             'created_by' => $this->currentMember->id(),
@@ -92,11 +90,11 @@ class MemberController extends AbstractController
         tags: ['会员管理'],
     )]
     #[RequestBody(
-        content: new JsonContent(ref: PositionRequest::class)
+        content: new JsonContent(ref: MemberRequest::class)
     )]
     #[Permission(code: 'member:update')]
     #[ResultResponse(instance: new Result())]
-    public function save(int $id, PositionRequest $request): Result
+    public function save(int $id, MemberRequest $request): Result
     {
         $this->service->updateById($id, array_merge($request->validated(), [
             'updated_by' => $this->currentMember->id(),
