@@ -28,7 +28,7 @@ export function page(data: MemberAuthSearchVo): Promise<ResponseStruct<PageList<
 }
 
 export function agree(id: number): Promise<ResponseStruct<null>> {
-    return useHttp().put('/admin/member/auth/agree/${id}')
+    return useHttp().put(`/admin/member/auth/agree/${id}`)
 }
 
 export function refuse(id: number): Promise<ResponseStruct<null>> {

@@ -95,7 +95,7 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
             show: () => showBtn('member:auth:agree'),
             text: () => t('baseMemberAuthManage.agree'),
             onClick: ({ row }, proxy: MaProTableExpose) => {
-              msg.delConfirm(t('baseMemberAuthManage.agreeMessage')).then(async () => {
+              msg.confirm(t('baseMemberAuthManage.agreeMessage')).then(async () => {
                 const response = await agree(row.id)
                 if (response.code === ResultCode.SUCCESS) {
                   msg.success(t('baseMemberAuthManage.agreeSuccess'))
@@ -110,7 +110,7 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
             icon: 'mdi:delete',
             text: () => t('baseMemberAuthManage.refuse'),
             onClick: ({ row }, proxy: MaProTableExpose) => {
-              msg.delConfirm(t('baseMemberAuthManage.refuseMessage')).then(async () => {
+              msg.confirm(t('baseMemberAuthManage.refuseMessage')).then(async () => {
                 const response = await refuse(row.id)
                 if (response.code === ResultCode.SUCCESS) {
                   msg.success(t('baseMemberAuthManage.refuseSuccess'))

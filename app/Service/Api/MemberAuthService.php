@@ -58,30 +58,30 @@ final class MemberAuthService extends IService
         });
     }
 
-    public function agreeById(mixed $id, mixed $update_by): mixed
+    public function agreeById(mixed $id, mixed $updated_by): mixed
     {
-        return Db::transaction(function () use ($id, $update_by) {
+        return Db::transaction(function () use ($id, $updated_by) {
             /** @var null|MemberAuth $entity */
             $entity = $this->repository->findById($id);
             if (empty($entity)) {
                 throw new BusinessException(ResultCode::NOT_FOUND);
             }
             $entity->status = Status::Agree;
-            $entity->update_by = $update_by;
+            $entity->updated_by = $updated_by;
             $entity->save();
         });
     }
 
-    public function refuseById(mixed $id, mixed $update_by): mixed
+    public function refuseById(mixed $id, mixed $updated_by): mixed
     {
-        return Db::transaction(function () use ($id, $update_by) {
+        return Db::transaction(function () use ($id, $updated_by) {
             /** @var null|MemberAuth $entity */
             $entity = $this->repository->findById($id);
             if (empty($entity)) {
                 throw new BusinessException(ResultCode::NOT_FOUND);
             }
             $entity->status = Status::Refuse;
-            $entity->update_by = $update_by;
+            $entity->updated_by = $updated_by;
             $entity->save();
         });
     }

@@ -87,7 +87,7 @@ class MemberAuthController extends AbstractController
     )]
     #[Permission(code: 'member::auth:refuse')]
     #[ResultResponse(instance: new Result())]
-    public function refuse(int $id, MemberAuthRequest $request): Result
+    public function refuse(int $id): Result
     {
         $this->service->refuseById($id, $this->currentUser->id());
         return $this->success();
