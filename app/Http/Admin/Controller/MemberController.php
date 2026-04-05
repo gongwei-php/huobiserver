@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace App\Http\Admin\Controller;
 
 use App\Http\Admin\Controller\AbstractController;
+use App\Http\Admin\Middleware\PermissionMiddleware;
 use App\Http\Api\Request\V1\MemberRequest;
 use App\Http\Common\Middleware\AccessTokenMiddleware;
 use App\Http\Common\Middleware\OperationMiddleware;
@@ -34,6 +35,7 @@ use Mine\Swagger\Attributes\ResultResponse;
 
 #[HyperfServer(name: 'http')]
 #[Middleware(middleware: AccessTokenMiddleware::class, priority: 100)]
+#[Middleware(middleware: PermissionMiddleware::class, priority: 99)]
 #[Middleware(middleware: OperationMiddleware::class, priority: 98)]
 class MemberController extends AbstractController
 {
