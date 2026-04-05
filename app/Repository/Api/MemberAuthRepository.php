@@ -2,22 +2,22 @@
 
 namespace App\Repository\Api;
 
-use App\Model\Api\MemberVip;
+use App\Model\Api\MemberAuth;
 use App\Repository\IRepository;
 use Hyperf\Collection\Arr;
 use Hyperf\Database\Model\Builder;
 
-final class MemberVipRepository extends IRepository
+final class MemberAuthRepository extends IRepository
 {
 
     public function __construct(
-        protected readonly MemberVip $model,
+        protected readonly MemberAuth $model,
     ) {}
 
-    public function findByLevel(string $level): MemberVip|bool
+    public function findByUserId(string $user_id): MemberAuth|bool
     {
         $is_exist = $this->model->newQuery()
-            ->where('level', $level)
+            ->where('user_id', $user_id)
             ->first();
         if (!$is_exist) {
             return false;
@@ -29,8 +29,8 @@ final class MemberVipRepository extends IRepository
     public function handleSearch(Builder $query, array $params): Builder
     {
         return $query
-            ->when(Arr::get($params, 'level'), static function (Builder $query, $level) {
-                $query->where('level', $level);
+            ->when(Arr::get($params, 'user_id'), static function (Builder $query, $user_id) {
+                $query->where('user_id', $user_id);
             })
             ->when(Arr::exists($params, 'status'), static function (Builder $query) use ($params) {
                 $query->where('status', Arr::get($params, 'status'));

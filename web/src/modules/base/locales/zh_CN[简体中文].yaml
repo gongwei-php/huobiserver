@@ -36,6 +36,12 @@ baseMemberVipManage:
   level: 等级
   mainTitle: 等级管理
   subTitle: 提供等级添加、编辑、删除功能。
+baseMemberAuthManage:
+  user_id: 用户ID
+  card_front_url: 证件照正面照片地址
+  card_back_url: 证件照反面照片地址
+  mainTitle: 实名管理
+  subTitle: 提供实名同意和拒绝功能。
 baseRoleManage:
   mainTitle: 角色管理
   subTitle: 提供用户角色、权限设置

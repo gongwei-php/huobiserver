@@ -34,6 +34,12 @@ baseMemberVipManage:
   level: Level
   mainTitle: Level Rule
   subTitle: Provide levels with the functions of adding, editing, and deleting
+baseMemberAuthManage:
+  user_id: User Id
+  card_front_url: Address for front-facing ID photo
+  card_back_url: Address for back-facing ID photo
+  mainTitle: Auth Rule
+  subTitle: Provide auths with the functions of agree, and refuse
 baseRoleManage:
   mainTitle: Role Rule
   subTitle: Provide user roles and permission settings
