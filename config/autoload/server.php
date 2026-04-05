@@ -9,6 +9,7 @@ declare(strict_types=1);
  * @contact  root@imoi.cn
  * @license  https://github.com/mineadmin/MineAdmin/blob/master/LICENSE
  */
+
 use Hyperf\Framework\Bootstrap\PipeMessageCallback;
 use Hyperf\Framework\Bootstrap\WorkerExitCallback;
 use Hyperf\Framework\Bootstrap\WorkerStartCallback;
@@ -44,15 +45,18 @@ return [
         Constant::OPTION_HTTP_INDEX_FILES => ['index.html'],
         Constant::OPTION_SOCKET_BUFFER_SIZE => 3 * 1024 * 1024,
         // 上传最大为4M
-	Constant::OPTION_PACKAGE_MAX_LENGTH => 4 * 1024 * 1024,
-	'task_worker_num' => 8,
-	'task_enable_coroutine' => false,
+        Constant::OPTION_PACKAGE_MAX_LENGTH => 4 * 1024 * 1024,
+        'task_worker_num' => 8,
+        'task_enable_coroutine' => false,
+    ],
+    'static' => [
+        'enable' => true,
     ],
     'callbacks' => [
         Event::ON_WORKER_START => [WorkerStartCallback::class, 'onWorkerStart'],
         Event::ON_PIPE_MESSAGE => [PipeMessageCallback::class, 'onPipeMessage'],
-	Event::ON_WORKER_EXIT => [WorkerExitCallback::class, 'onWorkerExit'],
-	Event::ON_TASK => [Hyperf\Framework\Bootstrap\TaskCallback::class, 'onTask'],
-	Event::ON_FINISH => [Hyperf\Framework\Bootstrap\FinishCallback::class, 'onFinish'],
+        Event::ON_WORKER_EXIT => [WorkerExitCallback::class, 'onWorkerExit'],
+        Event::ON_TASK => [Hyperf\Framework\Bootstrap\TaskCallback::class, 'onTask'],
+        Event::ON_FINISH => [Hyperf\Framework\Bootstrap\FinishCallback::class, 'onFinish'],
     ],
 ];
