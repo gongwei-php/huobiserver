@@ -6,9 +6,17 @@ use App\Model\Api\MemberVip;
 use App\Repository\IRepository;
 use Hyperf\Collection\Arr;
 use Hyperf\Database\Model\Builder;
+use Hyperf\Logger\Logger;
 
 final class MemberVipRepository extends IRepository
 {
+
+    /**
+     * @Inject
+     * @var Logger
+     */
+    protected $log;
+
     public function __construct(protected readonly MemberVip $model) {}
 
     public function findByLevel(string $level): MemberVip|bool
@@ -21,6 +29,13 @@ final class MemberVipRepository extends IRepository
         }
 
         return $is_exist;
+    }
+
+    public function perQuery(Builder $query, array $params): Builder
+    {
+        $query = parent::perQuery($query, $params);
+        $this->log->error('query:' . $query);
+        return $query;
     }
 
     public function handleSearch(Builder $query, array $params): Builder
