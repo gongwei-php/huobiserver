@@ -34,3 +34,11 @@ export function agree(id: number): Promise<ResponseStruct<null>> {
 export function refuse(id: number): Promise<ResponseStruct<null>> {
     return useHttp().put(`/admin/member/auth/refuse/${id}`)
 }
+
+export function agreeByIds(ids: number[]): Promise<ResponseStruct<null>> {
+    return useHttp().post('/admin/member/auth/agree/all', { ids: ids })
+}
+
+export function refuseByIds(ids: number[]): Promise<ResponseStruct<null>> {
+    return useHttp().post('/admin/member/vip/refuse/all', { ids: ids })
+}

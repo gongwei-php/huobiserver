@@ -1,8 +1,3 @@
-const originalWarn = console.warn;
-console.warn = (...args) => {
-  if (args[0]?.includes('aria-hidden')) return;
-  originalWarn(...args);
-};
 /**
  * MineAdmin is committed to providing solutions for quickly building web applications
  * Please view the LICENSE file that was distributed with this source code,

@@ -66,7 +66,7 @@ final class MemberAuthService extends IService
             if (empty($entity)) {
                 throw new BusinessException(ResultCode::NOT_FOUND);
             }
-            $entity->status = Status::Agree;
+            $entity->status = Status::Agree->value;
             $entity->updated_by = $updated_by;
             $entity->save();
         });
@@ -80,9 +80,37 @@ final class MemberAuthService extends IService
             if (empty($entity)) {
                 throw new BusinessException(ResultCode::NOT_FOUND);
             }
-            $entity->status = Status::Refuse;
+            $entity->status = Status::Refuse->value;
             $entity->updated_by = $updated_by;
             $entity->save();
+        });
+    }
+
+    public function agreeAllByIds(mixed $ids, mixed $updated_by): mixed
+    {
+        return Db::transaction(function () use ($ids, $updated_by) {
+            $this->repository->getModel()::query()
+                ->whereIn('id', (array)$ids)
+                ->update([
+                    'status' => Status::Agree->value,
+                    'updated_by' => $updated_by,
+                ]);
+
+            return true;
+        });
+    }
+
+    public function refuseAllByIds(mixed $ids, mixed $updated_by): mixed
+    {
+        return Db::transaction(function () use ($ids, $updated_by) {
+            $this->repository->getModel()::query()
+                ->whereIn('id', (array)$ids)
+                ->update([
+                    'status' => Status::Refuse->value,
+                    'updated_by' => $updated_by,
+                ]);
+
+            return true;
         });
     }
 }

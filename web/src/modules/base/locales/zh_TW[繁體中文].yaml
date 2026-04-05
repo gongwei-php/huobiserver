@@ -185,8 +185,8 @@ basePost:
     attachmentUpload: 上傳附件
     attachmentDelete: 刪除附件
 memberauth:
-  enums:
-    status:
-      wait: 待审核
-      agree: 已同意
-      refuse: 已拒绝
+  agree: 批量同意
+  refuse: 批量删除
+  review: 待审核
+  approved: 已同意
+  rejected: 已拒绝

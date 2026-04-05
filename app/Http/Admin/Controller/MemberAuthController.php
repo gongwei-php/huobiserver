@@ -92,4 +92,34 @@ class MemberAuthController extends AbstractController
         $this->service->refuseById($id, $this->currentUser->id());
         return $this->success();
     }
+
+    #[Post(
+        path: '/admin/member/auth/agree/all',
+        operationId: 'memberAuthAgreeAll',
+        summary: '批量同意实名',
+        security: [['Bearer' => [], 'ApiKey' => []]],
+        tags: ['批量同意'],
+    )]
+    #[Permission(code: 'member::auth:agree:all')]
+    #[ResultResponse(instance: new Result())]
+    public function agreeAll(array $ids): Result
+    {
+        $this->service->agreeAllByIds($ids, $this->currentUser->id());
+        return $this->success();
+    }
+
+    #[Post(
+        path: '/admin/member/auth/refuse/all',
+        operationId: 'memberAuthRefuseAll',
+        summary: '批量拒绝实名',
+        security: [['Bearer' => [], 'ApiKey' => []]],
+        tags: ['批量拒绝'],
+    )]
+    #[Permission(code: 'member::auth:refuse:all')]
+    #[ResultResponse(instance: new Result())]
+    public function refuseAll(array $ids): Result
+    {
+        $this->service->refuseAllByIds($ids, $this->currentUser->id());
+        return $this->success();
+    }
 }

@@ -13,7 +13,7 @@ import type { Ref } from 'vue'
 import type { TransType } from '@/hooks/auto-imports/useTrans.ts'
 import type { UseDialogExpose } from '@/hooks/useDialog.ts'
 
-import { page } from '~/base/api/memberauth'
+import { page, agreeByIds, refuseByIds } from '~/base/api/memberauth'
 import getSearchItems from './data/getSearchItems.tsx'
 import getTableColumns from './data/getTableColumns.tsx'
 import useDialog from '@/hooks/useDialog.ts'
@@ -109,11 +109,43 @@ const schema = ref<MaProTableSchema>({
   // 表格列
   tableColumns: getTableColumns(maDialog, formRef, t),
 })
+
+// 批量同意
+function handleAgree() {
+  const ids = selections.value.map((item: any) => item.id)
+  msg.confirm(t('baseMemberAuthManage.agreeMessage')).then(async () => {
+    const response = await agreeByIds(ids)
+    if (response.code === ResultCode.SUCCESS) {
+      msg.success(t('baseMemberAuthManage.agreeSuccess'))
+      await proTableRef.value.refresh()
+    }
+  })
+}
+
+// 批量拒绝
+function handleRefuse() {
+  const ids = selections.value.map((item: any) => item.id)
+  msg.confirm(t('baseMemberAuthManage.refuseMessage')).then(async () => {
+    const response = await refuseByIds(ids)
+    if (response.code === ResultCode.SUCCESS) {
+      msg.success(t('baseMemberAuthManage.refuseSuccess'))
+      await proTableRef.value.refresh()
+    }
+  })
+}
 </script>
 
 <template>
   <div class="mine-layout pt-3">
     <MaProTable ref="proTableRef" :options="options" :schema="schema">
+      <template #toolbarLeft>
+        <el-button v-auth="['member:vip:agree:all']" type="primary" plain @click="handleAgree">
+          {{ t('memberauth.agree') }}
+        </el-button>
+        <el-button v-auth="['member:auth:refuse:all']" type="danger" plain @click="handleRefuse">
+          {{ t('memberauth.refuse') }}
+        </el-button>
+      </template>
     </MaProTable>
   </div>
 </template>

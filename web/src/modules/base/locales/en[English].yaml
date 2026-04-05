@@ -185,8 +185,8 @@ basePost:
     attachmentUpload: Attachment Upload
     attachmentDelete: Attachment Delete
 memberauth:
-  enums:
-    status:
-      wait: Pending review
-      agree: Approved
-      refuse: Rejected
+  agree: Batch Approval
+  refuse: Batch Rejection 
+  review: Pending review
+  approved: Approved
+  rejected: Rejected

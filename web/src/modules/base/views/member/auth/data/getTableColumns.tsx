@@ -29,9 +29,12 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
   return [
     // 多选列
     {
-      type: 'selection', showOverflowTooltip: false, label: () => t('crud.selection'),
-      cellRender: ({ row }): any => row.id ? row.id : undefined,
-      selectable: (row: MemberAuthVo) => ![1].includes(row.id as number),
+      type: 'selection',
+      showOverflowTooltip: false,
+      label: () => t('crud.selection'),
+      selectable: (row: any) => {
+        return row.status === 1;
+      },
     },
     { label: () => t('baseMemberAuthManage.member_id'), prop: 'member_id' },
     {
@@ -74,11 +77,11 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
       label: () => t('crud.status'), prop: 'status',
       cellRender: ({ row }) => {
         const map = {
-          1: { key: 'memberauth.enums.status.wait', type: 'warning' },
-          2: { key: 'memberauth.enums.status.agree', type: 'success' },
-          3: { key: 'memberauth.enums.status.refuse', type: 'danger' },
+          1: { key: 'memberauth.review', type: 'warning' },
+          2: { key: 'memberauth.approved', type: 'success' },
+          3: { key: 'memberauth.rejected', type: 'danger' },
         };
-        const item = map[row.status] || { key: '未知', type: 'info' };
+        const item = map[row.status];
         return <ElTag type={item.type}>{t(item.key)}</ElTag>;
       }
     },
