@@ -31,6 +31,7 @@ use Hyperf\Swagger\Annotation\RequestBody;
 use Mine\Access\Attribute\Permission;
 use Mine\Swagger\Attributes\PageResponse;
 use Mine\Swagger\Attributes\ResultResponse;
+use Hyperf\HttpServer\Request;
 
 #[HyperfServer(name: 'http')]
 #[Middleware(middleware: AccessTokenMiddleware::class, priority: 100)]
@@ -102,8 +103,12 @@ class MemberAuthController extends AbstractController
     )]
     #[Permission(code: 'member::auth:agree:all')]
     #[ResultResponse(instance: new Result())]
-    public function agreeAll(array $ids): Result
+    public function agreeAll(Request $request): Result
     {
+        $ids = $request->post('ids', []);
+        if (count($ids) <= 0) {
+            return $this->error("请选择要操作的数据!");
+        }
         $this->service->agreeAllByIds($ids, $this->currentUser->id());
         return $this->success();
     }
@@ -117,8 +122,12 @@ class MemberAuthController extends AbstractController
     )]
     #[Permission(code: 'member::auth:refuse:all')]
     #[ResultResponse(instance: new Result())]
-    public function refuseAll(array $ids): Result
+    public function refuseAll(Request $request): Result
     {
+        $ids = $request->post('ids', []);
+        if (count($ids) <= 0) {
+            return $this->error("请选择要操作的数据!");
+        }
         $this->service->refuseAllByIds($ids, $this->currentUser->id());
         return $this->success();
     }
