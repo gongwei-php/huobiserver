@@ -8,14 +8,14 @@
  * @Link   https://github.com/mineadmin
  */
 import type { MaProTableColumns, MaProTableExpose } from '@mineadmin/pro-table'
-import type { MemberVipVo } from '~/base/api/membervip.ts'
+import { type MemberAuthVo } from '~/base/api/memberauth.ts'
 import type { UseDialogExpose } from '@/hooks/useDialog.ts'
 
 import { ElTag } from 'element-plus'
 import { useMessage } from '@/hooks/useMessage.ts'
-import { deleteByIds } from '~/base/api/membervip.ts'
 import { ResultCode } from '@/utils/ResultCode.ts'
 import hasAuth from '@/utils/permission/hasAuth.ts'
+import { agree, refuse } from '~/base/api/memberauth.ts'
 
 export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t: any): MaProTableColumns[] {
 
@@ -31,11 +31,28 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     {
       type: 'selection', showOverflowTooltip: false, label: () => t('crud.selection'),
       cellRender: ({ row }): any => row.id === 1 ? '-' : undefined,
-      selectable: (row: MemberVipVo) => ![1].includes(row.id as number),
+      selectable: (row: MemberAuthVo) => ![1].includes(row.id as number),
     },
     // 索引序号列
     { type: 'index' },
     // 普通列
+    { label: () => t('baseMemberAuthManage.user_id'), prop: 'user_id' },
+    {
+      label: () => t('baseMemberAuthManage.user_id'), prop: 'user_id',
+      cellRender: ({ row }) => (
+        <el-image
+          style="width: 100px; height: 100px"
+          src={(row.card_front_url === '' || !row.card_front_url) ? '' : row.card_front_url}
+          zoom-rate="1.2"
+          max-scale="7"
+          min-scale="0.2"
+          preview-src-list="srcList"
+          show-progress
+          initial-index="4"
+          fit="cover"
+        />
+      ),
+    },
     { label: () => t('baseMemberAuthManage.user_id'), prop: 'user_id' },
     {
       label: () => t('crud.status'), prop: 'status',
@@ -53,25 +70,30 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
         type: 'tile',
         actions: [
           {
-            name: 'edit',
+            name: 'agree',
             icon: 'material-symbols:person-edit',
-            show: () => showBtn('member:vip:update'),
-            text: () => t('crud.edit'),
-            onClick: ({ row }) => {
-              dialog.setTitle(t('crud.edit'))
-              dialog.open({ formType: 'edit', data: row })
+            show: () => showBtn('member:auth:agree'),
+            text: () => t('baseMemberAuthManage.agree'),
+            onClick: ({ row }, proxy: MaProTableExpose) => {
+              msg.delConfirm(t('baseMemberAuthManage.agreeMessage')).then(async () => {
+                const response = await agree(row.id)
+                if (response.code === ResultCode.SUCCESS) {
+                  msg.success(t('baseMemberAuthManage.agreeSuccess'))
+                  await proxy.refresh()
+                }
+              })
             },
           },
           {
-            name: 'del',
-            show: () => showBtn('member:vip:delete'),
+            name: 'refuse',
+            show: () => showBtn('member:auth:refuse'),
             icon: 'mdi:delete',
-            text: () => t('crud.delete'),
+            text: () => t('baseMemberAuthManage.refuse'),
             onClick: ({ row }, proxy: MaProTableExpose) => {
-              msg.delConfirm(t('crud.delDataMessage')).then(async () => {
-                const response = await deleteByIds([row.id])
+              msg.delConfirm(t('baseMemberAuthManage.refuseMessage')).then(async () => {
+                const response = await refuse(row.id)
                 if (response.code === ResultCode.SUCCESS) {
-                  msg.success(t('crud.delSuccess'))
+                  msg.success(t('baseMemberAuthManage.refuseSuccess'))
                   await proxy.refresh()
                 }
               })

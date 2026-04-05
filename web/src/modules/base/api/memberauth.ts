@@ -27,10 +27,10 @@ export function page(data: MemberAuthSearchVo): Promise<ResponseStruct<PageList<
     return useHttp().get('/admin/member/auth/list', { params: data })
 }
 
-export function agree(id: number, data: MemberAuthVo): Promise<ResponseStruct<null>> {
-    return useHttp().put('/admin/member/auth/agree/${id}', data)
+export function agree(id: number): Promise<ResponseStruct<null>> {
+    return useHttp().put('/admin/member/auth/agree/${id}')
 }
 
-export function refuse(id: number, data: MemberAuthVo): Promise<ResponseStruct<null>> {
-    return useHttp().put(`/admin/member/auth/refuse/${id}`, data)
+export function refuse(id: number): Promise<ResponseStruct<null>> {
+    return useHttp().put(`/admin/member/auth/refuse/${id}`)
 }
