@@ -20,7 +20,7 @@ use Mine\Support\Request\ClientIpRequestTrait;
 #[\Mine\Swagger\Attributes\FormRequest(
     schema: MemberAuthSchema::class,
     only: [
-        'user_id',
+        'member_id',
         'card_front_url',
         'card_back_url',
         'status',
@@ -34,7 +34,7 @@ class MemberAuthRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required',
+            'member_id' => 'required',
             'card_front_url' => 'required',
             'card_back_url' => 'required',
             'status' => 'required',

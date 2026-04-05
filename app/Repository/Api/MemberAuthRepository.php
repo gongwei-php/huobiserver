@@ -14,10 +14,10 @@ final class MemberAuthRepository extends IRepository
         protected readonly MemberAuth $model,
     ) {}
 
-    public function findByUserId(string $user_id): MemberAuth|bool
+    public function findByUserId(string $member_id): MemberAuth|bool
     {
         $is_exist = $this->model->newQuery()
-            ->where('user_id', $user_id)
+            ->where('member_id', $member_id)
             ->first();
         if (!$is_exist) {
             return false;
@@ -29,8 +29,8 @@ final class MemberAuthRepository extends IRepository
     public function handleSearch(Builder $query, array $params): Builder
     {
         return $query
-            ->when(Arr::get($params, 'user_id'), static function (Builder $query, $user_id) {
-                $query->where('user_id', $user_id);
+            ->when(Arr::get($params, 'member_id'), static function (Builder $query, $member_id) {
+                $query->where('member_id', $member_id);
             })
             ->when(Arr::exists($params, 'status'), static function (Builder $query) use ($params) {
                 $query->where('status', Arr::get($params, 'status'));

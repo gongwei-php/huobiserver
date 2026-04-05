@@ -41,12 +41,12 @@ export default function getFormItems(
 
   return [
     {
-      label: () => t('baseMemberAuthManage.user_id'),
-      prop: 'user_id',
+      label: () => t('baseMemberAuthManage.member_id'),
+      prop: 'member_id',
       render: 'input',
       cols: { md: 12, xs: 24 },
       renderProps: {
-        placeholder: t('form.pleaseInput', { msg: t('baseMemberAuthManage.user_id') }),
+        placeholder: t('form.pleaseInput', { msg: t('baseMemberAuthManage.member_id') }),
       },
     },
     {

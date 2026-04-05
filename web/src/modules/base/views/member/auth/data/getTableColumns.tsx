@@ -36,31 +36,51 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     // 索引序号列
     { type: 'index' },
     // 普通列
-    { label: () => t('baseMemberAuthManage.user_id'), prop: 'user_id' },
+    { label: () => t('baseMemberAuthManage.member_id'), prop: 'member_id' },
+    { label: () => t('baseMemberAuthManage.member_account'), prop: 'member_account' },
     {
-      label: () => t('baseMemberAuthManage.user_id'), prop: 'user_id',
+      label: () => t('baseMemberAuthManage.card_front_url'), prop: 'card_front_url',
       cellRender: ({ row }) => (
         <el-image
           style="width: 100px; height: 100px"
           src={(row.card_front_url === '' || !row.card_front_url) ? '' : row.card_front_url}
-          zoom-rate="1.2"
-          max-scale="7"
-          min-scale="0.2"
-          preview-src-list="srcList"
+          zoom-rate={1.2}
+          max-scale={7}
+          min-scale={0.2}
+          initial-index={0}
+          preview-src-list={(row.card_back_url === '' || !row.card_back_url) ? [] : [row.card_back_url]}
           show-progress
-          initial-index="4"
           fit="cover"
         />
       ),
     },
-    { label: () => t('baseMemberAuthManage.user_id'), prop: 'user_id' },
+    {
+      label: () => t('baseMemberAuthManage.card_back_url'), prop: 'card_back_url',
+      cellRender: ({ row }) => (
+        <el-image
+          style="width: 100px; height: 100px"
+          src={(row.card_back_url === '' || !row.card_back_url) ? '' : row.card_back_url}
+          zoom-rate={1.2}
+          max-scale={7}
+          min-scale={0.2}
+          initial-index={0}
+          preview-src-list={(row.card_back_url === '' || !row.card_back_url) ? [] : [row.card_back_url]}
+          show-progress
+          fit="cover"
+        />
+      ),
+    },
     {
       label: () => t('crud.status'), prop: 'status',
-      cellRender: ({ row }) => (
-        <ElTag type={dictStore.t('system-status', row.status, 'color')}>
-          {t(dictStore.t('system-status', row.status, 'i18n'))}
-        </ElTag>
-      ),
+      cellRender: ({ row }) => {
+        const map = {
+          1: { key: 'memberauth.enums.status.wait', type: 'warning' },
+          2: { key: 'memberauth.enums.status.agree', type: 'success' },
+          3: { key: 'memberauth.enums.status.refuse', type: 'danger' },
+        };
+        const item = map[row.status] || { key: '未知', type: 'info' };
+        return <ElTag type={item.type}>{t(item.key)}</ElTag>;
+      }
     },
     // 操作列
     {

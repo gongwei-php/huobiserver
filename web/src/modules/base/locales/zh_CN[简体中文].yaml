@@ -38,10 +38,17 @@ baseMemberVipManage:
   subTitle: 提供等级添加、编辑、删除功能。
 baseMemberAuthManage:
   user_id: 用户ID
+  user_account: 用户账号
   card_front_url: 证件照正面照片地址
   card_back_url: 证件照反面照片地址
   mainTitle: 实名管理
   subTitle: 提供实名同意和拒绝功能。
+  agree: 同意
+  agreeMessage: 是否同意该实名？
+  agreeSuccess: 同意成功
+  refuse: 拒绝
+  refuseMessage: 是否拒绝该实名？
+  refuseSuccess: 拒绝成功
 baseRoleManage:
   mainTitle: 角色管理
   subTitle: 提供用户角色、权限设置
@@ -244,3 +251,9 @@ baseMenu:
     attachmentList: 附件列表
     attachmentUpload: 上传附件
     attachmentDelete: 删除附件
+memberauth:
+  enums:
+    status:
+      wait: 待审核
+      agree: 已同意
+      refuse: 已拒绝

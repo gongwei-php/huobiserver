@@ -23,8 +23,8 @@ final class MemberAuthSchema implements \JsonSerializable
     #[Property(property: 'id', title: '编号', type: 'int')]
     public ?int $id;
 
-    #[Property(property: 'user_id', title: '等级', type: 'int')]
-    public ?int $user_id;
+    #[Property(property: 'member_id', title: '用户ID', type: 'int')]
+    public ?int $member_id;
 
     #[Property(property: 'card_front_url', title: '证件照正面照片地址', type: 'string')]
     public ?string $card_front_url;
@@ -47,7 +47,7 @@ final class MemberAuthSchema implements \JsonSerializable
     public function __construct(MemberAuth $model)
     {
         $this->id = $model->id;
-        $this->user_id = $model->user_id;
+        $this->member_id = $model->member_id;
         $this->card_front_url = $model->card_front_url;
         $this->card_back_url = $model->card_back_url;
         $this->status = $model->status;
@@ -58,6 +58,6 @@ final class MemberAuthSchema implements \JsonSerializable
 
     public function jsonSerialize(): mixed
     {
-        return ['id' => $this->id, 'user_id' => $this->user_id, 'card_front_url' => $this->card_front_url, 'card_back_url' => $this->card_back_url, 'status' => $this->status, 'updated_by' => $this->updated_by, 'created_at' => $this->createdAt, 'updated_at' => $this->updatedAt];
+        return ['id' => $this->id, 'member_id' => $this->member_id, 'card_front_url' => $this->card_front_url, 'card_back_url' => $this->card_back_url, 'status' => $this->status, 'updated_by' => $this->updated_by, 'created_at' => $this->createdAt, 'updated_at' => $this->updatedAt];
     }
 }

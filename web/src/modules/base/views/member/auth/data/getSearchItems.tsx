@@ -14,8 +14,8 @@ import MaDictSelect from '@/components/ma-dict-picker/ma-dict-select.vue'
 export default function getSearchItems(t: any): MaSearchItem[] {
   return [
     {
-      label: () => t('baseMemberAuthManage.user_id'),
-      prop: 'user_id',
+      label: () => t('baseMemberAuthManage.member_id'),
+      prop: 'member_id',
       render: 'input',
     },
     {
