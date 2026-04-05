@@ -14,7 +14,7 @@ namespace App\Model\Api;
 
 use App\Model\Enums\MemberAuth\Status;
 use Carbon\Carbon;
-use Hyperf\Database\Model\Events\Creating;
+use Hyperf\Database\Model\Relations\HasOne;
 use Hyperf\DbConnection\Model\Model;
 
 /**
@@ -48,4 +48,9 @@ final class MemberAuth extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    public function member(): HasOne
+    {
+        return $this->hasOne(Member::class, 'user_id', 'id');
+    }
 }
