@@ -37,7 +37,10 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     { type: 'index' },
     // 普通列
     { label: () => t('baseMemberAuthManage.member_id'), prop: 'member_id' },
-    { label: () => t('baseMemberAuthManage.member_account'), prop: 'member_account' },
+    {
+      label: () => t('baseMemberAuthManage.member_account'), prop: 'member_account',
+      cellRender: ({ row }): any => row.member ? row.member.account : ''
+    },
     {
       label: () => t('baseMemberAuthManage.card_front_url'), prop: 'card_front_url',
       cellRender: ({ row }) => (
