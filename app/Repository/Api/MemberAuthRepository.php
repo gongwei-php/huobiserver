@@ -30,16 +30,6 @@ final class MemberAuthRepository extends IRepository
         return $is_exist;
     }
 
-    public function page(array $params = [], ?int $page = null, ?int $pageSize = null): array
-    {
-        $result = $this->perQuery($this->getQuery(), $params)->paginate(
-            perPage: $pageSize,
-            pageName: static::PER_PAGE_PARAM_NAME,
-            page: $page,
-        );
-        return $this->handlePage($result);
-    }
-
     public function handleItems(Collection $items): Collection
     {
         $memberModel = new Member();
@@ -53,20 +43,6 @@ final class MemberAuthRepository extends IRepository
         }
 
         return $items;
-    }
-
-    public function handlePage(LengthAwarePaginatorInterface $paginator): array
-    {
-        if ($paginator instanceof AbstractPaginator) {
-            $items = $paginator->getCollection();
-        } else {
-            $items = Collection::make($paginator->items());
-        }
-        $items = $this->handleItems($items);
-        return [
-            'list' => $items->toArray(),
-            'total' => $paginator->total(),
-        ];
     }
 
     public function handleSearch(Builder $query, array $params): Builder
