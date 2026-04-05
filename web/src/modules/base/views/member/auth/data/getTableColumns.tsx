@@ -93,6 +93,7 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
             name: 'agree',
             icon: 'material-symbols:person-edit',
             show: () => showBtn('member:auth:agree'),
+            disabled: (data) => data.row.status !== 1,
             text: () => t('baseMemberAuthManage.agree'),
             onClick: ({ row }, proxy: MaProTableExpose) => {
               msg.confirm(t('baseMemberAuthManage.agreeMessage')).then(async () => {
@@ -107,6 +108,7 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
           {
             name: 'refuse',
             show: () => showBtn('member:auth:refuse'),
+            disabled: (data) => data.row.status !== 1,
             icon: 'mdi:delete',
             text: () => t('baseMemberAuthManage.refuse'),
             onClick: ({ row }, proxy: MaProTableExpose) => {
