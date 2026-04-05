@@ -19,4 +19,15 @@ final class MemberService  extends IService
     public function __construct(
         protected readonly MemberRepository $repository
     ) {}
+
+    public function resetPassword(?int $id): bool
+    {
+        if ($id === null) {
+            return false;
+        }
+        $entity = $this->repository->findById($id);
+        $entity->resetPassword();
+        $entity->save();
+        return true;
+    }
 }

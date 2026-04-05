@@ -13,6 +13,7 @@ import type { Ref } from 'vue'
 import type { TransType } from '@/hooks/auto-imports/useTrans.ts'
 import type { UseDialogExpose } from '@/hooks/useDialog.ts'
 
+import MemberForm from './form.vue'
 import { deleteByIds, page } from '~/base/api/member'
 import getSearchItems from './data/getSearchItems.tsx'
 import getTableColumns from './data/getTableColumns.tsx'
@@ -141,6 +142,13 @@ function handleDelete() {
         </el-button>
       </template>
     </MaProTable>
+
+    <component :is="maDialog.Dialog">
+      <template #default="{ formType, data }">
+        <!-- 新增、编辑表单 -->
+        <MemberForm v-if="['add', 'edit'].includes(formType)" ref="formRef" :form-type="formType" :data="data" />
+      </template>
+    </component>
   </div>
 </template>
 

@@ -104,6 +104,22 @@ class MemberController extends AbstractController
         return $this->success();
     }
 
+    #[Put(
+        path: '/admin/member/password',
+        operationId: 'updatePassword',
+        summary: '重置密码',
+        security: [['Bearer' => [], 'ApiKey' => []]],
+        tags: ['用户管理']
+    )]
+    #[Permission(code: 'member:password')]
+    #[ResultResponse(new Result())]
+    public function resetPassword(): Result
+    {
+        return $this->service->resetPassword($this->getRequest()->input('id'))
+            ? $this->success()
+            : $this->error();
+    }
+
     #[Delete(
         path: '/admin/member',
         operationId: 'memberDelete',

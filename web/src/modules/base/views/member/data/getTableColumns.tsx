@@ -19,6 +19,8 @@ import { ResultCode } from '@/utils/ResultCode.ts'
 import hasAuth from '@/utils/permission/hasAuth.ts'
 
 export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t: any): MaProTableColumns[] {
+
+  console.log("dialog", dialog)
   const dictStore = useDictStore()
   const msg = useMessage()
 
