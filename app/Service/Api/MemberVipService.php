@@ -20,13 +20,8 @@ final class MemberVipService extends IService
     public function page(array $params, int $page = 1, int $pageSize = 10, string $sort = '', string $order = ''): array
     {
         if (!empty($sort) && !empty($order)) {
-            if ($order == 'desc') {
-                $params['sortDesc'] = $sort;
-            } elseif ($order == 'asc') {
-                $params['sortAsc'] = $sort;
-            } else {
-                $params['sortAsc'] = $sort;
-            }
+            $params['order_by'] = $sort;
+            $params['order_by_direction'] = $order;
         }
         return $this->repository->page($params, $page, $pageSize);
     }
