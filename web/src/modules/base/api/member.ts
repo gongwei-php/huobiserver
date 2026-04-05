@@ -33,15 +33,15 @@ export function page(data: UserSearchVo): Promise<ResponseStruct<PageList<Member
 }
 
 export function create(data: MemberVo): Promise<ResponseStruct<null>> {
-  return useHttp().post('/admin/member', data)
+  return useHttp().post('/admin/member/add', data)
 }
 
 export function save(id: number, data: MemberVo): Promise<ResponseStruct<null>> {
-  return useHttp().put(`/admin/member/${id}`, data)
+  return useHttp().put(`/admin/member/update/${id}`, data)
 }
 
 export function deleteByIds(ids: number[]): Promise<ResponseStruct<null>> {
-  return useHttp().delete('/admin/member', { data: ids })
+  return useHttp().delete('/admin/member/delete', { data: ids })
 }
 
 export function resetPassword(id: number): Promise<ResponseStruct<null>> {

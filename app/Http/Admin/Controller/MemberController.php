@@ -65,7 +65,7 @@ class MemberController extends AbstractController
     }
 
     #[Post(
-        path: '/admin/member',
+        path: '/admin/member/add',
         operationId: 'memberCreate',
         summary: '创建会员',
         security: [['Bearer' => [], 'ApiKey' => []]],
@@ -85,7 +85,7 @@ class MemberController extends AbstractController
     }
 
     #[Put(
-        path: '/admin/member/{id}',
+        path: '/admin/member/update/{id}',
         operationId: 'memberSave',
         summary: '保存会员',
         security: [['Bearer' => [], 'ApiKey' => []]],
@@ -109,7 +109,7 @@ class MemberController extends AbstractController
         operationId: 'updatePassword',
         summary: '重置密码',
         security: [['Bearer' => [], 'ApiKey' => []]],
-        tags: ['用户管理']
+        tags: ['会员管理']
     )]
     #[Permission(code: 'member:password')]
     #[ResultResponse(new Result())]
@@ -121,7 +121,7 @@ class MemberController extends AbstractController
     }
 
     #[Delete(
-        path: '/admin/member',
+        path: '/admin/member/delete',
         operationId: 'memberDelete',
         summary: '删除会员',
         security: [['Bearer' => [], 'ApiKey' => []]],
