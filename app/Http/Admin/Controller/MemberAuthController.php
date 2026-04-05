@@ -52,7 +52,7 @@ class MemberAuthController extends AbstractController
         tags: ['实名管理'],
     )]
     #[PageResponse(instance: MemberAuthSchema::class)]
-    #[Permission(code: 'member::auth:index')]
+    #[Permission(code: 'member:auth:index')]
     public function pageList(): Result
     {
         return $this->success(
@@ -71,7 +71,7 @@ class MemberAuthController extends AbstractController
         security: [['Bearer' => [], 'ApiKey' => []]],
         tags: ['同意'],
     )]
-    #[Permission(code: 'member::auth:agree')]
+    #[Permission(code: 'member:auth:agree')]
     #[ResultResponse(instance: new Result())]
     public function agree(int $id): Result
     {
@@ -86,7 +86,7 @@ class MemberAuthController extends AbstractController
         security: [['Bearer' => [], 'ApiKey' => []]],
         tags: ['拒绝'],
     )]
-    #[Permission(code: 'member::auth:refuse')]
+    #[Permission(code: 'member:auth:refuse')]
     #[ResultResponse(instance: new Result())]
     public function refuse(int $id): Result
     {
@@ -101,7 +101,7 @@ class MemberAuthController extends AbstractController
         security: [['Bearer' => [], 'ApiKey' => []]],
         tags: ['批量同意'],
     )]
-    #[Permission(code: 'member::auth:agree:all')]
+    #[Permission(code: 'member:auth:agree:all')]
     #[ResultResponse(instance: new Result())]
     public function agreeAll(Request $request): Result
     {
@@ -120,7 +120,7 @@ class MemberAuthController extends AbstractController
         security: [['Bearer' => [], 'ApiKey' => []]],
         tags: ['批量拒绝'],
     )]
-    #[Permission(code: 'member::auth:refuse:all')]
+    #[Permission(code: 'member:auth:refuse:all')]
     #[ResultResponse(instance: new Result())]
     public function refuseAll(Request $request): Result
     {
