@@ -13,12 +13,22 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Repository\Api\MemberRepository;
+use Hyperf\Collection\Collection;
 
 final class MemberService  extends IService
 {
     public function __construct(
         protected readonly MemberRepository $repository
     ) {}
+
+    public function handleItems(Collection $items): Collection
+    {
+        $items = $items->map(function ($item) {
+            $item->member = $item->getMember();
+            return $item;
+        });
+        return $items;
+    }
 
     public function page(array $params, int $page = 1, int $pageSize = 10, string $sort = '', string $order = ''): array
     {
