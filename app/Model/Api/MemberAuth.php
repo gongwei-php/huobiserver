@@ -54,4 +54,17 @@ final class MemberAuth extends Model
     {
         return $this->hasOne(Member::class, 'member_id', 'id');
     }
+
+    public function getMember(): ?Member
+    {
+        /**
+         * @var null|Member $member
+         */
+        $member = $this->member()->first();
+        if (! empty($member)) {
+            return $member;
+        }
+
+        return null;
+    }
 }
