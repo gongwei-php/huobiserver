@@ -33,34 +33,9 @@ final class MemberVipRepository extends IRepository
         return $is_exist;
     }
 
-    public function perQuery(Builder $query, array $params): Builder
-    {
-        $query = parent::perQuery($query, $params);
-        $this->log->error('vip 搜索参数', $params);
-        if ($query->getQuery() instanceof QueryBuilder) {
-            $rawSql = $query->getQuery()->toSql();          // 带 ? 的 SQL
-            $bindings = $query->getQuery()->getBindings();   // 绑定参数
-
-            // 拼接成完整可执行 SQL
-            foreach ($bindings as $binding) {
-                $rawSql = preg_replace('/\?/', "'{$binding}'", $rawSql, 1);
-            }
-
-            // 写日志
-            $this->log->error('VIP 执行 SQL：' . $rawSql);
-        }
-        return $query;
-    }
-
     public function handleSearch(Builder $query, array $params): Builder
     {
         return $query
-            ->when(Arr::get($params, 'sortAsc'), static function (Builder $query, $sortAsc) {
-                $query->orderBy($sortAsc, 'asc');
-            })
-            ->when(Arr::get($params, 'sortDesc'), static function (Builder $query, $sortDesc) {
-                $query->orderBy($sortDesc, 'desc');
-            })
             ->when(Arr::get($params, 'level'), static function (Builder $query, $level) {
                 $query->where('level', $level);
             })
