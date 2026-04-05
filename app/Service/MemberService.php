@@ -22,18 +22,6 @@ final class MemberService  extends IService
         protected readonly MemberRepository $repository
     ) {}
 
-    public function handleItems(Collection $items): Collection
-    {
-        $memberIds = $items->pluck('member_id')->filter()->unique()->toArray();
-        $members = $this->repository->getMembersByIds($memberIds);
-        $memberMap = collect($members)->keyBy('id');
-
-        foreach ($items as $item) {
-            $item->member = $memberMap->get($item->member_id);
-        }
-        return $items;
-    }
-
     public function page(array $params, int $page = 1, int $pageSize = 10, string $sort = '', string $order = ''): array
     {
         if (!empty($sort) && !empty($order)) {

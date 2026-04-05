@@ -12,6 +12,19 @@ final class MemberRepository extends IRepository
 {
     public function __construct(protected readonly Member $model) {}
 
+    public function handleItems(Collection $items): Collection
+    {
+        $memberIds = $items->pluck('member_id')->filter()->unique()->toArray();
+        $members = $this->getMembersByIds($memberIds);
+        $memberMap = collect($members)->keyBy('id');
+
+        foreach ($items as $item) {
+            $item->member = $memberMap->get($item->member_id);
+        }
+
+        return parent::handleItems($items);
+    }
+
     public function findByAccount(string $account): Member|bool
     {
         $is_exist = $this->model->newQuery()
