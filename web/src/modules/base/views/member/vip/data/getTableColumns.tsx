@@ -19,7 +19,6 @@ import hasAuth from '@/utils/permission/hasAuth.ts'
 
 export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t: any): MaProTableColumns[] {
 
-  console.log("dialog", dialog)
   const dictStore = useDictStore()
   const msg = useMessage()
 
@@ -51,6 +50,7 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
       type: 'operation',
       label: () => t('crud.operation'),
       operationConfigure: {
+        type: 'tile',
         actions: [
           {
             name: 'edit',

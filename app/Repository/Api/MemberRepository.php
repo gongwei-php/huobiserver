@@ -38,6 +38,12 @@ final class MemberRepository extends IRepository
     public function handleSearch(Builder $query, array $params): Builder
     {
         return $query
+            ->when(Arr::get($params, 'sortAsc'), static function (Builder $query, $sortAsc) {
+                $query->order($sortAsc, 'asc');
+            })
+            ->when(Arr::get($params, 'sortDesc'), static function (Builder $query, $sortDesc) {
+                $query->order($sortDesc, 'desc');
+            })
             ->when(Arr::get($params, 'unique_account'), static function (Builder $query, $uniqueAccount) {
                 $query->where('account', $uniqueAccount);
             })

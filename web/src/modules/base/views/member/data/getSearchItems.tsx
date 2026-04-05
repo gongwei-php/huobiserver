@@ -12,9 +12,6 @@ import type { MaSearchItem } from '@mineadmin/search'
 import MaDictSelect from '@/components/ma-dict-picker/ma-dict-select.vue'
 
 export default function getSearchItems(t: any, levelData: any): MaSearchItem[] {
-  console.log("levelData", levelData);
-
-  const levelList = levelData.value.filter((_, index) => index > 0)
   return [
     {
       label: () => t('baseMemberManage.account'),
@@ -29,7 +26,7 @@ export default function getSearchItems(t: any, levelData: any): MaSearchItem[] {
     {
       label: () => t('baseMemberManage.vip_level_id'),
       prop: 'vip_level_id',
-      render: () => <el-tree-select />, // 与你的 el-tree-select 格式统一
+      render: () => <el-tree-select />,
       renderProps: {
         data: levelData,
         multiple: false,

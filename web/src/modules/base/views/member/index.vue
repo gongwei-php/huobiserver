@@ -86,7 +86,7 @@ const options = ref<MaProTableOptions>({
   },
   // 搜索参数
   searchOptions: {
-    fold: true,
+    fold: false,
     text: {
       searchBtn: () => t('crud.search'),
       resetBtn: () => t('crud.reset'),
@@ -114,11 +114,11 @@ function getLevel() {
   levelList({}).then((res) => {
     let list = res.data.list as any[]
     const formatList = list.map((item: any) => ({
-      id: item.id,
+      id: item.level,
       name: `VIP${item.level}级`
     }))
     // 重新赋值
-    levelData.value = [{ id: 0, name: '所有等级' }, ...formatList]
+    levelData.value = formatList
   })
 }
 
@@ -132,43 +132,42 @@ const schema = ref<MaProTableSchema>({
 })
 
 // 批量删除
-function handleDelete() {
-  const ids = selections.value.map((item: any) => item.id)
-  msg.confirm(t('crud.delMessage')).then(async () => {
-    const response = await deleteByIds(ids)
-    if (response.code === ResultCode.SUCCESS) {
-      msg.success(t('crud.delSuccess'))
-      await proTableRef.value.refresh()
-    }
-  })
-}
+// function handleDelete() {
+//   const ids = selections.value.map((item: any) => item.id)
+//   msg.confirm(t('crud.delMessage')).then(async () => {
+//     const response = await deleteByIds(ids)
+//     if (response.code === ResultCode.SUCCESS) {
+//       msg.success(t('crud.delSuccess'))
+//       await proTableRef.value.refresh()
+//     }
+//   })
+// }
 </script>
 
 <template>
   <div class="mine-layout pt-3">
     <MaProTable ref="proTableRef" :options="options" :schema="schema">
-      <template #actions>
+      <!-- <template #actions>
         <el-button v-auth="['member:save']" type="primary" @click="() => {
           maDialog.setTitle(t('crud.add'))
           maDialog.open({ formType: 'add' })
         }">
           {{ t('crud.add') }}
         </el-button>
-      </template>
+      </template> -->
 
-      <template #toolbarLeft>
+      <!-- <template #toolbarLeft>
         <el-button v-auth="['member:delete']" type="danger" plain @click="handleDelete">
           {{ t('crud.delete') }}
         </el-button>
-      </template>
+      </template> -->
     </MaProTable>
 
-    <component :is="maDialog.Dialog">
+    <!-- <component :is="maDialog.Dialog">
       <template #default="{ formType, data }">
-        <!-- 新增、编辑表单 -->
         <MemberForm v-if="['add', 'edit'].includes(formType)" ref="formRef" :form-type="formType" :data="data" />
       </template>
-    </component>
+    </component> -->
   </div>
 </template>
 

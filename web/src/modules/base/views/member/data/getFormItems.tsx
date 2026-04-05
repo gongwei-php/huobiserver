@@ -59,6 +59,32 @@ export default function getFormItems(
       },
     },
     {
+      label: () => t('baseMemberManage.phone'),
+      prop: 'phone',
+      render: 'input',
+      cols: { md: 12, xs: 24 },
+      renderProps: {
+        disabled: formType === 'edit',
+        placeholder: t('form.pleaseInput', { msg: t('baseMemberManage.phone') }),
+      },
+      // itemProps: {
+      //   rules: [{ required: true, message: t('form.requiredInput', { msg: t('baseMemberManage.phone') }) }],
+      // },
+    },
+    {
+      label: () => t('baseMemberManage.vip_level_id'),
+      prop: 'vip_level_id',
+      render: 'input',
+      cols: { md: 12, xs: 24 },
+      renderProps: {
+        disabled: formType === 'edit',
+        placeholder: t('form.pleaseInput', { msg: t('baseMemberManage.vip_level_id') }),
+      },
+      // itemProps: {
+      //   rules: formType === 'add' ? [{ required: true, message: t('form.requiredInput', { msg: t('baseMemberManage.password') }) }] : [],
+      // },
+    },
+    {
       label: () => t('baseMemberManage.password'),
       prop: 'password',
       render: 'input',
@@ -69,24 +95,6 @@ export default function getFormItems(
       },
       itemProps: {
         rules: formType === 'add' ? [{ required: true, message: t('form.requiredInput', { msg: t('baseMemberManage.password') }) }] : [],
-      },
-    },
-    {
-      label: () => t('baseMemberManage.phone'),
-      prop: 'phone',
-      render: 'input',
-      cols: { md: 12, xs: 24 },
-      renderProps: {
-        placeholder: t('form.pleaseInput', { msg: t('baseMemberManage.phone') }),
-      },
-    },
-    {
-      label: () => t('crud.remark'),
-      prop: 'remark',
-      render: 'input',
-      renderProps: {
-        placeholder: t('form.pleaseInput', { msg: t('crud.remark') }),
-        type: 'textarea',
       },
     },
     {

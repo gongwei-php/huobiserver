@@ -17,6 +17,20 @@ final class MemberVipService extends IService
         protected readonly CacheInterface $cache
     ) {}
 
+    public function page(array $params, int $page = 1, int $pageSize = 10, string $sort = '', string $order = ''): array
+    {
+        if (!empty($sort) && !empty($order)) {
+            if ($order == 'desc') {
+                $params['sortDesc'] = $sort;
+            } elseif ($order == 'asc') {
+                $params['sortAsc'] = $sort;
+            } else {
+                $params['sortAsc'] = $sort;
+            }
+        }
+        return parent::page($params, $page, $pageSize);
+    }
+
     public function getInfo(int $id): ?MemberVip
     {
         if ($this->cache->has((string) $id)) {

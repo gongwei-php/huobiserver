@@ -57,7 +57,9 @@ class MemberVipController extends AbstractController
             $this->service->page(
                 $this->getRequestData(),
                 $this->getCurrentPage(),
-                $this->getPageSize()
+                $this->getPageSize(),
+                'id',
+                'desc'
             )
         );
     }

@@ -20,7 +20,6 @@ import hasAuth from '@/utils/permission/hasAuth.ts'
 
 export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t: any): MaProTableColumns[] {
 
-  console.log("dialog", dialog)
   const dictStore = useDictStore()
   const msg = useMessage()
 
@@ -30,11 +29,11 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
 
   return [
     // 多选列
-    {
-      type: 'selection', showOverflowTooltip: false, label: () => t('crud.selection'),
-      cellRender: ({ row }): any => row.id === 1 ? '-' : undefined,
-      selectable: (row: MemberVo) => ![1].includes(row.id as number),
-    },
+    // {
+    //   type: 'selection', showOverflowTooltip: false, label: () => t('crud.selection'),
+    //   cellRender: ({ row }): any => row.id === 1 ? '-' : undefined,
+    //   selectable: (row: MemberVo) => ![1].includes(row.id as number),
+    // },
     // 索引序号列
     { type: 'index' },
     // 普通列
@@ -60,19 +59,21 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     // 操作列
     {
       type: 'operation',
+      width: 300,
       label: () => t('crud.operation'),
       operationConfigure: {
+        type: 'tile',
         actions: [
-          {
-            name: 'edit',
-            icon: 'material-symbols:person-edit',
-            show: () => showBtn('member:update'),
-            text: () => t('crud.edit'),
-            onClick: ({ row }) => {
-              dialog.setTitle(t('crud.edit'))
-              dialog.open({ formType: 'edit', data: row })
-            },
-          },
+          // {
+          //   name: 'edit',
+          //   icon: 'material-symbols:person-edit',
+          //   show: () => showBtn('member:update'),
+          //   text: () => t('crud.edit'),
+          //   onClick: ({ row }) => {
+          //     dialog.setTitle(t('crud.edit'))
+          //     dialog.open({ formType: 'edit', data: row })
+          //   },
+          // },
           {
             name: 'initPassword',
             show: () => showBtn('member:password'),
@@ -87,21 +88,21 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
               })
             },
           },
-          {
-            name: 'del',
-            show: () => showBtn('member:delete'),
-            icon: 'mdi:delete',
-            text: () => t('crud.delete'),
-            onClick: ({ row }, proxy: MaProTableExpose) => {
-              msg.delConfirm(t('crud.delDataMessage')).then(async () => {
-                const response = await deleteByIds([row.id])
-                if (response.code === ResultCode.SUCCESS) {
-                  msg.success(t('crud.delSuccess'))
-                  await proxy.refresh()
-                }
-              })
-            },
-          },
+          // {
+          //   name: 'del',
+          //   show: () => showBtn('member:delete'),
+          //   icon: 'mdi:delete',
+          //   text: () => t('crud.delete'),
+          //   onClick: ({ row }, proxy: MaProTableExpose) => {
+          //     msg.delConfirm(t('crud.delDataMessage')).then(async () => {
+          //       const response = await deleteByIds([row.id])
+          //       if (response.code === ResultCode.SUCCESS) {
+          //         msg.success(t('crud.delSuccess'))
+          //         await proxy.refresh()
+          //       }
+          //     })
+          //   },
+          // },
         ],
       },
     },
