@@ -52,7 +52,7 @@ final class MemberAuth extends Model
 
     public function member(): HasOne
     {
-        return $this->hasOne(Member::class, 'member_id', 'id');
+        return $this->hasOne(Member::class, 'id', 'member_id');
     }
 
     public function getMember(): ?Member
