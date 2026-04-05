@@ -6,18 +6,19 @@ use App\Model\Api\MemberVip;
 use App\Repository\IRepository;
 use Hyperf\Collection\Arr;
 use Hyperf\Database\Model\Builder;
-use Hyperf\Logger\Logger;
+use Psr\Log\LoggerInterface;
 
 final class MemberVipRepository extends IRepository
 {
 
-    /**
-     * @Inject
-     * @var Logger
-     */
-    protected $log;
+    protected LoggerInterface $log;
 
-    public function __construct(protected readonly MemberVip $model) {}
+    public function __construct(
+        protected readonly MemberVip $model,
+        LoggerInterface $log
+    ) {
+        $this->log = $log;
+    }
 
     public function findByLevel(string $level): MemberVip|bool
     {
