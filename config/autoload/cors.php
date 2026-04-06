@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 return [
-	'origin' => ['*',],
+	'origin' => ['*'],
 	'allowed_methods' => ['*'],
 	'allowed_headers' => ['*'],
 	'exposed_headers' => ['*'],
