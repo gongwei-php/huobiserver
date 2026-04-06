@@ -37,7 +37,7 @@ final class CurrentMember
         }
     }
 
-    public function refresh(): ?array
+    public function refresh(): ?\Closure
     {
         try {
             return $this->memberService->refreshToken($this->getToken());

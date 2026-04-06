@@ -2,6 +2,7 @@
 
 namespace App\Service\Api;
 
+use Closure;
 use Mine\JwtAuth\Interfaces\CheckTokenInterface;
 use Lcobucci\JWT\Token\RegisteredClaims;
 use Lcobucci\JWT\UnencryptedToken;
@@ -15,6 +16,7 @@ use App\Model\Api\Member;
 use App\Service\IService;
 use Hyperf\DbConnection\Db;
 use Psr\SimpleCache\CacheInterface;
+use Psr\SimpleCache\InvalidArgumentException;
 
 final class MemberService extends IService implements CheckTokenInterface
 {
@@ -138,9 +140,10 @@ final class MemberService extends IService implements CheckTokenInterface
     }
 
     /**
-     * @return array<string,int|string>
+     * @param UnencryptedToken $token
+     * @return Closure
      */
-    public function refreshToken(UnencryptedToken $token): array
+    public function refreshToken(UnencryptedToken $token): Closure
     {
         return value(static function (JwtInterface $jwt) use ($token) {
             $jwt->addBlackList($token);
@@ -152,6 +155,9 @@ final class MemberService extends IService implements CheckTokenInterface
         }, $this->getJwt());
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     public function getInfo(int $id): ?Member
     {
         if ($this->cache->has((string) $id)) {
@@ -160,17 +166,6 @@ final class MemberService extends IService implements CheckTokenInterface
         $user = $this->repository->findById((string) $id);
         $this->cache->set((string) $id, $user, 60);
         return $user;
-    }
-
-    public function resetPassword(?int $id): bool
-    {
-        if ($id === null) {
-            return false;
-        }
-        $entity = $this->repository->findById($id);
-        $entity->resetPassword();
-        $entity->save();
-        return true;
     }
 
     public function create(array $data): mixed
