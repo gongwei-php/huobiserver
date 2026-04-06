@@ -23,7 +23,7 @@ Router::addGroup('/api/v1', function () {
     //会员退出登录
     Router::post('/logout', [\App\Http\Api\Controller\V1\MemberController::class, 'logout']);
     //获取会员信息
-    Router::post('/getInfo', [\App\Http\Api\Controller\V1\MemberController::class, 'getInfo']);
+    Router::get('/getInfo', [\App\Http\Api\Controller\V1\MemberController::class, 'getInfo']);
     //刷新会员Token
     Router::post('/refresh', [\App\Http\Api\Controller\V1\MemberController::class, 'refresh']);
 });
