@@ -27,9 +27,11 @@ final class MemberService extends IService implements CheckTokenInterface
 
     public function __construct(
         protected readonly MemberRepository $repository,
-        protected readonly Factory $jwtFactory,
-        protected readonly CacheInterface $cache
-    ) {}
+        protected readonly Factory          $jwtFactory,
+        protected readonly CacheInterface   $cache
+    )
+    {
+    }
 
     /**
      * @return array<string,int|string>
@@ -77,9 +79,9 @@ final class MemberService extends IService implements CheckTokenInterface
             'code' => $code,
             'msg' => $msg,
             'data' => [
-                'access_token' => $jwt->builderAccessToken((string) $member->id)->toString(),
-                'refresh_token' => $jwt->builderRefreshToken((string) $member->id)->toString(),
-                'expire_at' => (int) $jwt->getConfig('ttl', 0),
+                'access_token' => $jwt->builderAccessToken((string)$member->id)->toString(),
+                'refresh_token' => $jwt->builderRefreshToken((string)$member->id)->toString(),
+                'expire_at' => (int)$jwt->getConfig('ttl', 0),
             ]
         ];
     }
@@ -117,10 +119,11 @@ final class MemberService extends IService implements CheckTokenInterface
             ];
         }
         $jwt = $this->getJwt();
+        echo '会员ID：' . $member->id;
         return [
-            'access_token' => $jwt->builderAccessToken((string) $member->id)->toString(),
-            'refresh_token' => $jwt->builderRefreshToken((string) $member->id)->toString(),
-            'expire_at' => (int) $jwt->getConfig('ttl', 0),
+            'access_token' => $jwt->builderAccessToken((string)$member->id)->toString(),
+            'refresh_token' => $jwt->builderRefreshToken((string)$member->id)->toString(),
+            'expire_at' => (int)$jwt->getConfig('ttl', 0),
         ];
     }
 
@@ -150,7 +153,7 @@ final class MemberService extends IService implements CheckTokenInterface
             return [
                 'access_token' => $jwt->builderAccessToken($token->claims()->get(RegisteredClaims::ID))->toString(),
                 'refresh_token' => $jwt->builderRefreshToken($token->claims()->get(RegisteredClaims::ID))->toString(),
-                'expire_at' => (int) $jwt->getConfig('ttl', 0),
+                'expire_at' => (int)$jwt->getConfig('ttl', 0),
             ];
         }, $this->getJwt());
     }
@@ -160,11 +163,11 @@ final class MemberService extends IService implements CheckTokenInterface
      */
     public function getInfo(int $id): ?Member
     {
-        if ($this->cache->has((string) $id)) {
-            return $this->cache->get((string) $id);
+        if ($this->cache->has((string)$id)) {
+            return $this->cache->get((string)$id);
         }
-        $user = $this->repository->findById((string) $id);
-        $this->cache->set((string) $id, $user, 60);
+        $user = $this->repository->findById((string)$id);
+        $this->cache->set((string)$id, $user, 60);
         return $user;
     }
 
