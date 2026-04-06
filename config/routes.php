@@ -10,11 +10,24 @@ declare(strict_types=1);
  * @license  https://github.com/mineadmin/MineAdmin/blob/master/LICENSE
  */
 
+use FastRoute\Route;
 use Hyperf\HttpServer\Router\Router;
 use Hyperf\HttpMessage\Server\Response;
 use Hyperf\HttpMessage\Stream\SwooleStream;
 
-Router::post('/api/v1/login', [\App\Http\Api\Controller\V1\MemberController::class, 'login']);
+Router::addGroup('/api/v1', function () {
+    //注册会员
+    Router::post('/register', [\App\Http\Api\Controller\V1\MemberController::class, 'register']);
+    //会员登录
+    Router::post('/login', [\App\Http\Api\Controller\V1\MemberController::class, 'login']);
+    //会员退出登录
+    Router::post('/logout', [\App\Http\Api\Controller\V1\MemberController::class, 'logout']);
+    //获取会员信息
+    Router::post('/getInfo', [\App\Http\Api\Controller\V1\MemberController::class, 'getInfo']);
+    //刷新会员Token
+    Router::post('/refresh', [\App\Http\Api\Controller\V1\MemberController::class, 'refresh']);
+});
+
 
 Router::get('/uploads/{file:.+}', function ($file) {
     // 真实文件路径

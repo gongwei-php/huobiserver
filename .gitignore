@@ -24,3 +24,9 @@
 /app/Config/database.php
 #/vendors/*
 /runtime/*
+/.idea/.gitignore
+/.idea/huobiserver.iml
+/.idea/modules.xml
+/.idea/php.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/vcs.xml

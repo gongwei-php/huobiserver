@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace App\Http\Api\Controller\V1;
 
-use Hyperf\HttpServer\Annotation\Controller;
 use App\Http\Api\Middleware\TokenMiddleware;
 use App\Http\Api\Request\V1\MemberRequest;
 use App\Http\Api\Vo\MemberLoginVo;
@@ -31,17 +30,18 @@ use Hyperf\HttpServer\Annotation\Middleware;
 use Psr\Log\LoggerInterface;
 use Mine\Jwt\Traits\RequestScopedTokenTrait;
 
-#[Controller(prefix: 'api/v1')]
 #[HyperfServer(name: 'http')]
 final class MemberController extends AbstractController
 {
     use RequestScopedTokenTrait;
 
     public function __construct(
-        private readonly MemberService $memberService,
-        private readonly CurrentMember $currentMember,
+        private readonly MemberService   $memberService,
+        private readonly CurrentMember   $currentMember,
         private readonly LoggerInterface $logger,
-    ) {}
+    )
+    {
+    }
 
     #[Post(
         path: '/register',
@@ -63,10 +63,10 @@ final class MemberController extends AbstractController
     ))]
     public function register(MemberRequest $request): Result
     {
-        $account = (string) $request->post('account', '');
-        $phone = (string) $request->post('phone', '');
-        $password = (string) $request->post('password', '');
-        $repassword = (string) $request->post('repassword', '');
+        $account = (string)$request->post('account', '');
+        $phone = (string)$request->post('phone', '');
+        $password = (string)$request->post('password', '');
+        $repassword = (string)$request->post('repassword', '');
         $account = trim($account);
         $phone = trim($phone);
         $password = trim($password);
@@ -89,7 +89,7 @@ final class MemberController extends AbstractController
             return $this->error('유효한 휴대폰 번호를 입력해 주세요!');
         }
 
-        $register =  $this->memberService->register(
+        $register = $this->memberService->register(
             $account,
             $phone,
             $password,
@@ -125,22 +125,15 @@ final class MemberController extends AbstractController
     public function login(MemberRequest $request): Result
     {
         $validated = $request->validated();
-        $account = (string) $validated['account'];
-        $password = (string) $validated['password'];
+        $account = (string)$validated['account'];
+        $password = (string)$validated['password'];
 
-        // 临时测试：直接返回成功
-        return $this->success([
-            'access_token' => 'test-token',
-            'refresh_token' => 'test-refresh',
-            'expire_at' => 3600
-        ]);
-        // your login logic here
-        // return $this->success(
-        //     $this->memberService->login(
-        //         $account,
-        //         $password,
-        //     )
-        // );
+        return $this->success(
+            $this->memberService->login(
+                $account,
+                $password,
+            )
+        );
     }
 
     #[Post(
