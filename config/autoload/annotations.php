@@ -13,6 +13,7 @@ return [
     'scan' => [
         'paths' => [
             BASE_PATH . '/app',
+            BASE_PATH . '/app/Http/Api',
             BASE_PATH . '/kernel',
         ],
         'collectors' => [],

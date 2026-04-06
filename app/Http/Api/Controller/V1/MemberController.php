@@ -31,7 +31,7 @@ use Hyperf\HttpServer\Annotation\Middleware;
 use Psr\Log\LoggerInterface;
 use Mine\Jwt\Traits\RequestScopedTokenTrait;
 
-#[Controller]
+#[Controller(prefix: 'api/v1')]
 #[HyperfServer(name: 'http')]
 final class MemberController extends AbstractController
 {
@@ -127,13 +127,20 @@ final class MemberController extends AbstractController
         $validated = $request->validated();
         $account = (string) $validated['account'];
         $password = (string) $validated['password'];
+
+        // 临时测试：直接返回成功
+        return $this->success([
+            'access_token' => 'test-token',
+            'refresh_token' => 'test-refresh',
+            'expire_at' => 3600
+        ]);
         // your login logic here
-        return $this->success(
-            $this->memberService->login(
-                $account,
-                $password,
-            )
-        );
+        // return $this->success(
+        //     $this->memberService->login(
+        //         $account,
+        //         $password,
+        //     )
+        // );
     }
 
     #[Post(
