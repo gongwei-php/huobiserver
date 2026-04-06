@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace App\Http\Api\Controller\V1;
 
+use Hyperf\HttpServer\Annotation\Controller;
 use App\Http\Api\Middleware\TokenMiddleware;
 use App\Http\Api\Request\V1\MemberRequest;
 use App\Http\Api\Vo\MemberLoginVo;
@@ -30,6 +31,7 @@ use Hyperf\HttpServer\Annotation\Middleware;
 use Psr\Log\LoggerInterface;
 use Mine\Jwt\Traits\RequestScopedTokenTrait;
 
+#[Controller(prefix: '/api/v1')]
 #[HyperfServer(name: 'http')]
 final class MemberController extends AbstractController
 {
@@ -42,7 +44,7 @@ final class MemberController extends AbstractController
     ) {}
 
     #[Post(
-        path: '/api/v1/register',
+        path: '/register',
         operationId: 'ApiV1Register',
         summary: '用户注册',
         tags: ['api'],
@@ -103,7 +105,7 @@ final class MemberController extends AbstractController
     }
 
     #[Post(
-        path: '/api/v1/login',
+        path: '/login',
         operationId: 'ApiV1Login',
         summary: '用户登录',
         tags: ['api'],
@@ -135,7 +137,7 @@ final class MemberController extends AbstractController
     }
 
     #[Post(
-        path: '/api/v1/logout',
+        path: '/logout',
         operationId: 'passportLogout',
         summary: '退出',
         security: [['Bearer' => [], 'ApiKey' => []]],
@@ -150,7 +152,7 @@ final class MemberController extends AbstractController
     }
 
     #[OA\Get(
-        path: '/api/v1/getInfo',
+        path: '/getInfo',
         operationId: 'getInfo',
         summary: '获取用户信息',
         security: [['Bearer' => [], 'ApiKey' => []]],
@@ -171,7 +173,7 @@ final class MemberController extends AbstractController
     }
 
     #[Post(
-        path: '/api/v1/refresh',
+        path: '/refresh',
         operationId: 'refresh',
         summary: '刷新token',
         security: [['Bearer' => [], 'ApiKey' => []]],

@@ -40,5 +40,5 @@ export function agreeByIds(ids: number[]): Promise<ResponseStruct<null>> {
 }
 
 export function refuseByIds(ids: number[]): Promise<ResponseStruct<null>> {
-    return useHttp().post('/admin/member/vip/refuse/all', { ids: ids })
+    return useHttp().post('/admin/member/auth/refuse/all', { ids: ids })
 }
