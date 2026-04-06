@@ -31,7 +31,7 @@ use Hyperf\HttpServer\Annotation\Middleware;
 use Psr\Log\LoggerInterface;
 use Mine\Jwt\Traits\RequestScopedTokenTrait;
 
-#[Controller(prefix: '/api/v1')]
+#[Controller]
 #[HyperfServer(name: 'http')]
 final class MemberController extends AbstractController
 {
