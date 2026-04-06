@@ -28,7 +28,18 @@ final class CurrentMember
         }
 
         try {
-            $id = $this->id();
+            // 从 token 拿正确的用户 ID
+            $token = $this->getToken();
+            if (!$token) {
+                return null;
+            }
+
+            $id = (int) $token->claims()->get(RegisteredClaims::ID);
+            echo 'Current Member ID: ' . $id . PHP_EOL;
+            if ($id <= 0) {
+                return null;
+            }
+
             $user = $this->memberService->getInfo($id);
             Context::set('current_member', $user);
             return $user;
@@ -37,12 +48,12 @@ final class CurrentMember
         }
     }
 
-    public function refresh(): ?\Closure
+    public function refresh(): \Closure
     {
         try {
             return $this->memberService->refreshToken($this->getToken());
         } catch (\Throwable $e) {
-            return null;
+            return function () {};
         }
     }
 
@@ -50,10 +61,11 @@ final class CurrentMember
     {
         try {
             $token = $this->getToken();
-            if (! $token) {
+            if (!$token) {
                 return 0;
             }
-            return (int) $token->claims()->get(RegisteredClaims::ID);
+            $id = (int) $token->claims()->get(RegisteredClaims::ID);
+            return $id > 0 ? $id : 0;
         } catch (\Throwable $e) {
             return 0;
         }
