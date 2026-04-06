@@ -143,17 +143,16 @@ final class MemberService extends IService implements CheckTokenInterface
     }
 
     /**
-     * @param UnencryptedToken $token
-     * @return Closure
+     * @return array<string,int|string>
      */
-    public function refreshToken(UnencryptedToken $token): Closure
+    public function refreshToken(UnencryptedToken $token): array
     {
         return value(static function (JwtInterface $jwt) use ($token) {
             $jwt->addBlackList($token);
             return [
                 'access_token' => $jwt->builderAccessToken($token->claims()->get(RegisteredClaims::ID))->toString(),
                 'refresh_token' => $jwt->builderRefreshToken($token->claims()->get(RegisteredClaims::ID))->toString(),
-                'expire_at' => (int)$jwt->getConfig('ttl', 0),
+                'expire_at' => (int) $jwt->getConfig('ttl', 0),
             ];
         }, $this->getJwt());
     }
@@ -163,12 +162,12 @@ final class MemberService extends IService implements CheckTokenInterface
      */
     public function getInfo(int $id): ?Member
     {
-        if ($this->cache->has((string)$id)) {
-            return $this->cache->get((string)$id);
+        if ($this->cache->has((string) $id)) {
+            return $this->cache->get((string) $id);
         }
-        $user = $this->repository->findById((string)$id);
-        $this->cache->set((string)$id, $user, 60);
-        return $user;
+        $member = $this->repository->findById((string) $id);
+        $this->cache->set((string) $id, $member, 60);
+        return $member;
     }
 
     public function create(array $data): mixed

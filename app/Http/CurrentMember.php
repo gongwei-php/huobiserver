@@ -7,6 +7,7 @@ use App\Model\Api\Member;
 use App\Service\Api\MemberService;
 use Lcobucci\JWT\Token\RegisteredClaims;
 use Mine\Jwt\Traits\RequestScopedTokenTrait;
+use Psr\SimpleCache\InvalidArgumentException;
 
 final class CurrentMember
 {
@@ -16,58 +17,26 @@ final class CurrentMember
         private readonly MemberService $memberService
     ) {}
 
-    public static function ctxMember(): ?Member
-    {
-        return Context::get('current_member');
-    }
-
+    /**
+     * @throws InvalidArgumentException
+     */
     public function member(): ?Member
     {
         if (Context::has('current_member')) {
-            return self::ctxMember();
+            return Context::get('current_member');
         }
-
-        try {
-            // 从 token 拿正确的用户 ID
-            $token = $this->getToken();
-            if (!$token) {
-                return null;
-            }
-
-            $id = (int) $token->claims()->get(RegisteredClaims::ID);
-            echo 'Current Member ID: ' . $id . PHP_EOL;
-            if ($id <= 0) {
-                return null;
-            }
-
-            $user = $this->memberService->getInfo($id);
-            Context::set('current_member', $user);
-            return $user;
-        } catch (\Throwable $e) {
-            return null;
-        }
+        $member = $this->memberService->getInfo($this->id());
+        Context::set('current_member', $member);
+        return $member;
     }
 
-    public function refresh(): \Closure
+    public function refresh(): array
     {
-        try {
-            return $this->memberService->refreshToken($this->getToken());
-        } catch (\Throwable $e) {
-            return function () {};
-        }
+        return $this->memberService->refreshToken($this->getToken());
     }
 
     public function id(): int
     {
-        try {
-            $token = $this->getToken();
-            if (!$token) {
-                return 0;
-            }
-            $id = (int) $token->claims()->get(RegisteredClaims::ID);
-            return $id > 0 ? $id : 0;
-        } catch (\Throwable $e) {
-            return 0;
-        }
+        return (int) $this->getToken()->claims()->get(RegisteredClaims::ID);
     }
 }
