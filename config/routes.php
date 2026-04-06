@@ -15,17 +15,24 @@ use Hyperf\HttpServer\Router\Router;
 use Hyperf\HttpMessage\Server\Response;
 use Hyperf\HttpMessage\Stream\SwooleStream;
 
+// 【不需要 Token】的接口：
 Router::addGroup('/api/v1', function () {
-    //注册会员
+    // 注册会员
     Router::post('/register', [\App\Http\Api\Controller\V1\MemberController::class, 'register']);
-    //会员登录
+    // 会员登录
     Router::post('/login', [\App\Http\Api\Controller\V1\MemberController::class, 'login']);
-    //会员退出登录
-    Router::post('/logout', [\App\Http\Api\Controller\V1\MemberController::class, 'logout']);
-    //获取会员信息
-    Router::get('/getInfo', [\App\Http\Api\Controller\V1\MemberController::class, 'getInfo']);
-    //刷新会员Token
+    // 刷新会员Token
     Router::post('/refresh', [\App\Http\Api\Controller\V1\MemberController::class, 'refresh']);
+});
+
+// 【需要 Token】的接口：
+Router::addGroup('/api/v1', [
+    'middleware' => [\App\Http\Common\Middleware\AccessTokenMiddleware::class]
+], function () {
+    // 获取会员信息
+    Router::get('/getInfo', [\App\Http\Api\Controller\V1\MemberController::class, 'getInfo']);
+    // 会员退出登录
+    Router::post('/logout', [\App\Http\Api\Controller\V1\MemberController::class, 'logout']);
 });
 
 
