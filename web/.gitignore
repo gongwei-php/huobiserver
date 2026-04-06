@@ -10,3 +10,6 @@ pnpm-lock.yaml
 types/auto-imports.d.ts
 types/components.d.ts
 tests/e2e/.output/*
+
+.env.production
+.env.development
