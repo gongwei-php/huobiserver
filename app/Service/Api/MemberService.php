@@ -119,7 +119,6 @@ final class MemberService extends IService implements CheckTokenInterface
             ];
         }
         $jwt = $this->getJwt();
-        echo '会员ID：' . $member->id;
         return [
             'access_token' => $jwt->builderAccessToken((string)$member->id)->toString(),
             'refresh_token' => $jwt->builderRefreshToken((string)$member->id)->toString(),

@@ -39,9 +39,7 @@ final class MemberController extends AbstractController
         private readonly MemberService   $memberService,
         private readonly CurrentMember   $currentMember,
         private readonly LoggerInterface $logger,
-    )
-    {
-    }
+    ) {}
 
     #[Post(
         path: '/register',
@@ -138,14 +136,14 @@ final class MemberController extends AbstractController
 
     #[Post(
         path: '/logout',
-        operationId: 'passportLogout',
+        operationId: 'ApiV1Logout',
         summary: '退出',
         security: [['Bearer' => [], 'ApiKey' => []]],
         tags: ['admin:passport']
     )]
     #[ResultResponse(instance: new Result(), example: '{"code":200,"message":"成功","data":[]}')]
     #[Middleware(TokenMiddleware::class)]
-    public function logout(RequestInterface $request): Result
+    public function logout(): Result
     {
         $this->memberService->logout($this->getToken());
         return $this->success();
