@@ -26,18 +26,36 @@ final class CurrentMember
         if (Context::has('current_member')) {
             return Context::get('current_member');
         }
-        $user = $this->memberService->getInfo($this->id());
-        Context::set('current_member', $user);
-        return $user;
+
+        try {
+            $id = $this->id();
+            $user = $this->memberService->getInfo($id);
+            Context::set('current_member', $user);
+            return $user;
+        } catch (\Throwable $e) {
+            return null;
+        }
     }
 
-    public function refresh(): array
+    public function refresh(): ?array
     {
-        return $this->memberService->refreshToken($this->getToken());
+        try {
+            return $this->memberService->refreshToken($this->getToken());
+        } catch (\Throwable $e) {
+            return null;
+        }
     }
 
     public function id(): int
     {
-        return (int) $this->getToken()->claims()->get(RegisteredClaims::ID);
+        try {
+            $token = $this->getToken();
+            if (! $token) {
+                return 0;
+            }
+            return (int) $token->claims()->get(RegisteredClaims::ID);
+        } catch (\Throwable $e) {
+            return 0;
+        }
     }
 }
