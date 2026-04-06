@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * This file is part of MineAdmin.
  *
@@ -26,14 +27,14 @@ Router::addGroup('/api/v1', function () {
 });
 
 // 【需要 Token】的接口：
-Router::addGroup('/api/v1', [
-    'middleware' => [\App\Http\Common\Middleware\AccessTokenMiddleware::class]
-], function () {
+Router::addGroup('/api/v1', function () {
     // 获取会员信息
     Router::get('/getInfo', [\App\Http\Api\Controller\V1\MemberController::class, 'getInfo']);
     // 会员退出登录
     Router::post('/logout', [\App\Http\Api\Controller\V1\MemberController::class, 'logout']);
-});
+}, [
+    'middleware' => [\App\Http\Common\Middleware\AccessTokenMiddleware::class]
+]);
 
 
 Router::get('/uploads/{file:.+}', function ($file) {
