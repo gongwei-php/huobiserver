@@ -1,32 +1,19 @@
-# CakePHP 3
+# Hyperf / MineAdmin 必须忽略
+runtime/*
+!runtime/.gitkeep
+*.log
+*.tmp
 
-/vendor/*
-/config/app.php
+# IDE
+.idea/
+.vscode/
+*.iml
 
-/tmp/cache/models/*
-!/tmp/cache/models/empty
-/tmp/cache/persistent/*
-!/tmp/cache/persistent/empty
-/tmp/cache/views/*
-!/tmp/cache/views/empty
-/tmp/sessions/*
-!/tmp/sessions/empty
-/tmp/tests/*
-!/tmp/tests/empty
+# 依赖
+vendor/
+composer.lock
 
-/logs/*
-!/logs/empty
-
-# CakePHP 2
-
-/app/tmp/*
-/app/Config/core.php
-/app/Config/database.php
-#/vendors/*
-/runtime/*
-/.idea/.gitignore
-/.idea/huobiserver.iml
-/.idea/modules.xml
-/.idea/php.xml
-/.idea/inspectionProfiles/Project_Default.xml
-/.idea/vcs.xml
+# 环境配置
+.env
+.env.local
+.phpunit.result.cache
