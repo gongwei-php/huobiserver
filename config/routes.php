@@ -14,6 +14,8 @@ use Hyperf\HttpServer\Router\Router;
 use Hyperf\HttpMessage\Server\Response;
 use Hyperf\HttpMessage\Stream\SwooleStream;
 
+Router::post('/api/v1/login', [\App\Http\Api\Controller\V1\MemberController::class, 'login']);
+
 Router::get('/uploads/{file:.+}', function ($file) {
     // 真实文件路径
     $file = urldecode($file);
