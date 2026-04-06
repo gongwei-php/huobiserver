@@ -142,7 +142,6 @@ final class MemberController extends AbstractController
         tags: ['admin:passport']
     )]
     #[ResultResponse(instance: new Result(), example: '{"code":200,"message":"成功","data":[]}')]
-    #[Middleware(TokenMiddleware::class)]
     public function logout(): Result
     {
         $this->memberService->logout($this->getToken());
