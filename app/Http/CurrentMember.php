@@ -24,7 +24,7 @@ final class CurrentMember
     public function member(): ?Member
     {
         if (Context::has('current_member')) {
-            return Context::get('current_member');
+            return self::ctxMember();
         }
 
         try {

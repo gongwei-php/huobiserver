@@ -35,7 +35,6 @@ final class MemberService extends IService implements CheckTokenInterface
     public function register(string $account, string $phone, string $password, string $ip): array
     {
         $code = 0;
-        $msg = '';
         $data = [];
         $is_exists = $this->repository->findByAccount($account);
         if ($is_exists) {
@@ -88,15 +87,32 @@ final class MemberService extends IService implements CheckTokenInterface
      */
     public function login(string $account, string $password): array
     {
+        $code = 0;
+        $data = [];
         $member = $this->repository->findByAccount($account);
         if (!$member) {
-            throw new BusinessException(ResultCode::USER_NOT_FOUND, trans('auth.password_error'));
+            $msg = '사용자가 등록되지 않았습니다';
+            return [
+                'code' => $code,
+                'msg' => $msg,
+                'data' => $data
+            ];
         }
-        if (! $member->verifyPassword($password)) {
-            throw new BusinessException(ResultCode::UNPROCESSABLE_ENTITY, trans('auth.password_error'));
+        if (!$member->verifyPassword($password)) {
+            $msg = '계정 또는 비밀번호가 잘못되었습니다';
+            return [
+                'code' => $code,
+                'msg' => $msg,
+                'data' => $data
+            ];
         }
         if ($member->status->isDisable()) {
-            throw new BusinessException(ResultCode::DISABLED);
+            $msg = '계정이 비활성화되었습니다';
+            return [
+                'code' => $code,
+                'msg' => $msg,
+                'data' => $data
+            ];
         }
         $jwt = $this->getJwt();
         return [
