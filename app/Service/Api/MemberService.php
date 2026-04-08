@@ -176,8 +176,8 @@ final class MemberService extends IService implements CheckTokenInterface
             return $this->cache->get((string) $id);
         }
         $member = $this->repository->findById((string) $id);
-        $wallet_id = $member->wallet_id;
-        $wallet = MemberWallet::find($wallet_id);
+        $member_id = $member->id;
+        $wallet = MemberWallet::where('member_id', $member_id)->find();
         $member->balance = $wallet->balance ?? 0;
         $member->total_profit = $wallet->total_profit ?? 0;
         $this->cache->set((string) $id, $member, 60);
