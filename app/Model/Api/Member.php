@@ -47,7 +47,7 @@ final class Member extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected array $fillable = ['id', 'vip_level_id', 'account', 'password', 'phone', 'avatar', 'status', 'login_ip', 'login_time', 'created_at', 'updated_at', 'updated_by'];
+    protected array $fillable = ['id', 'vip_level_id', 'account', 'password', 'phone', 'avatar', 'status', 'login_ip', 'login_time', 'created_at', 'updated_at', 'updated_by', 'balance', 'total_profit'];
 
     /**
      * The attributes that should be cast to native types.
@@ -58,6 +58,8 @@ final class Member extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    protected $appends = ['balance', 'total_profit'];
 
     public function setPasswordAttribute($value): void
     {
