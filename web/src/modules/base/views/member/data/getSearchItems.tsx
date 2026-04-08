@@ -16,8 +16,8 @@ export default function getSearchItems(t: any, levelData: any): MaSearchItem[] {
       render: 'input',
     },
     {
-      label: () => t('baseMemberManage.vip_level_id'),
-      prop: 'vip_level_id',
+      label: () => t('baseMemberManage.vip_level'),
+      prop: 'vip_level',
       render: () => <el-tree-select />,
       renderProps: {
         data: levelData,
@@ -27,7 +27,7 @@ export default function getSearchItems(t: any, levelData: any): MaSearchItem[] {
         props: { label: 'name' },
         checkStrictly: true,
         nodeKey: 'id',
-        placeholder: t('form.pleaseInput', { msg: t('baseMemberManage.vip_level_id') }),
+        placeholder: t('form.pleaseInput', { msg: t('baseMemberManage.vip_level') }),
       },
     },
     {

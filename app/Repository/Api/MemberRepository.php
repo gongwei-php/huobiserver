@@ -3,14 +3,52 @@
 namespace App\Repository\Api;
 
 use App\Model\Api\Member;
+use App\Model\Api\MemberVip;
+use App\Model\Api\MemberWallet;
 use App\Repository\IRepository;
 use Hyperf\Collection\Arr;
 use Hyperf\Collection\Collection;
 use Hyperf\Database\Model\Builder;
+use Hyperf\Contract\LengthAwarePaginatorInterface;
+use Hyperf\Paginator\AbstractPaginator;
 
 final class MemberRepository extends IRepository
 {
     public function __construct(protected readonly Member $model) {}
+
+    public function handleItems(Collection $items): Collection
+    {
+        $a_vip_levels = collect($items)->keyBy('vip_level_id')->toArray();
+        $vip_repository = new MemberVipRepository(new MemberVip());
+        $a_vips = $vip_repository->getVipByLevels($a_vip_levels);
+        $a_vips = array_combine(array_column($a_vips, 'level'), $a_vips);
+
+        $a_member_ids = collect($items)->keyBy('id')->toArray();
+        $o_wallets = MemberWallet::whereIn('member_id', $a_member_ids)
+            ->get();
+        $a_walltes = $o_wallets ? $o_wallets->toArray() : [];
+        $a_walltes = array_combine(array_column($a_walltes, 'member_id'), $a_walltes);
+
+        foreach ($items as $item) {
+            $vip_level_id = $item->vip_level_id;
+            $member_id = $item->id;
+            $vip_level = $a_vips[$vip_level_id]['level'] ?? 0;
+            $balance = $a_walltes[$member_id]['balance'] ?? 0;
+            $total_profit = $a_walltes[$member_id]['total_profit'] ?? 0;
+
+            $balance = bcadd((string)$balance, '0', 3);
+            $total_profit = bcadd((string)$total_profit, '0', 3);
+
+            $balance = rtrim(rtrim($balance, '0'), '.');
+            $total_profit = rtrim(rtrim($total_profit, '0'), '.');
+
+            $item->vip_level = $vip_level;
+            $item->balance = $balance;
+            $item->total_profit = $total_profit;
+        }
+
+        return $items;
+    }
 
     public function findByAccount(string $account): Member|bool
     {

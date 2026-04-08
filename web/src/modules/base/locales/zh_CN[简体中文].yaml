@@ -22,7 +22,9 @@ baseUserManage:
 baseMemberManage:
   avatar: 头像
   account: 账号
-  vip_level_id: VIP 等级
+  vip_level: VIP 等级
+  balance: 当前资产
+  total_profit: 累计盈亏
   phone: 手机
   password: 密码
   mainTitle: 会员管理

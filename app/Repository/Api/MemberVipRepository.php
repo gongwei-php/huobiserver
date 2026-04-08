@@ -26,6 +26,18 @@ final class MemberVipRepository extends IRepository
         return $is_exist;
     }
 
+    public function getVipByLevels(array $a_levels): array|bool
+    {
+        $o_vips = $this->model->newQuery()
+            ->whereIn('level', $a_levels)
+            ->get();
+        if (!$o_vips) {
+            return false;
+        }
+
+        return $o_vips->toArray();
+    }
+
     public function handleSearch(Builder $query, array $params): Builder
     {
         return $query

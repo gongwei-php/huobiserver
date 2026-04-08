@@ -26,7 +26,7 @@ final class MemberService  extends IService
                 $params['sortAsc'] = $sort;
             }
         }
-        return parent::page($params, $page, $pageSize);
+        return $this->repository->page($params, $page, $pageSize);
     }
 
     public function resetPassword(?int $id): bool

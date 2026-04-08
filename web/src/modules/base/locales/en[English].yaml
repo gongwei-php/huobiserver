@@ -20,7 +20,9 @@ baseUserManage:
 baseMemberManage:
   avatar: Avatar
   account: Account
-  vip_level_id: VIP Level
+  vip_level: VIP Level
+  balance: Current Assets
+  total_profit: Accumulated Profit and Loss
   phone: Phone
   password: Password
   mainTitle: Member Rule
