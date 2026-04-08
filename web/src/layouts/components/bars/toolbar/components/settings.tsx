@@ -1,12 +1,4 @@
-/**
- * MineAdmin is committed to providing solutions for quickly building web applications
- * Please view the LICENSE file that was distributed with this source code,
- * For the full copyright and license information.
- * Thank you very much for using MineAdmin.
- *
- * @Author X.Mo<root@imoi.cn>
- * @Link   https://github.com/mineadmin
- */
+
 import type { MineToolbar, SystemSettings } from '#/global'
 import useThemeColor from '@/hooks/useThemeColor.ts'
 import { useSortable } from '@vueuse/integrations/useSortable'
@@ -231,7 +223,7 @@ export default defineComponent({
               { label: useTrans('mineAdmin.settings.copyRights.enable') as string, value: 'enable' },
             ])
           }
-          { options.map((item: any) => (
+          {options.map((item: any) => (
             <div class="mine-setting-description">
               <div class="desc-label !w-6/12">{item.label}</div>
               <div class="desc-value !w-6/12">
@@ -275,7 +267,8 @@ export default defineComponent({
                   {colorModeSettings()}
                 </div>
                 {keys.value.colorMode !== 'dark' && settingsRender('app', [
-                  { label: useTrans('mineAdmin.settings.asideDark') as string,
+                  {
+                    label: useTrans('mineAdmin.settings.asideDark') as string,
                     value: 'asideDark',
                     change: (v: boolean) => settingStore.setAsideDark(v),
                   },

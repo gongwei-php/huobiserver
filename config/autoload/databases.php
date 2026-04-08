@@ -1,14 +1,8 @@
 <?php
 
 declare(strict_types=1);
-/**
- * This file is part of MineAdmin.
- *
- * @link     https://www.mineadmin.com
- * @document https://doc.mineadmin.com
- * @contact  root@imoi.cn
- * @license  https://github.com/mineadmin/MineAdmin/blob/master/LICENSE
- */
+
+
 use Hyperf\Database\Commands\Ast\ModelRewriteKeyInfoVisitor;
 use Hyperf\Database\Commands\Ast\ModelRewriteSoftDeletesVisitor;
 use Hyperf\Database\Commands\Ast\ModelRewriteTimestampsVisitor;
@@ -37,7 +31,7 @@ return [
         ],
         'cache' => [
             'handler' => RedisHandler::class,
-            'cache_key' => 'MineAdmin:%s:m:%s:%s:%s',
+            'cache_key' => 'Huobi:%s:m:%s:%s:%s',
             'prefix' => 'model-cache',
             'ttl' => 86400 * 7,
             'empty_model_ttl' => 60,

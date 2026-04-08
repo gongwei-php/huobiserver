@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <script setup lang="tsx">
 import type { MaFormExpose, MaFormItem, MaFormOptions } from '@mineadmin/form'
 import type { Ref } from 'vue'
@@ -58,7 +49,7 @@ function setData(data: Record<string, any>) {
   }
 }
 
-const inputVisible = ref <Record<string, boolean>>({
+const inputVisible = ref<Record<string, boolean>>({
   auth: false,
   role: false,
   user: false,
@@ -337,15 +328,7 @@ defineExpose({
 </script>
 
 <template>
-  <ma-form
-    v-if="state"
-    ref="menuForm"
-    v-model="form"
-    class="mt-5"
-    :options="formOptions"
-  />
+  <ma-form v-if="state" ref="menuForm" v-model="form" class="mt-5" :options="formOptions" />
 </template>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <script setup lang="ts">
 import Message from 'vue-m-message'
 import { useI18n } from 'vue-i18n'
@@ -78,38 +69,25 @@ async function submit() {
       <div class="mine-login-form-item-title">
         {{ t('loginForm.usernameLabel') }}
       </div>
-      <m-input
-        v-model="form.username"
+      <m-input v-model="form.username"
         class="!bg-white !text-black !ring-gray-2 !focus-ring-[rgb(var(--ui-primary))] !placeholder-stone-4"
-        name="username"
-        :placeholder="t('loginForm.usernamePlaceholder')"
-        @blur="easyValidate"
-      />
+        name="username" :placeholder="t('loginForm.usernamePlaceholder')" @blur="easyValidate" />
     </div>
     <div class="mine-login-form-item">
       <div class="mine-login-form-item-title">
         {{ t('loginForm.passwordLabel') }}
       </div>
-      <m-input
-        v-model="form.password"
+      <m-input v-model="form.password"
         class="!bg-white !text-black !ring-gray-2 !focus-ring-[rgb(var(--ui-primary))] !placeholder-stone-4"
-        name="password"
-        type="password"
-        :placeholder="t('loginForm.passwordPlaceholder')"
-        @blur="easyValidate"
-      />
+        name="password" type="password" :placeholder="t('loginForm.passwordPlaceholder')" @blur="easyValidate" />
     </div>
     <div v-if="isProduction" class="mine-login-form-item">
       <div class="mine-login-form-item-title">
         {{ t('loginForm.codeLabel') }}
       </div>
-      <m-input
-        v-model="form.code"
-        class="!bg-white !text-black !ring-gray-2 !focus-ring-[rgb(var(--ui-primary))] !placeholder-stone-4"
-        name="code"
-        :placeholder="t('loginForm.codePlaceholder')"
-        @blur="easyValidate"
-      >
+      <m-input v-model="form.code"
+        class="!bg-white !text-black !ring-gray-2 !focus-ring-[rgb(var(--ui-primary))] !placeholder-stone-4" name="code"
+        :placeholder="t('loginForm.codePlaceholder')" @blur="easyValidate">
         <template #suffix>
           <div class="ml-0.5 w-30 flex items-center justify-center text-sm">
             <ma-verify-code ref="codeRef" />
@@ -118,14 +96,12 @@ async function submit() {
       </m-input>
     </div>
     <div class="mine-login-form-item mt-2">
-      <m-button
-        type="submit"
+      <m-button type="submit"
         class="!bg-[rgb(var(--ui-primary))] !text-gray-1 !active-bg-[rgb(var(--ui-primary))] !hover-bg-[rgb(var(--ui-primary)/.75)]"
         :class="{
           // 'py-3': userStore.getLanguage() === 'en',
           loading: isFormSubmit,
-        }"
-      >
+        }">
         <ma-svg-icon name="formkit:submit" /> {{ t('loginForm.loginButton') }}
       </m-button>
     </div>

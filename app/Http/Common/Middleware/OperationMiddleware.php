@@ -1,14 +1,7 @@
 <?php
 
 declare(strict_types=1);
-/**
- * This file is part of MineAdmin.
- *
- * @link     https://www.mineadmin.com
- * @document https://doc.mineadmin.com
- * @contact  root@imoi.cn
- * @license  https://github.com/mineadmin/MineAdmin/blob/master/LICENSE
- */
+
 
 namespace App\Http\Common\Middleware;
 
@@ -58,14 +51,14 @@ class OperationMiddleware implements MiddlewareInterface
         if (! $parseResult) {
             return $handler->handle($request);
         }
-        [$controller,$method] = $parseResult;
+        [$controller, $method] = $parseResult;
         $operator = $this->getClassMethodPathAttribute($controller, $method);
         if ($operator !== null) {
             $this->dispatcher->dispatch(new RequestOperationEvent(
                 $this->user->id(),
                 $operator->summary,
                 $request->getUri()->getPath(),
-                Arr::first(array: $this->container->get(Request::class)->getClientIps(), callback: static fn ($val) => $val, default: '0.0.0.0'),
+                Arr::first(array: $this->container->get(Request::class)->getClientIps(), callback: static fn($val) => $val, default: '0.0.0.0'),
                 $request->getMethod(),
             ));
         }

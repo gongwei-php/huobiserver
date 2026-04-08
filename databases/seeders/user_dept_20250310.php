@@ -1,14 +1,7 @@
 <?php
 
 declare(strict_types=1);
-/**
- * This file is part of MineAdmin.
- *
- * @link     https://www.mineadmin.com
- * @document https://doc.mineadmin.com
- * @contact  root@imoi.cn
- * @license  https://github.com/mineadmin/MineAdmin/blob/master/LICENSE
- */
+
 
 use App\Model\Permission\Menu;
 use Hyperf\Database\Seeders\Seeder;
@@ -20,7 +13,7 @@ class UserDept20250310 extends Seeder
      */
     public function run()
     {
-        $parent = Menu::where('name','permission')->firstOrFail();
+        $parent = Menu::where('name', 'permission')->firstOrFail();
         $now = Menu::create([
             'name'  =>  'permission:department',
             'path'  =>  '/permission/departments',

@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <i18n lang="yaml">
 en:
   parse_success: "Parse successful"
@@ -81,12 +72,10 @@ const maDialog: UseDialogExpose = useDialog({
       <el-button type="primary" @click="addKeyValue">
         {{ t('add') }}
       </el-button>
-      <el-button
-        @click="() => {
-          maDialog.setTitle(t('parse_data'))
-          maDialog.open({ formType: 'add' })
-        }"
-      >
+      <el-button @click="() => {
+        maDialog.setTitle(t('parse_data'))
+        maDialog.open({ formType: 'add' })
+      }">
         {{ t('parse') }}
       </el-button>
     </div>

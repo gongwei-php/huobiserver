@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <script setup lang="ts">
 import { useColorMode } from '@vueuse/core'
 import getReportData from '~/base/views/dashboard/datas/report.ts'
@@ -25,9 +16,8 @@ function tooltipItemsHtmlString(items: any[]) {
     .map(
       el => `<div class="content-panel">
         <p>
-          <span style="background-color: ${
-  el.color
-}" class="tooltip-item-icon"></span><span>${el.seriesName}</span>
+          <span style="background-color: ${el.color
+        }" class="tooltip-item-icon"></span><span>${el.seriesName}</span>
         </p>
         <span class="tooltip-value">${el.value.toLocaleString()}</span>
       </div>`,
@@ -262,15 +252,8 @@ useEcharts(echartsOverview).setOption(chartOption)
     <div class="grid grid-cols-2 mt-6 gap-y-3 md:grid-cols-4">
       <template v-for="(item, idx) in renderData" :key="idx">
         <div class="content flex gap-3">
-          <div
-            class="h-[50px] w-[50px] flex-center rounded-md p-1"
-            :style="{ background: item.prefix.background }"
-          >
-            <ma-svg-icon
-              :name="item.prefix.icon"
-              :style="{ color: item.prefix.iconColor }"
-              :size="50"
-            />
+          <div class="h-[50px] w-[50px] flex-center rounded-md p-1" :style="{ background: item.prefix.background }">
+            <ma-svg-icon :name="item.prefix.icon" :style="{ color: item.prefix.iconColor }" :size="50" />
           </div>
           <el-statistic :value="item.value">
             <template #title>
@@ -286,6 +269,4 @@ useEcharts(echartsOverview).setOption(chartOption)
   </div>
 </template>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

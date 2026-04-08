@@ -1,14 +1,7 @@
 <?php
 
 declare(strict_types=1);
-/**
- * This file is part of MineAdmin.
- *
- * @link     https://www.mineadmin.com
- * @document https://doc.mineadmin.com
- * @contact  root@imoi.cn
- * @license  https://github.com/mineadmin/MineAdmin/blob/master/LICENSE
- */
+
 
 use App\Library\DataPermission\Context;
 use App\Library\DataPermission\ScopeType;
@@ -26,7 +19,7 @@ return [
         $createdByColumn = Context::getCreatedByColumn();
         // 获取当前上下文中的部门字段名称
         $deptColumn = Context::getDeptColumn();
-        switch ($scopeType){
+        switch ($scopeType) {
             // 隔离类型为根据创建人
             case ScopeType::CREATED_BY:
                 // 创建人字段为当前用户

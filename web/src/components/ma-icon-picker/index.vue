@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <i18n lang="yaml">
 en:
   showInputPlaceholder: Click the back button to select the icon
@@ -37,12 +28,7 @@ const dialogVisible = ref<boolean>(false)
 <template>
   <div>
     <div>
-      <el-input
-        v-model="model"
-        class="relative w-full"
-        readonly
-        :placeholder="useLocalTrans('showInputPlaceholder')"
-      >
+      <el-input v-model="model" class="relative w-full" readonly :placeholder="useLocalTrans('showInputPlaceholder')">
         <template v-if="model" #prefix>
           <ma-svg-icon :name="model" :size="20" />
         </template>
@@ -52,30 +38,24 @@ const dialogVisible = ref<boolean>(false)
           </el-button>
         </template>
         <template #append>
-          <el-button
-            @click="() => {
-              model = ''
-              iconPanelRef?.clear()
-            }"
-          >
+          <el-button @click="() => {
+            model = ''
+            iconPanelRef?.clear()
+          }">
             {{ useLocalTrans('clear') }}
           </el-button>
         </template>
       </el-input>
     </div>
 
-    <el-dialog v-model="dialogVisible" :title="useLocalTrans('selectedIcon')" width="800" append-to-body draggable destroy-on-close align-center>
-      <MaIconPanel
-        ref="iconPanelRef"
-        @select="(icon: string) => {
-          model = icon
-          dialogVisible = false
-        }"
-      />
+    <el-dialog v-model="dialogVisible" :title="useLocalTrans('selectedIcon')" width="800" append-to-body draggable
+      destroy-on-close align-center>
+      <MaIconPanel ref="iconPanelRef" @select="(icon: string) => {
+        model = icon
+        dialogVisible = false
+      }" />
     </el-dialog>
   </div>
 </template>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

@@ -1,12 +1,4 @@
-/**
- * MineAdmin is committed to providing solutions for quickly building web applications
- * Please view the LICENSE file that was distributed with this source code,
- * For the full copyright and license information.
- * Thank you very much for using MineAdmin.
- *
- * @Author X.Mo<root@imoi.cn>
- * @Link   https://github.com/mineadmin
- */
+
 import '@/layouts/style/tabbar.scss'
 import Message from 'vue-m-message'
 import { useI18n } from 'vue-i18n'
@@ -199,40 +191,40 @@ export default defineComponent({
                 onClick={(e: MouseEvent) => redirect(e, item)}
                 onContextmenu={(e: MouseEvent) => executeContextmenu(e, item)}
               >
-                {item.icon && <ma-svg-icon name={item.icon} class="menu-icon" /> }
+                {item.icon && <ma-svg-icon name={item.icon} class="menu-icon" />}
                 <span class="title">
                   {item?.i18n ? useTrans(item.i18n) : item.title}
                 </span>
                 {item.affix && pressKeys.oneKey !== 'alt'
-                && (
-                  <ma-svg-icon
-                    name="ic:baseline-push-pin"
-                    class="icon"
-                    onClick={(e: Event) => {
-                      e.stopPropagation()
-                      if (item.name === tabStore.defaultTab.name) {
-                        Message.error(t('mineAdmin.tab.cannotUnfixed'))
-                        return
-                      }
-                      tabStore.cancelAffixTab(item)
-                    }}
-                  />
-                )}
+                  && (
+                    <ma-svg-icon
+                      name="ic:baseline-push-pin"
+                      class="icon"
+                      onClick={(e: Event) => {
+                        e.stopPropagation()
+                        if (item.name === tabStore.defaultTab.name) {
+                          Message.error(t('mineAdmin.tab.cannotUnfixed'))
+                          return
+                        }
+                        tabStore.cancelAffixTab(item)
+                      }}
+                    />
+                  )}
                 {!item.affix && pressKeys.oneKey !== 'alt'
-                && (
-                  <ma-svg-icon
-                    name="material-symbols:close-rounded"
-                    class="icon"
-                    onClick={(e: Event) => {
-                      e.stopPropagation()
-                      tabStore.closeTab(item)
-                    }}
-                  />
-                )}
+                  && (
+                    <ma-svg-icon
+                      name="material-symbols:close-rounded"
+                      class="icon"
+                      onClick={(e: Event) => {
+                        e.stopPropagation()
+                        tabStore.closeTab(item)
+                      }}
+                    />
+                  )}
                 {pressKeys.oneKey === 'alt'
-                && (
-                  <span class="number-icon">{ idx + 1 }</span>
-                )}
+                  && (
+                    <span class="number-icon">{idx + 1}</span>
+                  )}
               </a>
             )
           })}

@@ -1,12 +1,4 @@
-/**
- * MineAdmin is committed to providing solutions for quickly building web applications
- * Please view the LICENSE file that was distributed with this source code,
- * For the full copyright and license information.
- * Thank you very much for using MineAdmin.
- *
- * @Author X.Mo<root@imoi.cn>
- * @Link   https://github.com/mineadmin
- */
+
 import type { App } from 'vue'
 import type { MineToolbar } from '#/global'
 import MaSvgIcon from '@/components/ma-svg-icon/index.vue'
@@ -75,7 +67,7 @@ export default function toolbars() {
 
   const render = () => {
     return Promise.all(getShowToolbar().map(async (item: MineToolbar) => {
-      const handle = item?.handle ? item.handle : () => {}
+      const handle = item?.handle ? item.handle : () => { }
       const className = typeof item?.className === 'function' ? item.className() : item.className
       if (item?.handle) {
         return h(

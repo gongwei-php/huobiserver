@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <script setup lang="tsx">
 import type { CallbackDataParams } from 'echarts/types/dist/shared'
 import { useColorMode } from '@vueuse/core'
@@ -166,21 +157,15 @@ useEcharts(echarts).setOption(options.value)
     <div class="flex items-center justify-between text-base">
       <div>内容发布比例</div>
       <div class="w-180px">
-        <m-tabs
-          v-model="dater"
-          class="h-7 w-full text-sm"
-          :options="[
-            { label: '一周内', value: 'week' },
-            { label: '昨日', value: 'yesterday' },
-            { label: '今日', value: 'today' },
-          ]"
-        />
+        <m-tabs v-model="dater" class="h-7 w-full text-sm" :options="[
+          { label: '一周内', value: 'week' },
+          { label: '昨日', value: 'yesterday' },
+          { label: '今日', value: 'today' },
+        ]" />
       </div>
     </div>
     <div ref="echarts" class="mt-5 h-300px" />
   </div>
 </template>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

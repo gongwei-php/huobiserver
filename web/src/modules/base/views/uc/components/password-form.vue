@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <i18n lang="yaml">
 en:
   changeInfo:
@@ -102,37 +93,22 @@ defineExpose({ submit })
       <div class="mine-form-item-title">
         {{ useLocalTrans('changeInfo.old_passwordLabel') }}
       </div>
-      <m-input
-        v-model="form.old_password"
-        type="password"
-        name="old_password"
-        :placeholder="useLocalTrans('changeInfo.old_passwordPlaceholder')"
-        @blur="easyValidate"
-      />
+      <m-input v-model="form.old_password" type="password" name="old_password"
+        :placeholder="useLocalTrans('changeInfo.old_passwordPlaceholder')" @blur="easyValidate" />
     </div>
     <div class="mine-form-item">
       <div class="mine-form-item-title">
         {{ useLocalTrans('changeInfo.new_passwordLabel') }}
       </div>
-      <m-input
-        v-model="form.new_password"
-        type="password"
-        name="new_password"
-        :placeholder="useLocalTrans('changeInfo.new_passwordPlaceholder')"
-        @blur="easyValidate"
-      />
+      <m-input v-model="form.new_password" type="password" name="new_password"
+        :placeholder="useLocalTrans('changeInfo.new_passwordPlaceholder')" @blur="easyValidate" />
     </div>
     <div class="mine-form-item">
       <div class="mine-form-item-title">
         {{ useLocalTrans('changeInfo.new_password_confirmationLabel') }}
       </div>
-      <m-input
-        v-model="form.new_password_confirmation"
-        type="password"
-        name="new_password_confirmation"
-        :placeholder="useLocalTrans('changeInfo.new_password_confirmationPlaceholder')"
-        @blur="easyValidate"
-      />
+      <m-input v-model="form.new_password_confirmation" type="password" name="new_password_confirmation"
+        :placeholder="useLocalTrans('changeInfo.new_password_confirmationPlaceholder')" @blur="easyValidate" />
     </div>
   </form>
 </template>

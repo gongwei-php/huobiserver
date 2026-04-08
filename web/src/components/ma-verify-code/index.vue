@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <i18n lang="yaml">
 zh_CN:
   MaVerifyCodeError: 验证码错误
@@ -125,13 +116,7 @@ defineExpose({ checkResult, refresh })
 </script>
 
 <template>
-  <canvas
-    ref="el"
-    class="canvas"
-    :width="props.width"
-    :height="props.height"
-    @click="refresh"
-  />
+  <canvas ref="el" class="canvas" :width="props.width" :height="props.height" @click="refresh" />
 </template>
 
 <style scoped lang="scss">

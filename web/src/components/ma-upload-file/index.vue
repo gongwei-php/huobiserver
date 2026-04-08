@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <i18n lang="yaml">
 en:
   uploadFile: Upload File
@@ -133,18 +124,9 @@ watch(
 </script>
 
 <template>
-  <el-upload
-    v-model:file-list="fileList"
-    :before-upload="beforeUpload"
-    :http-request="uploadLocal"
-    :on-success="handleSuccess"
-    :on-exceed="handleExceed"
-    :on-error="handleError"
-    :multiple="multiple"
-    :limit="limit"
-    v-bind="$attrs"
-    class="w-full"
-  >
+  <el-upload v-model:file-list="fileList" :before-upload="beforeUpload" :http-request="uploadLocal"
+    :on-success="handleSuccess" :on-exceed="handleExceed" :on-error="handleError" :multiple="multiple" :limit="limit"
+    v-bind="$attrs" class="w-full">
     <slot name="default">
       <el-button type="primary">
         {{ title ?? t('uploadFile') }}
@@ -160,5 +142,4 @@ watch(
   </el-upload>
 </template>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

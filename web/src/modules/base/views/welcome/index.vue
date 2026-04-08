@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <script setup lang="tsx">
 import type { MaTableExpose } from '@mineadmin/table'
 import useTable from '@/hooks/useTable.ts'
@@ -18,7 +9,8 @@ useTable('table').then((table: MaTableExpose) => {
   table.setColumns([
     { label: '成员', prop: 'member', width: 150, align: 'center' },
     { label: '动态', prop: 'dynamic', align: 'center' },
-    { label: '时间', prop: 'timer', width: 180, align: 'center',
+    {
+      label: '时间', prop: 'timer', width: 180, align: 'center',
       cellRender: ({ row }) => {
         return useDayjs(row.timer).fromNow()
       },
@@ -151,7 +143,8 @@ useTable('table').then((table: MaTableExpose) => {
               </el-link>
             </li>
             <li>
-              QQ交流群：<el-link target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=Uq4VW1H9jtDhEKsUb3hfjHraiSG80FI4&jump_from=webapi&authKey=bpaCvnQ65RpLdyQx8m57iQNc9OtgJgyIjrcG3qDrJZhnL4QdqzDLLQS8fx5jkevE">
+              QQ交流群：<el-link target="_blank"
+                href="https://qm.qq.com/cgi-bin/qm/qr?k=Uq4VW1H9jtDhEKsUb3hfjHraiSG80FI4&jump_from=webapi&authKey=bpaCvnQ65RpLdyQx8m57iQNc9OtgJgyIjrcG3qDrJZhnL4QdqzDLLQS8fx5jkevE">
                 150105478，点击加入
               </el-link>
             </li>
@@ -171,10 +164,7 @@ useTable('table').then((table: MaTableExpose) => {
 
 <style lang="scss" scoped>
 .run-list {
-  @apply b-1 b-solid b-gray-1 dark-b-dark-3 p-3 b-l-0 b-t-0 b-r-0 lg:b-r-1
-  transition-all duration-300
-  hover-shadow dark-hover-shadow-dark-3
-  ;
+  @apply b-1 b-solid b-gray-1 dark-b-dark-3 p-3 b-l-0 b-t-0 b-r-0 lg:b-r-1 transition-all duration-300 hover-shadow dark-hover-shadow-dark-3;
 
   .desc {
     @apply mt-3 text-sm leading-6 dark-text-[#888] text-gray-5

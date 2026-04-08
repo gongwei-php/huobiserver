@@ -1,13 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link https://github.com/mineadmin
--->
-
 <script setup lang="tsx">
 import type { DepartmentVo } from '~/base/api/department.ts'
 import type { MaTableColumns, MaTableOptions } from '@mineadmin/table'
@@ -57,9 +47,11 @@ const tableColumns = ref<MaTableColumns[]>([
 
 <style scoped lang="scss">
 :deep(.mineadmin-pro-table-search) {
-  margin: 0; padding: 0;
+  margin: 0;
+  padding: 0;
   @apply pt-3;
 }
+
 :deep(.mine-card) {
   margin: 0;
 }

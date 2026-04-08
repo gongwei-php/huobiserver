@@ -1,12 +1,4 @@
-/**
- * MineAdmin is committed to providing solutions for quickly building web applications
- * Please view the LICENSE file that was distributed with this source code,
- * For the full copyright and license information.
- * Thank you very much for using MineAdmin.
- *
- * @Author X.Mo<root@imoi.cn>
- * @Link   https://github.com/mineadmin
- */
+
 import { KeepAlive, Transition } from 'vue'
 import { RouterView } from 'vue-router'
 import MineHeader from './components/header'
@@ -64,7 +56,7 @@ export default defineComponent({
 
     return () => (
       <>
-        { route.meta?.useDefaultLayout !== false && (
+        {route.meta?.useDefaultLayout !== false && (
           <div class="app-container">
             <MineHeader />
             <div class={{
@@ -107,7 +99,7 @@ export default defineComponent({
             <MineSearchPanel v-show={getSearchPanelEnable()} />
           </div>
         )}
-        { route.meta?.useDefaultLayout === false && (
+        {route.meta?.useDefaultLayout === false && (
           <div class="no-default-layout-container">
             <RouterView class="router-view" v-else>
               {({ Component }) => (

@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <script setup lang="tsx">
 import type { ElForm } from 'element-plus'
 import { useMessage } from '@/hooks/useMessage.ts'
@@ -128,27 +119,22 @@ function createOrSaveMenu() {
 </script>
 
 <template>
-  <div
-    v-loading="loading"
-    class="mine-card menu-container h-full gap-x-4.5 lg:flex"
-    :style="{ height: `${getOnlyWorkAreaHeight() + 12}px` }"
-  >
+  <div v-loading="loading" class="mine-card menu-container h-full gap-x-4.5 lg:flex"
+    :style="{ height: `${getOnlyWorkAreaHeight() + 12}px` }">
     <div class="relative w-full overflow-hidden b-r-1 b-r-gray-2 b-r-solid pr-5 lg:w-4/12 dark-b-r-dark-3">
-      <MenuTree
-        ref="menuTreeRef"
-        :data="menuList"
-        @menu-select="(menu: MenuVo) => {
-          if (menu?.meta?.type === 'M' && menu?.meta?.useDefaultLayout === undefined) {
-            menu.meta.useDefaultLayout = true
-          }
-          currentMenu = menu
-          menuFormRef?.setData?.(menu)
-        }"
-      />
+      <MenuTree ref="menuTreeRef" :data="menuList" @menu-select="(menu: MenuVo) => {
+        if (menu?.meta?.type === 'M' && menu?.meta?.useDefaultLayout === undefined) {
+          menu.meta.useDefaultLayout = true
+        }
+        currentMenu = menu
+        menuFormRef?.setData?.(menu)
+      }" />
     </div>
     <div class="relative mt-3 h-[calc(100%-250px)] w-full overflow-x-hidden overflow-y-auto pr-5 lg:mt-0 lg:h-full">
-      <div class="sticky top-0 z-2 flex items-center justify-between b-b-1 b-b-gray-1 b-b-solid bg-white pb-3 text-base dark-b-b-dark-4 dark-bg-dark-8">
-        <span>{{ currentMenu ? (currentMenu.meta?.i18n ? t(currentMenu.meta?.i18n) : currentMenu.meta?.title) : t('baseMenuManage.addTopMenu') }}</span>
+      <div
+        class="sticky top-0 z-2 flex items-center justify-between b-b-1 b-b-gray-1 b-b-solid bg-white pb-3 text-base dark-b-b-dark-4 dark-bg-dark-8">
+        <span>{{ currentMenu ? (currentMenu.meta?.i18n ? t(currentMenu.meta?.i18n) : currentMenu.meta?.title) :
+          t('baseMenuManage.addTopMenu') }}</span>
         <div>
           <el-button type="primary" @click="createOrSaveMenu">
             {{ t('crud.save') }}

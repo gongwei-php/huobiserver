@@ -1,12 +1,4 @@
-/**
- * MineAdmin is committed to providing solutions for quickly building web applications
- * Please view the LICENSE file that was distributed with this source code,
- * For the full copyright and license information.
- * Thank you very much for using MineAdmin.
- *
- * @Author X.Mo<root@imoi.cn>
- * @Link   https://github.com/mineadmin
- */
+
 import type { MaProTableColumns, MaProTableExpose } from '@mineadmin/pro-table'
 import type { RoleVo } from '~/base/api/role.ts'
 import type { UseDialogExpose } from '@/hooks/useDialog.ts'
@@ -27,7 +19,8 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
 
   return [
     // 多选列
-    { type: 'selection', showOverflowTooltip: false, label: () => t('crud.selection'),
+    {
+      type: 'selection', showOverflowTooltip: false, label: () => t('crud.selection'),
       cellRender: ({ row }): any => row.id === 1 ? '-' : undefined,
       selectable: (row: RoleVo) => ![1].includes(row.id as number),
     },
@@ -36,7 +29,8 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     // 普通列
     { label: () => t('baseRoleManage.name'), prop: 'name' },
     { label: () => t('baseRoleManage.code'), prop: 'code' },
-    { label: () => t('crud.status'), prop: 'status',
+    {
+      label: () => t('crud.status'), prop: 'status',
       cellRender: ({ row }) => (
         <ElTag type={dictStore.t('system-status', row.status, 'color')}>
           {t(dictStore.t('system-status', row.status, 'i18n'))}

@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <i18n lang="yaml">
 en:
   searchPlaceholder: Search for icons under this category
@@ -117,12 +108,9 @@ handleTabChange(currentName.value)
           <OverlayScrollbarsComponent class="h-[400px] p-3 pl-2 pr-4">
             <div class="icon-content">
               <template v-for="icon in pageData">
-                <div
-                  class="icon-item" :class="{
-                    active: currentName === 'custom' ? icon === model : `${item.prefix}:${icon}` === model,
-                  }"
-                  @click="selected(currentName === 'custom' ? icon : `${item.prefix}:${icon}`)"
-                >
+                <div class="icon-item" :class="{
+                  active: currentName === 'custom' ? icon === model : `${item.prefix}:${icon}` === model,
+                }" @click="selected(currentName === 'custom' ? icon : `${item.prefix}:${icon}`)">
                   <ma-svg-icon :name="currentName === 'custom' ? icon : `${item.prefix}:${icon}`" :size="26" />
                 </div>
               </template>
@@ -132,15 +120,8 @@ handleTabChange(currentName.value)
       </el-tab-pane>
     </template>
     <div class="pagination">
-      <el-pagination
-        v-model:current-page="currentPage"
-        :total="validIcons.length"
-        :page-size="pageSize"
-        background
-        layout="prev, pager, next"
-        :pager-count="5"
-        @current-change="handlePageChange"
-      />
+      <el-pagination v-model:current-page="currentPage" :total="validIcons.length" :page-size="pageSize" background
+        layout="prev, pager, next" :pager-count="5" @current-change="handlePageChange" />
     </div>
   </el-tabs>
 </template>
@@ -151,18 +132,14 @@ handleTabChange(currentName.value)
 }
 
 .pagination {
-  @apply absolute bottom-0 w-full b-t-1 b-t-solid pt-2 flex justify-end items-end
-  bg-white  dark-bg-dark-8
-  b-t-gray-2 dark-b-t-dark-5
-  ;
+  @apply absolute bottom-0 w-full b-t-1 b-t-solid pt-2 flex justify-end items-end bg-white dark-bg-dark-8 b-t-gray-2 dark-b-t-dark-5;
 }
 
 .icon-content {
   @apply grid grid-cols-10 gap-1;
 
   .icon-item {
-    @apply flex items-center justify-center py-3 rounded-md
-    hover-ring-2 hover-ring-[rgb(var(--ui-primary))];
+    @apply flex items-center justify-center py-3 rounded-md hover-ring-2 hover-ring-[rgb(var(--ui-primary))];
   }
 
   .icon-item.active {

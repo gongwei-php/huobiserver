@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <script setup lang="ts">
 import { graphic } from 'echarts'
 import { useEcharts } from '@/hooks/useEcharts.ts'
@@ -125,8 +116,8 @@ const loginChartOptions = ref({
       return `<div class="echarts-tooltip-diy">
         <p class="tooltip-title">${params[0].axisValueLabel}</p>
         <div class="content-panel"><span>登录次数：</span><span class="tooltip-value">${Number(
-    params[0].value,
-  ).toLocaleString()}</span></div>
+        params[0].value,
+      ).toLocaleString()}</span></div>
       </div>`
     },
     className: 'echarts-tooltip-diy',

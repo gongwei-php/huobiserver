@@ -1,13 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link https://github.com/mineadmin
--->
-
 <script setup lang="tsx">
 import type { DepartmentVo } from '~/base/api/department.ts'
 import type { LeaderVo } from '~/base/api/leader.ts'
@@ -202,36 +192,21 @@ function handleDelete() {
 </script>
 
 <template>
-  <ma-pro-table
-    ref="proTableRef"
-    :options="options"
-    :schema="schema"
-    @search-submit="(form: any) => {
-      form.user_id = form.users.id
-    }"
-    @search-reset="(form: any) => {
+  <ma-pro-table ref="proTableRef" :options="options" :schema="schema" @search-submit="(form: any) => {
+    form.user_id = form.users.id
+  }" @search-reset="(form: any) => {
       form.user_id = undefined
-    }"
-  >
+    }">
     <template #toolbarLeft>
       <div>
-        <el-button
-          v-auth="['permission:leader:save']"
-          type="primary"
-          @click="() => {
-            maDialog.setTitle(t('crud.add'))
-            maDialog.open({ formType: 'add' })
-          }"
-        >
+        <el-button v-auth="['permission:leader:save']" type="primary" @click="() => {
+          maDialog.setTitle(t('crud.add'))
+          maDialog.open({ formType: 'add' })
+        }">
           {{ t('crud.add') }}
         </el-button>
-        <el-button
-          v-auth="['permission:leader:delete']"
-          type="danger"
-          plain
-          :disabled="selections.length < 1"
-          @click="handleDelete"
-        >
+        <el-button v-auth="['permission:leader:delete']" type="danger" plain :disabled="selections.length < 1"
+          @click="handleDelete">
           {{ t('crud.delete') }}
         </el-button>
       </div>
@@ -240,12 +215,8 @@ function handleDelete() {
 
   <component :is="maDialog.Dialog">
     <template #default="{ formType }">
-      <ma-form
-        v-if="['add', 'edit'].includes(formType)"
-        ref="leaderForm"
-        v-model="leaderModel"
-        :options="{ labelWidth: 95 }"
-        :items="[
+      <ma-form v-if="['add', 'edit'].includes(formType)" ref="leaderForm" v-model="leaderModel"
+        :options="{ labelWidth: 95 }" :items="[
           {
             label: () => t('baseDeptLeader.belongDept'),
             prop: 'dept_name',
@@ -274,17 +245,18 @@ function handleDelete() {
             },
             itemProps: { rules: [{ required: true, message: t('form.requiredSelect', { msg: t('baseDeptLeader.placeholder.user_id') }) }] },
           },
-        ]"
-      />
+        ]" />
     </template>
   </component>
 </template>
 
 <style scoped lang="scss">
 :deep(.mineadmin-pro-table-search) {
-  margin: 0; padding: 0;
+  margin: 0;
+  padding: 0;
   @apply pt-3;
 }
+
 :deep(.mine-card) {
   margin: 0;
 }

@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <script setup lang="ts">
 import ReportOverview from './components/report/report-overview.vue'
 import ReportPublishSource from './components/report/report-publish-source.vue'
@@ -40,16 +31,15 @@ defineOptions({ name: 'dashboard:report' })
 
 <style>
 .echarts-tooltip-diy {
-  background: linear-gradient(
-    304.17deg,
-    rgba(253, 254, 255, 0.6) -6.04%,
-    rgba(244, 247, 252, 0.6) 85.2%
-  ) !important;
+  background: linear-gradient(304.17deg,
+      rgba(253, 254, 255, 0.6) -6.04%,
+      rgba(244, 247, 252, 0.6) 85.2%) !important;
   border: none !important;
   backdrop-filter: blur(10px) !important;
   /* Note: backdrop-filter has minimal browser support */
 
   border-radius: 6px !important;
+
   .content-panel {
     display: flex;
     justify-content: space-between;
@@ -62,12 +52,15 @@ defineOptions({ name: 'dashboard:report' })
     border-radius: 4px;
     margin-bottom: 4px;
   }
+
   .tooltip-title {
     margin: 0 0 10px 0;
   }
+
   p {
     margin: 0;
   }
+
   .tooltip-title,
   .tooltip-value {
     font-size: 13px;
@@ -78,6 +71,7 @@ defineOptions({ name: 'dashboard:report' })
     color: #1d2129;
     font-weight: bold;
   }
+
   .tooltip-item-icon {
     display: inline-block;
     margin-right: 8px;

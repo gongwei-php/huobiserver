@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <i18n lang="yaml">
 zh_CN:
   pluginNotExists: '要安装的插件：%{name} 不存在'
@@ -61,34 +52,25 @@ onMounted(() => {
 
 <template>
   <div v-loading="storeMeta.loading" class="mine-card mine-appstore-list">
-    <div
-      v-for="item in dataList.list"
-      class="appstore-item"
-    >
-      <div
-        v-if="dataList.my.includes(item.identifier)"
-        class="absolute top-2.5 z-10 w-auto origin-center rotate-45 bg-red-600 px-5 text-white -right-5"
-      >
+    <div v-for="item in dataList.list" class="appstore-item">
+      <div v-if="dataList.my.includes(item.identifier)"
+        class="absolute top-2.5 z-10 w-auto origin-center rotate-45 bg-red-600 px-5 text-white -right-5">
         已购买
       </div>
-      <div
-        v-if="checkInstallStatus(item.identifier)"
-        class="absolute top-8 z-10 w-32 origin-center rotate-45 bg-lime-600 px-5 text-center text-white -right-11"
-      >
+      <div v-if="checkInstallStatus(item.identifier)"
+        class="absolute top-8 z-10 w-32 origin-center rotate-45 bg-lime-600 px-5 text-center text-white -right-11">
         已安装
       </div>
       <a class="h-44 w-full" href="javascript:" @click="openDetail(item.identifier)">
         <div class="relative h-48">
-          <div class="absolute h-38 w-full overflow-hidden text-center blur-30"><img :src="item.homepage[0]" alt="image"></div>
-          <el-image
-            class="appstore-item-image"
-            :src="item.homepage[0]"
-            fit="contain"
-          >
+          <div class="absolute h-38 w-full overflow-hidden text-center blur-30"><img :src="item.homepage[0]"
+              alt="image"></div>
+          <el-image class="appstore-item-image" :src="item.homepage[0]" fit="contain">
             <div class="absolute bottom-2 right-2 space-x-2">
               <el-tag v-for="(tag, index) in item.tags" :key="index" :color="tag.color">{{ tag.name }}</el-tag>
             </div>
-          </el-image></div>
+          </el-image>
+        </div>
       </a>
       <div class="p-3 pb-2">
         <div class="flex items-center justify-between">
@@ -143,13 +125,10 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .appstore-item {
-  @apply b-gray-2 hover:b-[rgb(var(--ui-primary))]
-  group b-1 b-solid
-  relative top-0 mt-8 h-auto overflow-hidden border rounded-md transition-all duration-300
-  sm:mt-0 dark:border-dark-400 dark:shadow-dark-300 hover:shadow-md hover:-top-1 dark:hover:b-[rgb(var(--ui-primary)/.95)];
+  @apply b-gray-2 hover:b-[rgb(var(--ui-primary))] group b-1 b-solid relative top-0 mt-8 h-auto overflow-hidden border rounded-md transition-all duration-300 sm:mt-0 dark:border-dark-400 dark:shadow-dark-300 hover:shadow-md hover:-top-1 dark:hover:b-[rgb(var(--ui-primary)/.95)];
 }
+
 .appstore-item-image {
-  @apply pointer-events-none h-48 w-full transform dark-brightness-[0.9] absolute t-0 l-0 shadow-md
-  transition-transform duration-200 group-hover:scale-105 sm:rounded-md !rounded-b-none !rounded-t-md;
+  @apply pointer-events-none h-48 w-full transform dark-brightness-[0.9] absolute t-0 l-0 shadow-md transition-transform duration-200 group-hover:scale-105 sm:rounded-md !rounded-b-none !rounded-t-md;
 }
 </style>

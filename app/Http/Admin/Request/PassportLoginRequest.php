@@ -1,14 +1,7 @@
 <?php
 
 declare(strict_types=1);
-/**
- * This file is part of MineAdmin.
- *
- * @link     https://www.mineadmin.com
- * @document https://doc.mineadmin.com
- * @contact  root@imoi.cn
- * @license  https://github.com/mineadmin/MineAdmin/blob/master/LICENSE
- */
+
 
 namespace App\Http\Admin\Request;
 
@@ -48,6 +41,6 @@ class PassportLoginRequest extends FormRequest
 
     public function ip(): string
     {
-        return Arr::first($this->getClientIps(), static fn ($ip) => $ip, '0.0.0.0');
+        return Arr::first($this->getClientIps(), static fn($ip) => $ip, '0.0.0.0');
     }
 }

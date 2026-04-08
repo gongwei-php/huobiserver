@@ -1,13 +1,5 @@
 import type { Plugin, SystemSettings } from '#/global'
-/**
- * MineAdmin is committed to providing solutions for quickly building web applications
- * Please view the LICENSE file that was distributed with this source code,
- * For the full copyright and license information.
- * Thank you very much for using MineAdmin.
- *
- * @Author X.Mo<root@imoi.cn>
- * @Link   https://github.com/mineadmin
- */
+
 import type { Router, RouteRecordRaw } from 'vue-router'
 import dashboardRoute from '@/router/static-routes/dashboardRoute'
 import welcomeRoute from '@/router/static-routes/welcomeRoute'
@@ -36,7 +28,7 @@ const useRouteStore = defineStore(
       })
       flatteningRoutesList.value = flatteningRoutes(routes)
       flatteningRoutesList.value.map((routeItem: RouteRecordRaw) => router.addRoute('MineRootLayoutRoute', routeItem))
-      const plugins = usePluginStore().getPluginConfig() as { [ key: string ]: Plugin.PluginConfig }
+      const plugins = usePluginStore().getPluginConfig() as { [key: string]: Plugin.PluginConfig }
       Object.keys(plugins).map((name: string) => {
         const plugin = plugins[name] as Plugin.PluginConfig
         if (plugin.config?.enable === true && plugin?.views) {

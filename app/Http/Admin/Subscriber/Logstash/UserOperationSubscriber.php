@@ -1,14 +1,7 @@
 <?php
 
 declare(strict_types=1);
-/**
- * This file is part of MineAdmin.
- *
- * @link     https://www.mineadmin.com
- * @document https://doc.mineadmin.com
- * @contact  root@imoi.cn
- * @license  https://github.com/mineadmin/MineAdmin/blob/master/LICENSE
- */
+
 
 namespace App\Http\Admin\Subscriber\Logstash;
 
@@ -42,7 +35,7 @@ class UserOperationSubscriber implements ListenerInterface
             if (empty($user)) {
                 return;
             }
-            Coroutine::create(fn () => $this->logService->save([
+            Coroutine::create(fn() => $this->logService->save([
                 'username' => $user->username,
                 'method' => $event->getMethod(),
                 'router' => $event->getPath(),

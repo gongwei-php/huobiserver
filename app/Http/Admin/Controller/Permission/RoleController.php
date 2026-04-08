@@ -1,14 +1,7 @@
 <?php
 
 declare(strict_types=1);
-/**
- * This file is part of MineAdmin.
- *
- * @link     https://www.mineadmin.com
- * @document https://doc.mineadmin.com
- * @contact  root@imoi.cn
- * @license  https://github.com/mineadmin/MineAdmin/blob/master/LICENSE
- */
+
 
 namespace App\Http\Admin\Controller\Permission;
 
@@ -138,8 +131,9 @@ final class RoleController extends AbstractController
     #[Permission(code: 'permission:role:getMenu')]
     public function getRolePermissionForRole(int $id): Result
     {
-        return $this->success($this->service->getRolePermission($id)->map(static fn (Menu $menu) => $menu->only([
-            'id', 'name',
+        return $this->success($this->service->getRolePermission($id)->map(static fn(Menu $menu) => $menu->only([
+            'id',
+            'name',
         ]))->toArray());
     }
 

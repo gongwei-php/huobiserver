@@ -1,12 +1,4 @@
-/**
- * MineAdmin is committed to providing solutions for quickly building web applications
- * Please view the LICENSE file that was distributed with this source code,
- * For the full copyright and license information.
- * Thank you very much for using MineAdmin.
- *
- * @Author X.Mo<root@imoi.cn>
- * @Link   https://github.com/mineadmin
- */
+
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import axios from 'axios'
 import Message from 'vue-m-message'
@@ -100,69 +92,69 @@ http.interceptors.response.use(
     else {
       switch (response?.data?.code) {
         case ResultCode.UNAUTHORIZED:
-        {
-          const logout = async () => {
-            if (isLogout === false) {
-              isLogout = true
-              setTimeout(() => isLogout = false, 5000)
-              Message.error(response?.data?.message ?? '登录已过期', { zIndex: 9999 })
-              await useUserStore().logout()
+          {
+            const logout = async () => {
+              if (isLogout === false) {
+                isLogout = true
+                setTimeout(() => isLogout = false, 5000)
+                Message.error(response?.data?.message ?? '登录已过期', { zIndex: 9999 })
+                await useUserStore().logout()
+              }
             }
-          }
-          // 检查token是否需要刷新
-          if (userStore.isLogin && !isRefreshToken.value) {
-            isRefreshToken.value = true
-            if (!cache.get('refresh_token')) {
-              await logout()
-              break
-            }
-
-            try {
-              const refreshTokenResponse = await createHttp(null, {
-                headers: {
-                  Authorization: `Bearer ${cache.get('refresh_token')}`,
-                },
-              }).post('/admin/passport/refresh')
-
-              if (refreshTokenResponse.data.code !== 200) {
+            // 检查token是否需要刷新
+            if (userStore.isLogin && !isRefreshToken.value) {
+              isRefreshToken.value = true
+              if (!cache.get('refresh_token')) {
                 await logout()
                 break
               }
-              else {
-                const { data } = refreshTokenResponse.data
-                userStore.token = data.access_token
-                cache.set('token', data.access_token)
-                cache.set('expire', useDayjs().unix() + data.expire_at, { exp: data.expire_at })
-                cache.set('refresh_token', data.refresh_token)
 
-                config.headers!.Authorization = `Bearer ${userStore.token}`
+              try {
+                const refreshTokenResponse = await createHttp(null, {
+                  headers: {
+                    Authorization: `Bearer ${cache.get('refresh_token')}`,
+                  },
+                }).post('/admin/passport/refresh')
+
+                if (refreshTokenResponse.data.code !== 200) {
+                  await logout()
+                  break
+                }
+                else {
+                  const { data } = refreshTokenResponse.data
+                  userStore.token = data.access_token
+                  cache.set('token', data.access_token)
+                  cache.set('expire', useDayjs().unix() + data.expire_at, { exp: data.expire_at })
+                  cache.set('refresh_token', data.refresh_token)
+
+                  config.headers!.Authorization = `Bearer ${userStore.token}`
+                  requestList.value.map((cb: any) => cb())
+                  requestList.value = []
+                  return http(config)
+                }
+              }
+              // eslint-disable-next-line unused-imports/no-unused-vars
+              catch (e: any) {
                 requestList.value.map((cb: any) => cb())
+                await logout()
+                break
+              }
+              finally {
                 requestList.value = []
-                return http(config)
+                isRefreshToken.value = false
               }
             }
-            // eslint-disable-next-line unused-imports/no-unused-vars
-            catch (e: any) {
-              requestList.value.map((cb: any) => cb())
-              await logout()
-              break
-            }
-            finally {
-              requestList.value = []
-              isRefreshToken.value = false
-            }
-          }
-          else {
-            return new Promise((resolve) => {
-              requestList.value.push(() => {
-                config.headers!.Authorization = `Bearer ${cache.get('token')}`
-                resolve(http(config))
+            else {
+              return new Promise((resolve) => {
+                requestList.value.push(() => {
+                  config.headers!.Authorization = `Bearer ${cache.get('token')}`
+                  resolve(http(config))
+                })
               })
-            })
+            }
           }
-        }
         case ResultCode.DISABLED: {
-          Message.error(response?.data?.message ?? '账号已被禁用', {zIndex: 9999})
+          Message.error(response?.data?.message ?? '账号已被禁用', { zIndex: 9999 })
           await useUserStore().logout()
           break
         }

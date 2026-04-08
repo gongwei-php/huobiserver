@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://gitee.com/xmo/mineadmin-vue
--->
 <i18n lang="yaml">
 en:
   province: Please select province/city/area
@@ -34,7 +25,7 @@ const { mode = 'name', showLevel = 3 } = defineProps<{
 }>()
 
 const t = useLocalTrans()
-const model = defineModel<ModelType>({ province: undefined, city: undefined, area: undefined})
+const model = defineModel<ModelType>({ province: undefined, city: undefined, area: undefined })
 const province = ref<Area>([])
 const city = ref<Area>([])
 const area = ref<Area>([])
@@ -72,50 +63,31 @@ onMounted(() => {
 
 <template>
   <div class="grid grid-cols-3 gap-x-2 w-full" v-bind="$attrs">
-    <el-select
-      v-model="model.province"
-      class="w-full"
-      :placeholder="t('province')"
-      clearable
-      @change="provinceChange"
+    <el-select v-model="model.province" class="w-full" :placeholder="t('province')" clearable @change="provinceChange"
       @clear="
         () => {
           model.province = undefined
           model.city = undefined
           model.area = undefined
         }
-      "
-    >
-      <el-option v-for="item in province" :key="item" :label="item.name" :value="mode === 'name' ? item.name : item.code" />
+      ">
+      <el-option v-for="item in province" :key="item" :label="item.name"
+        :value="mode === 'name' ? item.name : item.code" />
     </el-select>
-    <el-select
-      v-if="showLevel >= 2"
-      v-model="model.city"
-      class="w-full"
-      :placeholder="t('city')"
-      clearable
-      @change="cityChange"
-      @clear="
+    <el-select v-if="showLevel >= 2" v-model="model.city" class="w-full" :placeholder="t('city')" clearable
+      @change="cityChange" @clear="
         () => {
           model.city = undefined
           model.area = undefined
         }
-      "
-    >
+      ">
       <el-option v-for="item in city" :key="item" :label="item.name" :value="mode === 'name' ? item.name : item.code" />
     </el-select>
-    <el-select
-      v-if="showLevel >= 3"
-      v-model="model.area"
-      class="w-full"
-      :placeholder="t('area')"
-      clearable
-      @clear="
-        () => {
-          model.area = undefined
-        }
-      "
-    >
+    <el-select v-if="showLevel >= 3" v-model="model.area" class="w-full" :placeholder="t('area')" clearable @clear="
+      () => {
+        model.area = undefined
+      }
+    ">
       <el-option v-for="item in area" :key="item" :label="item.name" :value="mode === 'name' ? item.name : item.code" />
     </el-select>
   </div>

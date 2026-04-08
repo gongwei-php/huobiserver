@@ -1,12 +1,4 @@
-/**
- * MineAdmin is committed to providing solutions for quickly building web applications
- * Please view the LICENSE file that was distributed with this source code,
- * For the full copyright and license information.
- * Thank you very much for using MineAdmin.
- *
- * @Author X.Mo<root@imoi.cn>
- * @Link   https://github.com/mineadmin
- */
+
 import '@/layouts/style/search-panel.scss'
 import { useMagicKeys } from '@vueuse/core'
 import menuGotoHandle from '@/utils/menuGotoHandle.ts'
@@ -63,26 +55,26 @@ export default defineComponent({
           </div>
 
           {routes.value.length > 0
-          && (
-            <ul class="mine-search-list-container">
-              {routes.value.map((item) => {
-                return (
-                  <li class="mine-search-item-list" onClick={async () => await handleClick(item as MineRoute.routeRecord)}>
-                    <ma-svg-icon
-                      name={item.meta?.icon ? item.meta?.icon : 'material-symbols:brightness-empty-outline'}
-                      size={20}
-                    />
-                    <div class="mine-search-text">
-                      <span class="w-6/12">{(item.meta?.i18n ? useTrans(item.meta?.i18n) : item.meta?.title) ?? useTrans('mineAdmin.search.noNameMenu') }</span>
-                      <m-tooltip text={item.meta?.type === 'L' ? item.meta?.link : item.path}>
-                        <span class="mine-search-route-path">{item.meta?.type === 'L' ? item.meta?.link : item.path}</span>
-                      </m-tooltip>
-                    </div>
-                  </li>
-                )
-              })}
-            </ul>
-          )}
+            && (
+              <ul class="mine-search-list-container">
+                {routes.value.map((item) => {
+                  return (
+                    <li class="mine-search-item-list" onClick={async () => await handleClick(item as MineRoute.routeRecord)}>
+                      <ma-svg-icon
+                        name={item.meta?.icon ? item.meta?.icon : 'material-symbols:brightness-empty-outline'}
+                        size={20}
+                      />
+                      <div class="mine-search-text">
+                        <span class="w-6/12">{(item.meta?.i18n ? useTrans(item.meta?.i18n) : item.meta?.title) ?? useTrans('mineAdmin.search.noNameMenu')}</span>
+                        <m-tooltip text={item.meta?.type === 'L' ? item.meta?.link : item.path}>
+                          <span class="mine-search-route-path">{item.meta?.type === 'L' ? item.meta?.link : item.path}</span>
+                        </m-tooltip>
+                      </div>
+                    </li>
+                  )
+                })}
+              </ul>
+            )}
           {routes.value.length === 0 && (
             <div class="mt-35 w-full flex flex-col justify-center text-center text-gray-4">
               <ma-svg-icon name="tabler:hourglass-empty" size={50} class="mx-auto" />

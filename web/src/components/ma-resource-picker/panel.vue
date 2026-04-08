@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <i18n lang="yaml">
 en:
   searchPlaceholder: Search for icons under this category
@@ -437,9 +428,9 @@ onMounted(async () => {
 onUnmounted(() => {
   // 取消监听
   document.querySelectorAll('.ma-resource-dock .res-app').forEach((app) => {
-    app.removeEventListener('mousemove', () => {})
-    app.removeEventListener('mouseout', () => {})
-    app.removeEventListener('click', () => {})
+    app.removeEventListener('mousemove', () => { })
+    app.removeEventListener('mouseout', () => { })
+    app.removeEventListener('click', () => { })
   })
 })
 </script>
@@ -448,18 +439,12 @@ onUnmounted(() => {
   <div class="ma-resource-panel h-full flex flex-col">
     <div class="flex flex-col justify-between gap-y-1 md:flex-row">
       <div>
-        <el-segmented
-          v-model="fileTypeSelected"
-          :options="fileTypes as any" size="default"
-          block
-          @change="onfileTypesChange"
-        >
+        <el-segmented v-model="fileTypeSelected" :options="fileTypes as any" size="default" block
+          @change="onfileTypesChange">
           <template #default="{ item }">
             <div class="flex items-center justify-center">
-              <ma-svg-icon
-                v-if="item?.icon" :name="item!.icon" :size="17"
-                class="mr-1 flex items-center justify-center"
-              />
+              <ma-svg-icon v-if="item?.icon" :name="item!.icon" :size="17"
+                class="mr-1 flex items-center justify-center" />
               <span>{{ typeof item.label === 'function' ? item.label() : item.label }}</span>
             </div>
           </template>
@@ -467,11 +452,10 @@ onUnmounted(() => {
       </div>
 
       <div class="flex justify-end">
-        <el-input
-          v-model="queryParams.origin_name" :placeholder="t('searchPlaceholder')" clearable class="w-full md:w-[180px]" @input="() => {
+        <el-input v-model="queryParams.origin_name" :placeholder="t('searchPlaceholder')" clearable
+          class="w-full md:w-[180px]" @input="() => {
             getResourceList(queryParams)
-          }"
-        >
+          }">
           <template #suffix>
             <ma-svg-icon name="i-material-symbols:search-rounded" :size="20" />
           </template>
@@ -479,24 +463,19 @@ onUnmounted(() => {
       </div>
     </div>
     <div class="mt-2 min-h-0 flex-1">
-      <OverlayScrollbarsComponent
-        v-if="loading || resources.length" class="max-h-full"
-        :options="{ scrollbars: { autoHide: 'leave', autoHideDelay: 100 } }"
-      >
+      <OverlayScrollbarsComponent v-if="loading || resources.length" class="max-h-full"
+        :options="{ scrollbars: { autoHide: 'leave', autoHideDelay: 100 } }">
         <div class="flex flex-wrap px-[2px] pt-[2px]">
           <el-space fill wrap :fill-ratio="9">
             <template v-for="resource in resources" :key="resource.id">
-              <div
-                class="resource-item" :class="{ active: isSelected(resource) }" @click="handleClick(resource)"
-                @dblclick="handleDbClick(resource)" @contextmenu="(e: MouseEvent) => executeContextmenu(e, resource)"
-              >
+              <div class="resource-item" :class="{ active: isSelected(resource) }" @click="handleClick(resource)"
+                @dblclick="handleDbClick(resource)" @contextmenu="(e: MouseEvent) => executeContextmenu(e, resource)">
                 <div class="resource-item__cover">
                   <template v-if="getCover(resource)">
                     <el-image :src="getCover(resource)" fit="cover" class="h-full w-full" lazy>
                       <template #error>
                         <div
-                          class="relative m-[8px] h-[calc(100%-16px)] w-[calc(100%-16px)] flex items-center justify-center overflow-hidden"
-                        >
+                          class="relative m-[8px] h-[calc(100%-16px)] w-[calc(100%-16px)] flex items-center justify-center overflow-hidden">
                           <div class="cursor-default overflow-hidden text-ellipsis whitespace-pre-wrap">
                             {{ resource.origin_name }}
                           </div>
@@ -506,8 +485,7 @@ onUnmounted(() => {
                   </template>
                   <template v-else>
                     <div
-                      class="relative m-[8px] h-[calc(100%-16px)] w-[calc(100%-16px)] flex items-center justify-center overflow-hidden"
-                    >
+                      class="relative m-[8px] h-[calc(100%-16px)] w-[calc(100%-16px)] flex items-center justify-center overflow-hidden">
                       <div class="cursor-default overflow-hidden text-ellipsis whitespace-pre-wrap">
                         {{ resource.origin_name }}
                       </div>
@@ -539,23 +517,18 @@ onUnmounted(() => {
     </div>
     <div class="ma-resource-panel__footer flex justify-between pt-2">
       <div class="flex items-center">
-        <el-tag
-          v-if="props.multiple && props.limit" size="large" class="mr-2"
-          :class="{ 'color-[var(--el-color-danger)]': props.limit && selectedKeys.length >= props.limit }"
-        >
+        <el-tag v-if="props.multiple && props.limit" size="large" class="mr-2"
+          :class="{ 'color-[var(--el-color-danger)]': props.limit && selectedKeys.length >= props.limit }">
           {{ selectedKeys.length }}
           <template v-if="props.multiple && props.limit">
             /{{ props.limit }}
           </template>
         </el-tag>
-        <el-pagination
-          v-model:current-page="queryParams.page" :disabled="loading" :total="total"
-          :page-size="queryParams.page_size" background layout="prev, pager, next" :pager-count="5"
-          @change="(p: number) => {
+        <el-pagination v-model:current-page="queryParams.page" :disabled="loading" :total="total"
+          :page-size="queryParams.page_size" background layout="prev, pager, next" :pager-count="5" @change="(p: number) => {
             queryParams.page = p
             getResourceList(queryParams)
-          }"
-        />
+          }" />
       </div>
       <div v-if="props.showAction">
         <slot name="actions">
@@ -574,14 +547,8 @@ onUnmounted(() => {
         <div class="res-app-container">
           <div class="res-app">
             <m-tooltip :text="btn.label">
-              <input
-                type="file"
-                :name="btn.name"
-                class="hidden"
-                v-bind="btn?.uploadConfig ?? {}"
-                @change="handleFile($event, btn)"
-                @click.stop="() => {}"
-              >
+              <input type="file" :name="btn.name" class="hidden" v-bind="btn?.uploadConfig ?? {}"
+                @change="handleFile($event, btn)" @click.stop="() => { }">
               <ma-svg-icon :name="btn.icon" class="res-app-icon" />
             </m-tooltip>
           </div>
@@ -596,19 +563,18 @@ onUnmounted(() => {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
 }
 
-.ma-resource-panel{
+.ma-resource-panel {
   @apply relative;
-  --resource-item-size:120px;
+  --resource-item-size: 120px;
 
   .ma-resource-dock {
-    @apply absolute bg-gray-2 dark-bg-dark-9
-    rounded-xl p-1 flex items-center justify-center gap-x-0.5
-    ;
+    @apply absolute bg-gray-2 dark-bg-dark-9 rounded-xl p-1 flex items-center justify-center gap-x-0.5;
     height: 40px;
     left: 50%;
     transform: translate(-50%, 0%);
@@ -625,15 +591,11 @@ onUnmounted(() => {
     }
 
     .res-app {
-      @apply w-40px h-40px shadow-inset shadow-md rounded-10px transition-all duration-300 flex items-center justify-center
-      bg-gray-3 dark-bg-dark-4
-        dark-shadow-dark-9
-      ;
+      @apply w-40px h-40px shadow-inset shadow-md rounded-10px transition-all duration-300 flex items-center justify-center bg-gray-3 dark-bg-dark-4 dark-shadow-dark-9;
     }
 
     .res-app-icon {
-      @apply w-55px h-55px !text-2xl transform-all duration-300 text-dark-1 dark-text-gray-2 cursor-pointer
-      ;
+      @apply w-55px h-55px !text-2xl transform-all duration-300 text-dark-1 dark-text-gray-2 cursor-pointer;
     }
 
     // 主放大效果
@@ -670,34 +632,41 @@ onUnmounted(() => {
     }
   }
 }
-.resource-item{
+
+.resource-item {
   animation: fadeIn 0.38s ease-out forwards;
   --un-bg-opacity: 0.3;
-  @apply relative min-w-[var(--resource-item-size)] pb-[100%] rounded overflow-hidden border-box bg-gray-1  dark-bg-dark-3;
+  @apply relative min-w-[var(--resource-item-size)] pb-[100%] rounded overflow-hidden border-box bg-gray-1 dark-bg-dark-3;
 }
-.resource-item__cover{
+
+.resource-item__cover {
   @apply absolute bottom-0 left-0 h-full w-full;
 }
-.resource-item__name{
+
+.resource-item__name {
   @apply absolute bottom-0 left-0 h-24px w-[calc(100%-20px)] overflow-hidden bg-gray:60 px-10px text-12px leading-24px whitespace-nowrap text-ellipsis c-white;
 
 }
-.resource-item__selected{
+
+.resource-item__selected {
   @apply absolute top--30px right--30px w-40px h-40px;
   //transition: all 0.1s ease-in-out;
   background-image: linear-gradient(to top right, transparent 50%, rgb(var(--ui-primary)) 50%);
 }
-.resource-item__selected-icon{
+
+.resource-item__selected-icon {
   @apply absolute top-0 right-0 p-2px c-white;
 }
-.resource-item.active .resource-item__selected{
+
+.resource-item.active .resource-item__selected {
   @apply top-0 right-0;
 }
 
-.resource-placeholder{
+.resource-placeholder {
   @apply min-w-[var(--resource-item-size)] h-0 pointer-events-none p-0;
 }
-.resource-skeleton{
+
+.resource-skeleton {
   @apply min-w-[var(--resource-item-size)] pb-[100%];
 }
 

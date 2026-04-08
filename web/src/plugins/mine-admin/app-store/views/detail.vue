@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <script setup lang="ts">
 import type { AppVo } from '../api/app.ts'
 import { getDetail, unInstall } from '../api/app.ts'
@@ -133,27 +124,13 @@ defineExpose({ open })
 </script>
 
 <template>
-  <el-drawer
-    v-model="dataState.visible"
-    :title="data?.app?.name ?? '获取中...'"
-    append-to-body
-    size="1000"
-  >
+  <el-drawer v-model="dataState.visible" :title="data?.app?.name ?? '获取中...'" append-to-body size="1000">
     <div v-loading="dataState.loading" class="w-full">
       <div class="flex gap-5">
         <div class="w-7/12">
-          <el-carousel
-            class="h-300px rounded"
-            :auto-play="true"
-            indicator-type="line"
-            show-arrow="hover"
-          >
+          <el-carousel class="h-300px rounded" :auto-play="true" indicator-type="line" show-arrow="hover">
             <el-carousel-item v-for="(image, idx) in data?.app?.homepage" :key="idx">
-              <el-image
-                :src="image"
-                fit="contain"
-                class="h-full w-full"
-              />
+              <el-image :src="image" fit="contain" class="h-full w-full" />
             </el-carousel-item>
           </el-carousel>
           <el-space class="mt-2">
@@ -208,67 +185,35 @@ defineExpose({ open })
             </el-descriptions-item>
           </el-descriptions>
 
-          <el-button
-            v-if="dataList.my.includes(data?.app?.identifier) && !dataState.isInstall"
-            :loading="dataState.buttonLoading"
-            class="mt-4"
-            type="primary"
-            @click="downloadAndInstall"
-          >
+          <el-button v-if="dataList.my.includes(data?.app?.identifier) && !dataState.isInstall"
+            :loading="dataState.buttonLoading" class="mt-4" type="primary" @click="downloadAndInstall">
             {{ textState.installButtonText }}
           </el-button>
-          <el-space
-            v-else-if="dataList.my.includes(data?.app?.identifier) && dataState.isInstall"
-          >
-            <el-button
-              class="mt-4"
-              type="primary"
-              status="danger"
-              :loading="dataState.buttonLoading"
-              @click="unInstallApp"
-            >
+          <el-space v-else-if="dataList.my.includes(data?.app?.identifier) && dataState.isInstall">
+            <el-button class="mt-4" type="primary" status="danger" :loading="dataState.buttonLoading"
+              @click="unInstallApp">
               {{ textState.unInstallBtnText }}
             </el-button>
-            <el-button
-              v-if="dataState.isUpdated"
-              class="mt-4"
-              type="primary"
-              status="success"
-              :loading="dataState.buttonLoading"
-              @click="updatedApp"
-            >
+            <el-button v-if="dataState.isUpdated" class="mt-4" type="primary" status="success"
+              :loading="dataState.buttonLoading" @click="updatedApp">
               {{ textState.updateBtnText }}
             </el-button>
           </el-space>
-          <el-button
-            v-else
-            class="mt-4"
-            type="primary"
-            status="success"
-            @click="openPage"
-          >
+          <el-button v-else class="mt-4" type="primary" status="success" @click="openPage">
             购买此应用
           </el-button>
         </div>
       </div>
 
-      <m-tabs
-        v-model="tabType"
-        class="mt-5 text-sm"
-        :options="[
-          { label: '应用介绍', value: 'desc' },
-          { label: '版本更新记录', value: 'versionRecord' },
-        ]"
-      />
+      <m-tabs v-model="tabType" class="mt-5 text-sm" :options="[
+        { label: '应用介绍', value: 'desc' },
+        { label: '版本更新记录', value: 'versionRecord' },
+      ]" />
       <div class="flex">
         <div class="w-9/12 pt-5">
           <div v-if="tabType === 'desc'" class="pr-5">
-            <MdPreview
-              id="description"
-              :model-value="data?.version?.[0]?.version_desc"
-              :theme="settingStore.colorMode === 'dark' ? 'dark' : 'light'"
-              preview-theme="github"
-            />
+            <MdPreview id="description" :model-value="data?.version?.[0]?.version_desc"
+              :theme="settingStore.colorMode === 'dark' ? 'dark' : 'light'" preview-theme="github" />
           </div>
           <template v-if="tabType === 'versionRecord'">
             <div v-for="(item, id) in data?.version" class="my-5 block justify-between lg:flex">
@@ -296,13 +241,8 @@ defineExpose({ open })
                   </div>
                 </div>
 
-                <MdPreview
-                  :id="`version_${id}`"
-                  class="mt-2"
-                  :model-value="item.update_log"
-                  :theme="settingStore.colorMode === 'dark' ? 'dark' : 'light'"
-                  preview-theme="github"
-                />
+                <MdPreview :id="`version_${id}`" class="mt-2" :model-value="item.update_log"
+                  :theme="settingStore.colorMode === 'dark' ? 'dark' : 'light'" preview-theme="github" />
                 <!--              <div v-if="dataList.my.includes(data?.app?.identifier)" class="border-t pt-2 dark:border-gray-700"> -->
                 <!--                <el-button> -->
                 <!--                  安装此版本 -->
@@ -314,10 +254,8 @@ defineExpose({ open })
         </div>
         <div class="ml-3 mt-5.5 w-3/12">
           <div class="flex">
-            <el-avatar
-              class="h-12 w-12 rounded-full"
-              :src="(data?.created_by as any)?.avatar === '' ? undefined : (data?.created_by as any)?.avatar"
-            >
+            <el-avatar class="h-12 w-12 rounded-full"
+              :src="(data?.created_by as any)?.avatar === '' ? undefined : (data?.created_by as any)?.avatar">
               {{ (data?.created_by as any)?.username?.substring(0, 1).toUpperCase() }}
             </el-avatar>
             <div class="ml-3 mt-0.5 text-sm leading-6">
@@ -348,12 +286,8 @@ defineExpose({ open })
                 <el-divider class="my-1" />
               </el-descriptions-item>
               <el-descriptions-item label="在线演示">
-                <el-link
-                  v-if="data?.app?.desc.preview_url"
-                  type="primary"
-                  :href="data.app.desc.preview_url"
-                  target="_blank"
-                >
+                <el-link v-if="data?.app?.desc.preview_url" type="primary" :href="data.app.desc.preview_url"
+                  target="_blank">
                   点击跳转
                 </el-link>
                 <el-text v-else>
@@ -372,12 +306,16 @@ defineExpose({ open })
 :deep(.el-descriptions__cell) {
   @apply flex;
 }
+
 :deep(.md-editor-code-head) {
-  width: 100%; display: flex;
+  width: 100%;
+  display: flex;
 }
+
 :deep(.md-editor-code-lang) {
   @apply hidden;
 }
+
 :deep(.md-editor-code-action) {
   @apply w-full flex gap-x-3;
 }

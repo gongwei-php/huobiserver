@@ -48,7 +48,7 @@ services:
       - "9503:9503"
     environment:
       - TZ=Asia/Shanghai
-      - APP_NAME=MineAdmin
+      - APP_NAME=Huobi
     command:
       - sh
       - -c

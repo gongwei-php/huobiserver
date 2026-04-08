@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <script setup lang="ts">
 import type { Ref } from 'vue'
 import { useMagicKeys, useResizeObserver } from '@vueuse/core'
@@ -85,14 +76,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <ElDialog
-    ref="dialogRef"
-    v-model="isOpen"
-    :fullscreen="fullscreen"
-    :width="dialogWidth"
-    draggable
-    v-bind="$attrs"
-  >
+  <ElDialog ref="dialogRef" v-model="isOpen" :fullscreen="fullscreen" :width="dialogWidth" draggable v-bind="$attrs">
     <template #default>
       <div v-loading="$attrs.loading ?? false">
         <slot name="default" />
@@ -105,11 +89,9 @@ onMounted(() => {
             {{ $attrs.title ?? '' }}
           </slot>
         </div>
-        <el-link class="el-dialog__headerbtn relative !right-[2px] !-top-[6px]" underline="never" @click="() => fullscreen = !fullscreen">
-          <ma-svg-icon
-            :name="fullscreen ? fsIcon.exit : fsIcon.todo"
-            :size="15"
-          />
+        <el-link class="el-dialog__headerbtn relative !right-[2px] !-top-[6px]" underline="never"
+          @click="() => fullscreen = !fullscreen">
+          <ma-svg-icon :name="fullscreen ? fsIcon.exit : fsIcon.todo" :size="15" />
         </el-link>
       </div>
     </template>
@@ -128,6 +110,4 @@ onMounted(() => {
   </ElDialog>
 </template>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

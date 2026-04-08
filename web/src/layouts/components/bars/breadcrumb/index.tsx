@@ -1,12 +1,4 @@
-/**
- * MineAdmin is committed to providing solutions for quickly building web applications
- * Please view the LICENSE file that was distributed with this source code,
- * For the full copyright and license information.
- * Thank you very much for using MineAdmin.
- *
- * @Author X.Mo<root@imoi.cn>
- * @Link   https://github.com/mineadmin
- */
+
 import type { ComputedRef, VNode } from 'vue'
 import { TransitionGroup } from 'vue'
 import type { MineRoute } from '#/global'
@@ -62,13 +54,13 @@ export default defineComponent({
         <router-link to={settingStore.getSettings('welcomePage').path}>
           <ma-svg-icon name={settingStore.getSettings('welcomePage').icon} />
           {useTrans('menu.welcome')}
-          { (currentRoute.name !== settingStore.getSettings('welcomePage').name && breadcrumbs.value.length > 0)
-          && <ma-svg-icon name="material-symbols:arrow-right-rounded" className="icon" size={22} />}
+          {(currentRoute.name !== settingStore.getSettings('welcomePage').name && breadcrumbs.value.length > 0)
+            && <ma-svg-icon name="material-symbols:arrow-right-rounded" className="icon" size={22} />}
         </router-link>
         {breadcrumbs.value.length > 0
-        && (
-          <TransitionGroup name="breadcrumb-animate">
-            {breadcrumbs.value.map((route: any, _: number) =>
+          && (
+            <TransitionGroup name="breadcrumb-animate">
+              {breadcrumbs.value.map((route: any, _: number) =>
               (
                 <div
                   class={{
@@ -95,17 +87,17 @@ export default defineComponent({
                                       key={item.path}
                                       handle={async () => {
                                         if (checkRouteIsRedirect(item, 'redirect')) {
-                                          await router.push({path: item?.redirect as string})
+                                          await router.push({ path: item?.redirect as string })
                                         }
                                         if (checkRouteIsRedirect(item, 'component') && item.name !== route.name) {
-                                          await router.push({path: item.path})
+                                          await router.push({ path: item.path })
                                         }
                                       }}
                                       v-slots={{
                                         'default': () =>
                                           <span>{item?.meta?.i18n ? useTrans(item?.meta?.i18n) : item?.meta?.title}</span>,
                                         'prefix-icon': () => item?.meta?.icon
-                                          && <ma-svg-icon name={item?.meta?.icon} size={18}/>,
+                                          && <ma-svg-icon name={item?.meta?.icon} size={18} />,
                                       }}
                                     />
                                   ))
@@ -117,8 +109,8 @@ export default defineComponent({
                   }
                 </div>
               ),
-            )}
-          </TransitionGroup>
+              )}
+            </TransitionGroup>
           )}
       </div>
     )

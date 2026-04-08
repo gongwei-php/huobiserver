@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <i18n lang="yaml">
 en:
   change:
@@ -83,11 +74,8 @@ defineExpose({ openModal })
 </script>
 
 <template>
-  <m-modal
-    v-model="state.isOpen"
-    :title="useLocalTrans(selected === 'info' ? 'change.info' : 'change.password')"
-    content-class="w-[450px] h-[380px]"
-  >
+  <m-modal v-model="state.isOpen" :title="useLocalTrans(selected === 'info' ? 'change.info' : 'change.password')"
+    content-class="w-[450px] h-[380px]">
     <m-tabs v-model="selected" :options="tabOptions" class="text-sm" />
 
     <div class="my-5">
@@ -95,22 +83,17 @@ defineExpose({ openModal })
       <passwordForm v-show="selected === 'password'" ref="passwordFormRef" @submit="submit" />
     </div>
     <template #footer>
-      <m-button
-        type="submit"
+      <m-button type="submit"
         class="!bg-[rgb(var(--ui-primary))] !text-gray-1 !active-bg-[rgb(var(--ui-primary))] !hover-bg-[rgb(var(--ui-primary)/.75)]"
         :class="{
           loading: isFormSubmit,
-        }"
-        @click="() => {
+        }" @click="() => {
           selected === 'userinfo' ? userinfoFormRef.submit() : passwordFormRef.submit()
-        }"
-      >
+        }">
         {{ useLocalTrans(selected === 'userinfo' ? 'change.info' : 'change.password') }}
       </m-button>
     </template>
   </m-modal>
 </template>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

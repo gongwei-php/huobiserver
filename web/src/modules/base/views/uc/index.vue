@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <i18n lang="yaml">
 en:
   profile: Profile
@@ -115,18 +106,14 @@ watch(avatar, async (val: string | undefined) => {
   <UcContainer>
     <UcTitle>
       <template #extra>
-        <m-button class="h-8" @click="() => modalRef.openModal() ">
+        <m-button class="h-8" @click="() => modalRef.openModal()">
           {{ useLocalTrans('changeProfileOrPassword') }}
         </m-button>
       </template>
     </UcTitle>
     <div class="mine-uc-layout-content">
       <div class="w-full">
-        <m-tabs
-          v-model="selected"
-          class="text-sm lg:w-6/12"
-          :options="tabOptions"
-        />
+        <m-tabs v-model="selected" class="text-sm lg:w-6/12" :options="tabOptions" />
         <ul v-if="selected === 'profile'" class="info-list">
           <li class="!b-none">
             <div class="desc-item">

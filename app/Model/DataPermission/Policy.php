@@ -1,14 +1,7 @@
 <?php
 
 declare(strict_types=1);
-/**
- * This file is part of MineAdmin.
- *
- * @link     https://www.mineadmin.com
- * @document https://doc.mineadmin.com
- * @contact  root@imoi.cn
- * @license  https://github.com/mineadmin/MineAdmin/blob/master/LICENSE
- */
+
 
 namespace App\Model\DataPermission;
 
@@ -52,10 +45,15 @@ class Policy extends Model
      * The attributes that should be cast to native types.
      */
     protected array $casts = [
-        'id' => 'integer', 'user_id' => 'integer', 'position_id' => 'integer',
-        'is_default' => 'bool', 'created_at' => 'datetime',
-        'updated_at' => 'datetime', 'deleted_at' => 'datetime',
-        'policy_type' => PolicyType::class, 'value' => 'array',
+        'id' => 'integer',
+        'user_id' => 'integer',
+        'position_id' => 'integer',
+        'is_default' => 'bool',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
+        'policy_type' => PolicyType::class,
+        'value' => 'array',
     ];
 
     public function positions(): BelongsToMany

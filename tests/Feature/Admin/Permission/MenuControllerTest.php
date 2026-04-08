@@ -1,14 +1,7 @@
 <?php
 
 declare(strict_types=1);
-/**
- * This file is part of MineAdmin.
- *
- * @link     https://www.mineadmin.com
- * @document https://doc.mineadmin.com
- * @contact  root@imoi.cn
- * @license  https://github.com/mineadmin/MineAdmin/blob/master/LICENSE
- */
+
 
 namespace HyperfTests\Feature\Admin\Permission;
 
@@ -41,7 +34,13 @@ final class MenuControllerTest extends CrudControllerCase
             'path' => Str::random(10),
             'meta' => $this->generatorMeta(),
         ], Menu::class, [
-            'parent_id', 'name', 'component', 'redirect', 'status', 'sort', 'path',
+            'parent_id',
+            'name',
+            'component',
+            'redirect',
+            'status',
+            'sort',
+            'path',
         ]);
     }
 

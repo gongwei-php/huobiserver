@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <script setup lang="ts">
 const t = useTrans().globalTrans
 const router = useRouter()
@@ -38,7 +29,8 @@ const visibleRoutes = computed(() =>
     <div class="mine-card w-auto !ml-3 lg:w-4/12 !lg:ml-0">
       <el-carousel height="230px" class="w-full rounded">
         <el-carousel-item v-for="(item, index) in Array.from({ length: 5 })" :key="item">
-          <img :src="`https://picsum.photos/600/240?random=${index + 1}`" :alt="index" class="h-full w-full rounded object-cover">
+          <img :src="`https://picsum.photos/600/240?random=${index + 1}`" :alt="index"
+            class="h-full w-full rounded object-cover">
         </el-carousel-item>
       </el-carousel>
     </div>
@@ -48,8 +40,6 @@ const visibleRoutes = computed(() =>
 <style scoped lang="scss">
 .link {
   transition: all .15s;
-  @apply min-w-20 flex flex-col items-center gap-y-2 rounded p-4
-  hover-bg-[rgb(var(--ui-primary)/10%)]
-  ;
+  @apply min-w-20 flex flex-col items-center gap-y-2 rounded p-4 hover-bg-[rgb(var(--ui-primary)/10%)];
 }
 </style>

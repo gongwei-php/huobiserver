@@ -1,14 +1,7 @@
 <?php
 
 declare(strict_types=1);
-/**
- * This file is part of MineAdmin.
- *
- * @link     https://www.mineadmin.com
- * @document https://doc.mineadmin.com
- * @contact  root@imoi.cn
- * @license  https://github.com/mineadmin/MineAdmin/blob/master/LICENSE
- */
+
 
 namespace App\Model\Permission;
 
@@ -39,9 +32,24 @@ final class Meta extends Model
     public bool $incrementing = false;
 
     protected array $fillable = [
-        'title', 'i18n', 'badge', 'icon', 'affix', 'hidden', 'type', 'cache',
-        'copyright', 'useDefaultLayout', 'breadcrumbEnable', 'componentPath', 'componentSuffix', 'link',
-        'activeName', 'auth', 'role', 'user',
+        'title',
+        'i18n',
+        'badge',
+        'icon',
+        'affix',
+        'hidden',
+        'type',
+        'cache',
+        'copyright',
+        'useDefaultLayout',
+        'breadcrumbEnable',
+        'componentPath',
+        'componentSuffix',
+        'link',
+        'activeName',
+        'auth',
+        'role',
+        'user',
     ];
 
     protected array $casts = [

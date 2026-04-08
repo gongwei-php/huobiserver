@@ -1,12 +1,4 @@
-/**
- * MineAdmin is committed to providing solutions for quickly building web applications
- * Please view the LICENSE file that was distributed with this source code,
- * For the full copyright and license information.
- * Thank you very much for using MineAdmin.
- *
- * @Author X.Mo<root@imoi.cn>
- * @Link   https://github.com/mineadmin
- */
+
 import { Transition } from 'vue'
 import Logo from '../logo'
 import '@/layouts/style/main-aside.scss'
@@ -14,7 +6,7 @@ import type { MineRoute } from '#/global'
 import menuGotoHandle from '@/utils/menuGotoHandle'
 import useParentNode from '@/hooks/useParentNode'
 
-export default defineComponent ({
+export default defineComponent({
   name: 'MainAside',
   setup() {
     const route = useRoute()
@@ -72,7 +64,7 @@ export default defineComponent ({
             '!hidden !lg:flex': true,
           }}
           >
-            { showMineHeader() || (<Logo showTitle={false} />) }
+            {showMineHeader() || (<Logo showTitle={false} />)}
             <div
               ref={mainAsideRef}
               class={asideListClass.value}
@@ -94,7 +86,7 @@ export default defineComponent ({
                   title={menu?.meta?.i18n ? useTrans(menu.meta?.i18n) : menu?.meta?.title}
                   onClick={async (e: any) => await goToAppoint(e, menu)}
                 >
-                  { mainAsideSetting.showIcon && menu?.meta?.icon && (
+                  {mainAsideSetting.showIcon && menu?.meta?.icon && (
                     <div>
                       <ma-svg-icon
                         name={menu?.meta?.icon}
@@ -105,9 +97,9 @@ export default defineComponent ({
                       />
                     </div>
                   )}
-                  { mainAsideSetting.showTitle && (
+                  {mainAsideSetting.showTitle && (
                     <span class="route-link" to={menu.path}>
-                      { menu?.meta?.i18n ? useTrans(menu?.meta?.i18n) : menu?.meta?.title }
+                      {menu?.meta?.i18n ? useTrans(menu?.meta?.i18n) : menu?.meta?.title}
                     </span>
                   )}
                 </a>
@@ -133,7 +125,7 @@ export default defineComponent ({
                   </m-tooltip>
                 )
               }
-              { isMixedLayout() && (
+              {isMixedLayout() && (
                 <m-tooltip text={useTrans(getUserBarState() ? 'mineAdmin.userBar.hideState' : 'mineAdmin.userBar.showState')}>
                   <div
                     class={{

@@ -1,12 +1,4 @@
-/**
- * MineAdmin is committed to providing solutions for quickly building web applications
- * Please view the LICENSE file that was distributed with this source code,
- * For the full copyright and license information.
- * Thank you very much for using MineAdmin.
- *
- * @Author X.Mo<root@imoi.cn>
- * @Link   https://github.com/mineadmin
- */
+
 import { useI18n } from 'vue-i18n'
 import Message from 'vue-m-message'
 import MineShortcutsDesc from './dropdownMenuComponents/shortcuts-desc.tsx'
@@ -77,7 +69,7 @@ export default defineComponent({
                         type="default"
                         handle={item.handle}
                         v-slots={{
-                          'default': () => <span>{ useTrans(item.label) }</span>,
+                          'default': () => <span>{useTrans(item.label)}</span>,
                           'prefix-icon': () => <ma-svg-icon name={item.icon} size={18} />,
                         }}
                       />

@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <script setup lang="ts">
 import type { Placement, TriggerEvent } from 'floating-vue'
 import mergeClassName from '../../utils/mergeClassName.ts'
@@ -54,24 +45,13 @@ defineExpose({
 
 <template>
   <!-- @vue-ignore -->
-  <v-dropdown
-    ref="dropdownRef"
-    :placement="props.placement"
-    :triggers="props.triggers"
+  <v-dropdown ref="dropdownRef" :placement="props.placement" :triggers="props.triggers"
     :show-triggers="props.triggers.includes('click') ? undefined : ['hover']"
-    :popper-triggers="props.triggers.includes('click') ? undefined : ['hover']"
-    :dispose-timeout="null"
-    @show="emit('show')"
-  >
+    :popper-triggers="props.triggers.includes('click') ? undefined : ['hover']" :dispose-timeout="null"
+    @show="emit('show')">
     <slot />
     <template #popper>
-      <div
-        :class="dropdownClass"
-        role="menu"
-        aria-orientation="vertical"
-        aria-labelledby="menu-button"
-        tabindex="-1"
-      >
+      <div :class="dropdownClass" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
         <slot name="popper" />
       </div>
     </template>

@@ -4,14 +4,7 @@
     echo PHP_EOL;
     echo 'declare(strict_types=1);'.PHP_EOL;
 @endphp
-/**
- * This file is part of MineAdmin.
- *
- * @link     https://www.mineadmin.com
- * @document https://doc.mineadmin.com
- * @contact  root@imoi.cn
- * @license  https://github.com/mineadmin/MineAdmin/blob/master/LICENSE
- */
+
 
 @php
     // 使用传入的 codeGenerator 数据

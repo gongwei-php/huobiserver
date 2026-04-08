@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <script setup lang="tsx">
 import type { MaProTableExpose, MaProTableOptions, MaProTableSchema } from '@mineadmin/pro-table'
 import type { Ref } from 'vue'
@@ -151,27 +142,18 @@ function expandToggle() {
   <div class="mine-layout pt-3">
     <MaProTable ref="proTableRef" :options="options" :schema="schema">
       <template #actions>
-        <el-button
-          v-auth="['permission:department:save']"
-          type="primary"
-          @click="() => {
-            maDialog.setTitle(t('crud.add'))
-            maDialog.setAttr({ width: '550px' })
-            maDialog.open({ formType: 'add' })
-          }"
-        >
+        <el-button v-auth="['permission:department:save']" type="primary" @click="() => {
+          maDialog.setTitle(t('crud.add'))
+          maDialog.setAttr({ width: '550px' })
+          maDialog.open({ formType: 'add' })
+        }">
           {{ t('crud.add') }}
         </el-button>
       </template>
 
       <template #toolbarLeft>
-        <el-button
-          v-auth="['permission:department:delete']"
-          type="danger"
-          plain
-          :disabled="selections.length < 1"
-          @click="handleDelete"
-        >
+        <el-button v-auth="['permission:department:delete']" type="danger" plain :disabled="selections.length < 1"
+          @click="handleDelete">
           {{ t('crud.delete') }}
         </el-button>
         <div>
@@ -183,15 +165,11 @@ function expandToggle() {
       <!-- 数据为空时 -->
       <template #empty>
         <el-empty>
-          <el-button
-            v-auth="['permission:department:save']"
-            type="primary"
-            @click="() => {
-              maDialog.setTitle(t('crud.add'))
-              maDialog.setAttr({ width: '550px' })
-              maDialog.open({ formType: 'add' })
-            }"
-          >
+          <el-button v-auth="['permission:department:save']" type="primary" @click="() => {
+            maDialog.setTitle(t('crud.add'))
+            maDialog.setAttr({ width: '550px' })
+            maDialog.open({ formType: 'add' })
+          }">
             {{ t('crud.add') }}
           </el-button>
         </el-empty>
@@ -213,6 +191,4 @@ function expandToggle() {
   </div>
 </template>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

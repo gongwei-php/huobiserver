@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <script setup lang="ts">
 import type { Dictionary } from '#/global'
 import type { TransType } from '@/hooks/auto-imports/useTrans.ts'
@@ -45,18 +36,9 @@ const model = defineModel<any>()
       <template v-if="dictionaryData">
         <template v-for="item in dictionaryData" :key="item.label || item.value">
           <!-- 分组选项 -->
-          <el-option-group
-            v-if="item.options"
-            :label="item.i18n ? t(item.i18n) : item.label"
-            :disabled="item.disabled"
-          >
-            <el-option
-              v-for="sub in item.options"
-              :key="sub.value"
-              :value="sub.value"
-              :label="sub.i18n ? t(sub.i18n) : sub.label"
-              :disabled="sub.disabled"
-            >
+          <el-option-group v-if="item.options" :label="item.i18n ? t(item.i18n) : item.label" :disabled="item.disabled">
+            <el-option v-for="sub in item.options" :key="sub.value" :value="sub.value"
+              :label="sub.i18n ? t(sub.i18n) : sub.label" :disabled="sub.disabled">
               <!-- option 插槽 -->
               <template v-if="$slots.optionDefault">
                 <slot name="optionDefault" :option="sub" />
@@ -65,12 +47,8 @@ const model = defineModel<any>()
           </el-option-group>
 
           <!-- 普通选项 -->
-          <el-option
-            v-else
-            :value="item.value"
-            :label="item.i18n ? t(item.i18n) : item.label"
-            :disabled="item.disabled"
-          >
+          <el-option v-else :value="item.value" :label="item.i18n ? t(item.i18n) : item.label"
+            :disabled="item.disabled">
             <!-- option 插槽 -->
             <template v-if="$slots.optionDefault">
               <slot name="optionDefault" :option="item" />
@@ -81,16 +59,11 @@ const model = defineModel<any>()
     </slot>
 
     <!-- 其他具名插槽 -->
-    <template
-      v-for="slot in Object.keys($slots).filter(s => s !== 'default' && s !== 'optionDefault')"
-      :key="slot"
-      #[slot]="slotProps"
-    >
+    <template v-for="slot in Object.keys($slots).filter(s => s !== 'default' && s !== 'optionDefault')" :key="slot"
+      #[slot]="slotProps">
       <slot :name="slot" v-bind="slotProps" />
     </template>
   </el-select>
 </template>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <script setup lang="tsx">
 import type { MaProTableExpose, MaProTableOptions, MaProTableSchema } from '@mineadmin/pro-table'
 import type { Ref } from 'vue'
@@ -162,14 +153,8 @@ function requestUserByDept(node: any) {
 <template>
   <div class="mine-layout flex justify-between pb-0 pl-3 pt-3">
     <div class="w-full rounded bg-[#fff] p-2 md:w-2/12 dark-bg-dark-8">
-      <ma-tree
-        :data="deptData"
-        tree-key="name"
-        node-key="id"
-        :props="{ label: 'name' }"
-        :expand-on-click-node="false"
-        @node-click="requestUserByDept"
-      >
+      <ma-tree :data="deptData" tree-key="name" node-key="id" :props="{ label: 'name' }" :expand-on-click-node="false"
+        @node-click="requestUserByDept">
         <template #default="{ data }">
           <div class="mine-tree-node">
             <div class="label">
@@ -182,40 +167,27 @@ function requestUserByDept(node: any) {
     <div class="w-full md:w-10/12">
       <MaProTable ref="proTableRef" :options="options" :schema="schema">
         <template #actions>
-          <el-button
-            v-auth="['permission:user:save']"
-            type="primary"
-            @click="() => {
-              maDialog.setTitle(t('crud.add'))
-              maDialog.open({ formType: 'add' })
-            }"
-          >
+          <el-button v-auth="['permission:user:save']" type="primary" @click="() => {
+            maDialog.setTitle(t('crud.add'))
+            maDialog.open({ formType: 'add' })
+          }">
             {{ t('crud.add') }}
           </el-button>
         </template>
 
         <template #toolbarLeft>
-          <el-button
-            v-auth="['permission:user:delete']"
-            type="danger"
-            plain
-            :disabled="selections.length < 1"
-            @click="handleDelete"
-          >
+          <el-button v-auth="['permission:user:delete']" type="danger" plain :disabled="selections.length < 1"
+            @click="handleDelete">
             {{ t('crud.delete') }}
           </el-button>
         </template>
         <!-- 数据为空时 -->
         <template #empty>
           <el-empty>
-            <el-button
-              v-auth="['permission:user:save']"
-              type="primary"
-              @click="() => {
-                maDialog.setTitle(t('crud.add'))
-                maDialog.open({ formType: 'add' })
-              }"
-            >
+            <el-button v-auth="['permission:user:save']" type="primary" @click="() => {
+              maDialog.setTitle(t('crud.add'))
+              maDialog.open({ formType: 'add' })
+            }">
               {{ t('crud.add') }}
             </el-button>
           </el-empty>
@@ -234,6 +206,4 @@ function requestUserByDept(node: any) {
   </div>
 </template>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

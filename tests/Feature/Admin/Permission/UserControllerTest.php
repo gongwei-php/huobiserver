@@ -1,14 +1,7 @@
 <?php
 
 declare(strict_types=1);
-/**
- * This file is part of MineAdmin.
- *
- * @link     https://www.mineadmin.com
- * @document https://doc.mineadmin.com
- * @contact  root@imoi.cn
- * @license  https://github.com/mineadmin/MineAdmin/blob/master/LICENSE
- */
+
 
 namespace HyperfTests\Feature\Admin\Permission;
 
@@ -251,8 +244,8 @@ final class UserControllerTest extends ControllerCase
             ]),
         ];
         $roles[] = $this->role;
-        $roleIds = array_map(static fn ($role) => $role->id, $roles);
-        $roleCodes = array_map(static fn ($role) => $role->code, $roles);
+        $roleIds = array_map(static fn($role) => $role->id, $roles);
+        $roleCodes = array_map(static fn($role) => $role->code, $roles);
         $result = $this->put($uri, ['role_codes' => $roleCodes]);
         self::assertSame(Arr::get($result, 'code'), ResultCode::UNAUTHORIZED->value);
         $result = $this->put($uri, ['role_codes' => $roleCodes], ['Authorization' => 'Bearer ' . $token]);

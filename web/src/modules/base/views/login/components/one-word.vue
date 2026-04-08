@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <script setup lang="ts">
 import Message from 'vue-m-message'
 import http from '@/utils/http'
@@ -54,11 +45,8 @@ onMounted(() => {
         -- {{ wordData.origin }}
       </p>
       <div class="hidden group-hover:block group-hover:animate-fade-in group-hover:animate-duration-100">
-        <ma-svg-icon
-          name="iconoir:refresh"
-          class="relative top-[3px] cursor-pointer text-[13px]"
-          @click="requestOneWord"
-        />
+        <ma-svg-icon name="iconoir:refresh" class="relative top-[3px] cursor-pointer text-[13px]"
+          @click="requestOneWord" />
       </div>
     </div>
   </div>

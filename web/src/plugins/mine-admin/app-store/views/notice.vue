@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <i18n lang="yaml">
 zh_CN:
   title: 未设置 MINE_ACCESS_TOKEN
@@ -78,13 +69,8 @@ defineExpose({ open })
         <ol class="mt-3 leading-7">
           <li>
             {{ t('oneStep.one') }}
-            <el-link
-              target="_blank"
-              type="primary"
-              class="-top-[1px]"
-              underline="never"
-              href="https://www.mineadmin.com/login?redirect=/member/setting"
-            >
+            <el-link target="_blank" type="primary" class="-top-[1px]" underline="never"
+              href="https://www.mineadmin.com/login?redirect=/member/setting">
               {{ t('oneStep.two') }}
             </el-link>
             {{ t('oneStep.three') }} <span class="text-green-500">AccessToken</span>
@@ -103,6 +89,4 @@ defineExpose({ open })
   </Dialog>
 </template>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

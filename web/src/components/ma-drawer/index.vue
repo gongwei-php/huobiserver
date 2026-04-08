@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <script setup lang="ts">
 import type { Ref } from 'vue'
 import { useMagicKeys } from '@vueuse/core'
@@ -56,11 +47,7 @@ watch(() => keys.value, async () => {
 </script>
 
 <template>
-  <ElDrawer
-    ref="drawerRef"
-    v-model="isOpen"
-    v-bind="$attrs"
-  >
+  <ElDrawer ref="drawerRef" v-model="isOpen" v-bind="$attrs">
     <template #default>
       <div v-loading="$attrs.loading ?? false">
         <slot name="default" />
@@ -90,6 +77,4 @@ watch(() => keys.value, async () => {
   </ElDrawer>
 </template>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

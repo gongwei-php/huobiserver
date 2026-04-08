@@ -1,14 +1,7 @@
 <?php
 
 declare(strict_types=1);
-/**
- * This file is part of MineAdmin.
- *
- * @link     https://www.mineadmin.com
- * @document https://doc.mineadmin.com
- * @contact  root@imoi.cn
- * @license  https://github.com/mineadmin/MineAdmin/blob/master/LICENSE
- */
+
 
 namespace App\Http;
 
@@ -72,8 +65,8 @@ final class CurrentUser
         $menuList = $permissions->isEmpty()
             ? []
             : $this->menuService
-                ->getList(['status' => Status::Normal, 'name' => $permissions->toArray()])
-                ->toArray();
+            ->getList(['status' => Status::Normal, 'name' => $permissions->toArray()])
+            ->toArray();
         $tree = [];
         $map = [];
         foreach ($menuList as &$menu) {

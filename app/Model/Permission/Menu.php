@@ -1,14 +1,7 @@
 <?php
 
 declare(strict_types=1);
-/**
- * This file is part of MineAdmin.
- *
- * @link     https://www.mineadmin.com
- * @document https://doc.mineadmin.com
- * @contact  root@imoi.cn
- * @license  https://github.com/mineadmin/MineAdmin/blob/master/LICENSE
- */
+
 
 namespace App\Model\Permission;
 
@@ -49,21 +42,35 @@ final class Menu extends MineModel
      * The attributes that are mass assignable.
      */
     protected array $fillable = [
-        'id', 'parent_id', 'name',
-        'component', 'redirect',
-        'status', 'sort',
-        'created_by', 'updated_by',
-        'created_at', 'updated_at',
-        'remark', 'meta', 'path',
+        'id',
+        'parent_id',
+        'name',
+        'component',
+        'redirect',
+        'status',
+        'sort',
+        'created_by',
+        'updated_by',
+        'created_at',
+        'updated_at',
+        'remark',
+        'meta',
+        'path',
     ];
 
     /**
      * The attributes that should be cast to native types.
      */
     protected array $casts = [
-        'id' => 'integer', 'parent_id' => 'integer', 'status' => 'integer',
-        'sort' => 'integer', 'created_by' => 'integer', 'updated_by' => 'integer',
-        'created_at' => 'datetime', 'updated_at' => 'datetime', 'meta' => MetaCast::class,
+        'id' => 'integer',
+        'parent_id' => 'integer',
+        'status' => 'integer',
+        'sort' => 'integer',
+        'created_by' => 'integer',
+        'updated_by' => 'integer',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'meta' => MetaCast::class,
         'path' => 'string',
     ];
 

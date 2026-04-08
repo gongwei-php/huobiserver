@@ -1,14 +1,7 @@
 <?php
 
 declare(strict_types=1);
-/**
- * This file is part of MineAdmin.
- *
- * @link     https://www.mineadmin.com
- * @document https://doc.mineadmin.com
- * @contact  root@imoi.cn
- * @license  https://github.com/mineadmin/MineAdmin/blob/master/LICENSE
- */
+
 
 namespace App\Http\Admin\Controller\Permission;
 
@@ -67,13 +60,14 @@ final class UserController extends AbstractController
         );
     }
 
-    #[Put(
-        path: '/admin/user',
-        operationId: 'updateInfo',
-        summary: '更新用户信息',
-        security: [['Bearer' => [], 'ApiKey' => []]],
-        tags: ['用户管理']
-    )
+    #[
+        Put(
+            path: '/admin/user',
+            operationId: 'updateInfo',
+            summary: '更新用户信息',
+            security: [['Bearer' => [], 'ApiKey' => []]],
+            tags: ['用户管理']
+        )
     ]
     #[RequestBody(content: new JsonContent(ref: UserRequest::class, title: '修改个人信息'))]
     #[Permission(code: 'permission:user:update')]
@@ -162,7 +156,7 @@ final class UserController extends AbstractController
     #[ResultResponse(new Result())]
     public function getUserRole(int $userId): Result
     {
-        return $this->success($this->userService->getUserRole($userId)->map(static fn (Role $role) => $role->only([
+        return $this->success($this->userService->getUserRole($userId)->map(static fn(Role $role) => $role->only([
             'id',
             'code',
             'name',

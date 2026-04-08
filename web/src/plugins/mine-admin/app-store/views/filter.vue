@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <i18n lang="yaml">
 zh_CN:
   alert: 这里是 MineAdmin 官方应用市场，您可以在此页面放心下载喜欢的应用。注意：只有开发环境才能使用应用市场
@@ -181,16 +172,9 @@ function filterRequest(name: string, value: string) {
 <template>
   <div :class="filterClass">
     <div class="flex justify-between gap-x-6">
-      <m-tabs
-        v-model="storeMeta.allStore"
-        class="h-[30px] max-w-full text-sm md:max-w-[308px] md:min-w-[200px]"
-        :options="tabsOptions"
-      />
-      <el-alert
-        class="hidden w-9/12 md:flex"
-        type="success"
-        :closable="false"
-      >
+      <m-tabs v-model="storeMeta.allStore" class="h-[30px] max-w-full text-sm md:max-w-[308px] md:min-w-[200px]"
+        :options="tabsOptions" />
+      <el-alert class="hidden w-9/12 md:flex" type="success" :closable="false">
         {{ t('alert') }}
       </el-alert>
     </div>
@@ -201,16 +185,11 @@ function filterRequest(name: string, value: string) {
             <ma-svg-icon name="i-ri:refresh-line" :size="16" class="mr-1" />
             {{ t('refresh') }}
           </el-button>
-          <el-upload
-            :show-file-list="false"
-            accept=".zip,.rar"
-            :http-request="handleUpload"
-            :on-success="handleSuccess"
-            :on-error="handleError"
-            :disabled="storeMeta.uploadLoading"
-          >
+          <el-upload :show-file-list="false" accept=".zip,.rar" :http-request="handleUpload" :on-success="handleSuccess"
+            :on-error="handleError" :disabled="storeMeta.uploadLoading">
             <el-button :type="storeMeta.uploadLoading ? 'primary' : 'default'">
-              <ma-svg-icon name="i-line-md:uploading-loop" :size="18" class="mr-1" :disbaled="storeMeta.uploadLoading" :loading="storeMeta.uploadLoading" />
+              <ma-svg-icon name="i-line-md:uploading-loop" :size="18" class="mr-1" :disbaled="storeMeta.uploadLoading"
+                :loading="storeMeta.uploadLoading" />
               {{ t(storeMeta.uploadLoading ? 'localUploadLoading' : 'localUpload') }}
             </el-button>
           </el-upload>
@@ -221,37 +200,24 @@ function filterRequest(name: string, value: string) {
         </el-space>
       </div>
       <div v-if="storeMeta.allStore" class="mt-2 flex items-center gap-x-3 md:mt-0">
-        <el-select
-          v-model="params.add_type"
-          class="w-150px"
-          @change="(v) => filterRequest('add_type', v)"
-        >
-          <el-option v-for="item in paramsOptions.addType" :key="item.value" :value="item.value" :label="t(item.label)" />
+        <el-select v-model="params.add_type" class="w-150px" @change="(v) => filterRequest('add_type', v)">
+          <el-option v-for="item in paramsOptions.addType" :key="item.value" :value="item.value"
+            :label="t(item.label)" />
           <template #label="{ label }">
             {{ t('filterType') }}：{{ label }}
           </template>
         </el-select>
-        <el-select
-          v-model="params.type"
-          class="w-150px"
-          @change="(v) => filterRequest('type', v)"
-        >
+        <el-select v-model="params.type" class="w-150px" @change="(v) => filterRequest('type', v)">
           <el-option v-for="item in paramsOptions.types" :key="item.value" :value="item.value" :label="t(item.label)" />
           <template #label="{ label }">
             {{ t('filterPrice') }}：{{ label }}
           </template>
         </el-select>
-        <el-input
-          v-model="params.keywords"
-          :placeholder="t('searchPlaceholder')"
-          class="w-150px"
-          @input="execSearchKeywords"
-        />
+        <el-input v-model="params.keywords" :placeholder="t('searchPlaceholder')" class="w-150px"
+          @input="execSearchKeywords" />
       </div>
     </div>
   </div>
 </template>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

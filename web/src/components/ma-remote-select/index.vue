@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <script setup lang="ts">
 import { ElSelectV2 } from 'element-plus'
 import { useMessage } from '@/hooks/useMessage.ts'
@@ -74,20 +65,11 @@ defineExpose({
 </script>
 
 <template>
-  <ElSelectV2
-    ref="elSelectV2Ref"
-    v-bind="$attrs"
-    v-model="model"
-    :options="options"
-    clearable
-    @change="handleChange"
-  >
+  <ElSelectV2 ref="elSelectV2Ref" v-bind="$attrs" v-model="model" :options="options" clearable @change="handleChange">
     <template v-for="(_, name) in $slots" #[name]="scopedData">
       <slot :name="name" v-bind="scopedData" />
     </template>
   </ElSelectV2>
 </template>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

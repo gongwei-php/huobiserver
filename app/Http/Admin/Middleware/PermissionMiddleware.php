@@ -1,14 +1,7 @@
 <?php
 
 declare(strict_types=1);
-/**
- * This file is part of MineAdmin.
- *
- * @link     https://www.mineadmin.com
- * @document https://doc.mineadmin.com
- * @contact  root@imoi.cn
- * @license  https://github.com/mineadmin/MineAdmin/blob/master/LICENSE
- */
+
 
 namespace App\Http\Admin\Middleware;
 
@@ -52,7 +45,7 @@ final class PermissionMiddleware implements MiddlewareInterface
         if (! $parseResult) {
             return true;
         }
-        [$controller,$method] = $parseResult;
+        [$controller, $method] = $parseResult;
         $annotations = AnnotationCollector::getClassMethodAnnotation($controller, $method);
         $classAnnotation = AnnotationCollector::getClassAnnotation($controller, Permission::class);
         /**

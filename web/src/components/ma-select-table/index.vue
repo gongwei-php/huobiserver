@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <script setup lang="ts">
 import type { MaProTableColumns, MaProTableExpose, MaProTableOptions, MaSearchItem } from '@mineadmin/pro-table'
 
@@ -34,37 +25,37 @@ const model = defineModel<any>()
 
 const options = Object.assign(
   props?.proTableOptions ?? {}, {
-    tableOptions: {
-      adaption: false,
-      on: {
-        onRowClick: (row: any) => {
-          if (multiple.value) {
-            const index = model.value.findIndex((item: any) => item[rowKey.value] === row[rowKey.value])
-            if (index === -1) {
-              model.value.push(row)
-            }
-            else {
-              model.value.splice(index, 1)
-            }
+  tableOptions: {
+    adaption: false,
+    on: {
+      onRowClick: (row: any) => {
+        if (multiple.value) {
+          const index = model.value.findIndex((item: any) => item[rowKey.value] === row[rowKey.value])
+          if (index === -1) {
+            model.value.push(row)
           }
           else {
-            if (model.value?.[rowKey.value] && row[rowKey.value] === model.value[rowKey.value]) {
-              model.value = null
-            }
-            else {
-              model.value = row
-            }
-            selectRef.value?.blur()
+            model.value.splice(index, 1)
           }
-        },
+        }
+        else {
+          if (model.value?.[rowKey.value] && row[rowKey.value] === model.value[rowKey.value]) {
+            model.value = null
+          }
+          else {
+            model.value = row
+          }
+          selectRef.value?.blur()
+        }
       },
     },
-    tools: { show: false },
-    header: { show: false },
-    requestOptions: {
-      api: props.api,
-    },
   },
+  tools: { show: false },
+  header: { show: false },
+  requestOptions: {
+    api: props.api,
+  },
+},
 )
 
 const cols = props?.columns ?? []
@@ -96,15 +87,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <el-select
-    ref="selectRef"
-    v-model="selectModel"
-    :max-collapse-tags="3"
-    v-bind="props?.selectProps ?? {}"
-    :collapse-tags="multiple"
-    :multiple="multiple"
-    clearable
-    @clear="() => {
+  <el-select ref="selectRef" v-model="selectModel" :max-collapse-tags="3" v-bind="props?.selectProps ?? {}"
+    :collapse-tags="multiple" :multiple="multiple" clearable @clear="() => {
       if (multiple) {
         model = []
         selectModel = []
@@ -113,14 +97,10 @@ onMounted(() => {
         model = null
         selectModel = null
       }
-    }"
-  >
+    }">
     <template #empty>
-      <ma-pro-table
-        ref="selectTableRef"
-        :options="options"
-        :schema="{ tableColumns: cols, searchItems: props?.searchItems ?? [] }"
-      >
+      <ma-pro-table ref="selectTableRef" :options="options"
+        :schema="{ tableColumns: cols, searchItems: props?.searchItems ?? [] }">
         <template #toolbarLeft>
           <el-alert type="success">
             单击行选择数据
@@ -128,12 +108,7 @@ onMounted(() => {
         </template>
         <template #column-__selections__="{ row }">
           <div class="flex items-center justify-center">
-            <ma-svg-icon
-              v-if="isRowSelected(row)"
-              name="heroicons:check-16-solid"
-              class="text-green-7"
-              :size="20"
-            />
+            <ma-svg-icon v-if="isRowSelected(row)" name="heroicons:check-16-solid" class="text-green-7" :size="20" />
           </div>
         </template>
       </ma-pro-table>

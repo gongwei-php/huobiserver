@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <script setup lang="ts">
 import type { DialogRootEmits, DialogRootProps } from 'radix-vue'
 
@@ -85,10 +76,7 @@ const isOpen = defineModel<boolean>({ default: false })
 }
 
 .modal-content {
-  @apply transition-all ease-in-out top-0 right-0 z-3000 bg-white dark-bg-dark-5 rounded-xl
-  fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] focus:outline-none z-3000
-    overflow-hidden px-5 pb-5
-  ;
+  @apply transition-all ease-in-out top-0 right-0 z-3000 bg-white dark-bg-dark-5 rounded-xl fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] focus:outline-none z-3000 overflow-hidden px-5 pb-5;
   animation: contentShow 300ms cubic-bezier(0.16, 2, 0.5, 2);
 }
 
@@ -97,6 +85,7 @@ const isOpen = defineModel<boolean>({ default: false })
     opacity: 0;
     transform: translate(-50%, -48%) scale(0.96);
   }
+
   to {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);

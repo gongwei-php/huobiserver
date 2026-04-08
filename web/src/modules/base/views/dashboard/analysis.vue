@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <script setup lang="tsx">
 import AnalysisItem from './components/analysis/analysis-item.vue'
 import AnalysisContentPublish from './components/analysis/analysis-content-publish.vue'
@@ -24,10 +15,18 @@ defineOptions({ name: 'dashboard:analysis' })
       </div>
 
       <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
-        <div><AnalysisItem name="visitors" chart-type="line" title="访问总人次" /></div>
-        <div><AnalysisItem name="published" chart-type="bar" title="内容发布量" /></div>
-        <div><AnalysisItem name="visitors" chart-type="line" title="评论总量" /></div>
-        <div><AnalysisItem name="contentTimer" chart-type="pie" title="分享总量" /></div>
+        <div>
+          <AnalysisItem name="visitors" chart-type="line" title="访问总人次" />
+        </div>
+        <div>
+          <AnalysisItem name="published" chart-type="bar" title="内容发布量" />
+        </div>
+        <div>
+          <AnalysisItem name="visitors" chart-type="line" title="评论总量" />
+        </div>
+        <div>
+          <AnalysisItem name="contentTimer" chart-type="pie" title="分享总量" />
+        </div>
       </div>
     </div>
 
@@ -42,16 +41,15 @@ defineOptions({ name: 'dashboard:analysis' })
 
 <style>
 .echarts-tooltip-diy {
-  background: linear-gradient(
-    304.17deg,
-    rgba(253, 254, 255, 0.6) -6.04%,
-    rgba(244, 247, 252, 0.6) 85.2%
-  ) !important;
+  background: linear-gradient(304.17deg,
+      rgba(253, 254, 255, 0.6) -6.04%,
+      rgba(244, 247, 252, 0.6) 85.2%) !important;
   border: none !important;
   backdrop-filter: blur(10px) !important;
   /* Note: backdrop-filter has minimal browser support */
 
   border-radius: 6px !important;
+
   .content-panel {
     display: flex;
     justify-content: space-between;
@@ -64,12 +62,15 @@ defineOptions({ name: 'dashboard:analysis' })
     border-radius: 4px;
     margin-bottom: 4px;
   }
+
   .tooltip-title {
     margin: 0 0 10px 0;
   }
+
   p {
     margin: 0;
   }
+
   .tooltip-title,
   .tooltip-value {
     font-size: 13px;
@@ -80,6 +81,7 @@ defineOptions({ name: 'dashboard:analysis' })
     color: #1d2129;
     font-weight: bold;
   }
+
   .tooltip-item-icon {
     display: inline-block;
     margin-right: 8px;

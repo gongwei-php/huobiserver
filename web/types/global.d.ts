@@ -1,14 +1,6 @@
 import type { ResultCode } from '@/utils/ResultCode.ts'
 import type { App, Ref } from 'vue'
-/**
- * MineAdmin is committed to providing solutions for quickly building web applications
- * Please view the LICENSE file that was distributed with this source code,
- * For the full copyright and license information.
- * Thank you very much for using MineAdmin.
- *
- * @Author X.Mo<root@imoi.cn>
- * @Link   https://github.com/mineadmin
- */
+
 import type { Router, RouteRecordName, RouteRecordRaw } from 'vue-router'
 
 type RecursiveRequired<T> = {
@@ -88,7 +80,7 @@ declare namespace Plugin {
     enable: boolean
   }
 
-  interface Views extends Route.RouteRecordRaw {}
+  interface Views extends Route.RouteRecordRaw { }
 
   interface PluginConfig {
     install: (app: App) => void
@@ -355,7 +347,7 @@ declare namespace ProviderService {
 }
 
 declare namespace Route {
-  interface RouteRecordRaw extends MineRoute.routeRecord {}
+  interface RouteRecordRaw extends MineRoute.routeRecord { }
 }
 
 declare namespace MineRoute {

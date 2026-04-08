@@ -1,14 +1,7 @@
 <?php
 
 declare(strict_types=1);
-/**
- * This file is part of MineAdmin.
- *
- * @link     https://www.mineadmin.com
- * @document https://doc.mineadmin.com
- * @contact  root@imoi.cn
- * @license  https://github.com/mineadmin/MineAdmin/blob/master/LICENSE
- */
+
 
 namespace App\Command;
 
@@ -35,7 +28,9 @@ class UpdateCommand
             'ptype' => 'g',
         ]);
         $result = Db::table(\Hyperf\Config\config('permission.database.table'))->select([
-            'v1', 'v0', 'ptype',
+            'v1',
+            'v0',
+            'ptype',
         ])->get();
         $result->map(static function (\stdClass $item) {
             if ($item->ptype === 'g') {

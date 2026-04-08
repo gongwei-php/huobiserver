@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <script setup lang="ts">
 defineOptions({ name: 'MDropdownItem' })
 
@@ -21,7 +12,7 @@ const props = withDefaults(
     selected: false,
     disabled: false,
     type: 'default',
-    handle: () => {},
+    handle: () => { },
   },
 )
 
@@ -34,16 +25,10 @@ function onClick(e: MouseEvent) {
 </script>
 
 <template>
-  <div
-    class="dropdown-item-wrapper"
-    :class="[
-      `dropdown-item-wrapper--${type}${selected ? '--selected' : ''}`,
-      { 'dropdown-item-wrapper--disabled': disabled },
-    ]"
-    role="menuitem"
-    tabindex="-1"
-    @click.prevent="onClick"
-  >
+  <div class="dropdown-item-wrapper" :class="[
+    `dropdown-item-wrapper--${type}${selected ? '--selected' : ''}`,
+    { 'dropdown-item-wrapper--disabled': disabled },
+  ]" role="menuitem" tabindex="-1" @click.prevent="onClick">
     <div class="flex items-center gap-3">
       <slot name="prefix-icon" />
 
@@ -59,9 +44,7 @@ function onClick(e: MouseEvent) {
   @apply flex cursor-pointer justify-between items-center gap-1 rounded px-4 py-2 text-sm;
 
   &--default {
-    @apply text-stone-700 hover:bg-gray-1 hover:text-gray-900
-      dark-text-gray-2 dark-hover:bg-dark-3
-    ;
+    @apply text-stone-700 hover:bg-gray-1 hover:text-gray-900 dark-text-gray-2 dark-hover:bg-dark-3;
 
     &--selected {
       @apply bg-gray-100 dark-bg-dark-7 text-gray-900 dark-text-gray-100;

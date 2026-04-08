@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <script setup lang="ts" generic="T extends string | number">
 import { useResizeObserver } from '@vueuse/core'
 import type { MTabsEmits, MTabsOptionItems, MTabsProps } from './type.ts'
@@ -74,19 +65,13 @@ onMounted(() => {
 <template>
   <div :id="id" class="tabs-list-container" :class="{ 'flex-col': props.direction === 'vertical' }">
     <div class="tab-list-item-selected" />
-    <a
-      v-for="item in props.options"
-      class="tab-list-item text-left"
-      :class="{
-        'active': item.value === value,
-        'w-full': props.direction === 'horizontal',
-        'h-full': props.direction === 'vertical',
-      }"
-      :style="{
+    <a v-for="item in props.options" class="tab-list-item text-left" :class="{
+      'active': item.value === value,
+      'w-full': props.direction === 'horizontal',
+      'h-full': props.direction === 'vertical',
+    }" :style="{
         'justify-content': props.align,
-      }"
-      @click="(e: MouseEvent) => handleClick(e, item)"
-    >
+      }" @click="(e: MouseEvent) => handleClick(e, item)">
       <slot name="default" :item="item">
         <ma-svg-icon v-if="item.icon" :name="item.icon" :size="16" />
         <span>{{ typeof item.label === 'function' ? item.label?.() : item.label }}</span>
@@ -97,18 +82,14 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .tabs-list-container {
-  @apply flex p-1 rounded relative
-    bg-gray-1  dark-bg-dark-3
-  ;
+  @apply flex p-1 rounded relative bg-gray-1 dark-bg-dark-3;
 
   flex-grow: 1;
   justify-items: flex-start;
 }
 
 .tab-list-item {
-  @apply flex items-center justify-center gap-1.5 relative z-3 dark-text-gray-4 text-gray-5
-    px-2 py-1.5 rounded cursor-pointer transition-all duration-500
-  ;
+  @apply flex items-center justify-center gap-1.5 relative z-3 dark-text-gray-4 text-gray-5 px-2 py-1.5 rounded cursor-pointer transition-all duration-500;
 }
 
 .tab-list-item.active {

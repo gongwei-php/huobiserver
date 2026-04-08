@@ -1,12 +1,3 @@
-<!--
- - MineAdmin is committed to providing solutions for quickly building web applications
- - Please view the LICENSE file that was distributed with this source code,
- - For the full copyright and license information.
- - Thank you very much for using MineAdmin.
- -
- - @Author X.Mo<root@imoi.cn>
- - @Link   https://github.com/mineadmin
--->
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
 
@@ -62,7 +53,8 @@ const style = computed(() => {
 </script>
 
 <template>
-  <i class="relative h-[1em] w-[1em] flex-inline items-center justify-center fill-current leading-[1em]" v-bind="$attrs" :class="{ [name]: outputType === 'unocss' }" :style="style">
+  <i class="relative h-[1em] w-[1em] flex-inline items-center justify-center fill-current leading-[1em]" v-bind="$attrs"
+    :class="{ [name]: outputType === 'unocss' }" :style="style">
     <Icon v-if="outputType === 'iconify'" :icon="name" />
     <svg v-else-if="outputType === 'svg'" class="h-[1em] w-[1em]">
       <use :xlink:href="`#icon-${name}`" />
