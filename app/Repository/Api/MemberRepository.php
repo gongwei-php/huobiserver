@@ -18,7 +18,7 @@ final class MemberRepository extends IRepository
 
     public function handleItems(Collection $items): Collection
     {
-        $a_vip_levels = collect($items)->keyBy('vip_level_id')->toArray();
+        $a_vip_levels = collect($items)->pluck('vip_level_id')->filter()->unique()->toArray();
         $vip_repository = new MemberVipRepository(new MemberVip());
         $a_vips = $vip_repository->getVipByLevels($a_vip_levels);
         $a_vips = array_combine(array_column($a_vips, 'level'), $a_vips);
