@@ -12,40 +12,38 @@ declare(strict_types=1);
 
 namespace App\Model\Api;
 
-use App\Model\Enums\MemberAuth\Status;
 use Carbon\Carbon;
-use Hyperf\Database\Model\Relations\HasOne;
 use Hyperf\DbConnection\Model\Model;
 
 /**
- * @property int $id 用户ID，主键
- * @property int $member_id 用户账号
- * @property string $card_front_url 证件照正面照片地址
- * @property string $card_back_url 证件照反面照片地址
- * @property Status $status 状态 (1=待审核,2=已通过,2=已拒绝)
- * @property int $updated_by 操作员ID
+ * 用户钱包模型
+ * @property int $id 主键
+ * @property int $user_id 用户ID
+ * @property string $balance 当前资产余额
+ * @property string $total_profit 累计总盈亏
  * @property Carbon $created_at 创建时间
  * @property Carbon $updated_at 更新时间
- * @property null|Member $member 会员
  */
-final class MemberAuth extends Model
+final class MemberWallet extends Model
 {
     /**
      * The table associated with the model.
      */
-    protected ?string $table = 'member_auth';
+    protected ?string $table = 'member_wallet';
 
     /**
      * The attributes that are mass assignable.
      */
-    protected array $fillable = ['id', 'member_id', 'card_front_url', 'card_back_url', 'status', 'created_at', 'updated_at', 'updated_by'];
+    protected array $fillable = ['id', 'user_id', 'balance', 'total_profit', 'created_at', 'updated_at'];
 
     /**
      * The attributes that should be cast to native types.
      */
     protected array $casts = [
         'id' => 'integer',
-        'status' => Status::class,
+        'user_id' => 'integer',
+        'balance' => 'string',
+        'total_profit' => 'string',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];

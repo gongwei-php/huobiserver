@@ -13,6 +13,8 @@ use App\Exception\JwtInBlackException;
 use App\Repository\Api\MemberRepository;
 use App\Http\Common\ResultCode;
 use App\Model\Api\Member;
+use App\Model\Api\MemberVip;
+use App\Model\Api\MemberWallet;
 use App\Service\IService;
 use Hyperf\DbConnection\Db;
 use Psr\SimpleCache\CacheInterface;
@@ -29,9 +31,7 @@ final class MemberService extends IService implements CheckTokenInterface
         protected readonly MemberRepository $repository,
         protected readonly Factory          $jwtFactory,
         protected readonly CacheInterface   $cache
-    )
-    {
-    }
+    ) {}
 
     /**
      * @return array<string,int|string>
@@ -165,7 +165,11 @@ final class MemberService extends IService implements CheckTokenInterface
             return $this->cache->get((string) $id);
         }
         $member = $this->repository->findById((string) $id);
-        $this->cache->set((string) $id, $member, 60);
+        $wallet_id = $member->wallet_id;
+        $o_wallet = MemberWallet::find($wallet_id);
+        $member->balance = $o_wallet->balance ?? 0;
+        $member->total_profit = $o_wallet->total_profit ?? 0;
+        $member->$this->cache->set((string) $id, $member, 60);
         return $member;
     }
 
@@ -173,6 +177,14 @@ final class MemberService extends IService implements CheckTokenInterface
     {
         return Db::transaction(function () use ($data) {
             /** @var Member $entity */
+            $balance = 0;
+            $profit = 0;
+            $o_wallet = new MemberWallet();
+            $o_wallet->balance = $balance;
+            $o_wallet->total_profit = $profit;
+            $o_wallet->save();
+            $wallet_id = $o_wallet->id;
+            $data['wallet_id'] = $wallet_id;
             $entity = parent::create($data);
             return $entity;
         });

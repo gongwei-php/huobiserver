@@ -19,6 +19,8 @@ use Hyperf\DbConnection\Model\Model;
 
 /**
  * @property int $id 用户ID，主键
+ * @property int $vip_level_id 用户vip等级id
+ * @property int $wallet_id 用户钱包id
  * @property string $account 用户账号
  * @property string $phone 手机
  * @property string $avatar 用户头像
@@ -46,7 +48,7 @@ final class Member extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected array $fillable = ['id', 'account', 'password', 'phone', 'avatar', 'status', 'login_ip', 'login_time', 'created_at', 'updated_at', 'updated_by'];
+    protected array $fillable = ['id', 'vip_level_id', 'wallet_id', 'account', 'password', 'phone', 'avatar', 'status', 'login_ip', 'login_time', 'created_at', 'updated_at', 'updated_by'];
 
     /**
      * The attributes that should be cast to native types.
