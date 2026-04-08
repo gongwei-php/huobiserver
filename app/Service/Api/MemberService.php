@@ -170,11 +170,14 @@ final class MemberService extends IService implements CheckTokenInterface
     /**
      * @throws InvalidArgumentException
      */
-    public function getInfo(int $id): ?Member
+    public function getInfo(int $id): ?array
     {
 
-        if ($this->cache->has((string) $id)) {
-            return $this->cache->get((string) $id);
+        $cache = 'member_info:' . $id;
+
+        if ($this->cache->has((string) $cache)) {
+            $member = $this->cache->get((string) $cache);
+            return json_decode($member, true);
         }
 
         $member = $this->repository->findById((string) $id);
@@ -195,13 +198,20 @@ final class MemberService extends IService implements CheckTokenInterface
         $balance = rtrim(rtrim($balance, '0'), '.');
         $total_profit = rtrim(rtrim($total_profit, '0'), '.');
 
-        $member->setAttribute('vip_level', $vip_level);
-        $member->setAttribute('balance', $balance);
-        $member->setAttribute('total_profit', $total_profit);
+        $data = [
+            'vip_level'      => $vip_level,
+            'account'        => $member->account,
+            'phone'          => $member->phone,
+            'avatar'         => $member->avatar,
+            'login_ip'       => $member->login_ip,
+            'login_time'     => $member->login_time,
+            'balance'        => $balance,
+            'total_profit'   => $total_profit,
+        ];
 
-        $this->cache->set((string) $id, $member, 60);
+        $this->cache->set((string) $cache, safe_json_encode($data), 60);
 
-        return $member;
+        return $data;
     }
 
     public function updateById(mixed $id, array $data): mixed

@@ -20,14 +20,14 @@ final class CurrentMember
     /**
      * @throws InvalidArgumentException
      */
-    public function member(): ?Member
+    public function member(): ?array
     {
         if (Context::has('current_member')) {
             return Context::get('current_member');
         }
-        $member = $this->memberService->getInfo($this->id());
-        Context::set('current_member', $member);
-        return $member;
+        $a_member = $this->memberService->getInfo($this->id());
+        Context::set('current_member', $a_member);
+        return $a_member;
     }
 
     public function refresh(): array
