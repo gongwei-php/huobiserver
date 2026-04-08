@@ -23,6 +23,9 @@ final class MemberSchema implements \JsonSerializable
     #[Property(property: 'id', title: '用户ID，主键', type: 'int')]
     public ?int $id;
 
+    #[Property(property: 'vip_level', title: '用户VIP等级', type: 'int')]
+    public ?int $vip_level;
+
     #[Property(property: 'account', title: '用户账号', type: 'string')]
     public ?string $account;
 
@@ -50,6 +53,7 @@ final class MemberSchema implements \JsonSerializable
     public function __construct(Member $model)
     {
         $this->id = $model->id;
+        $this->vip_level = $model->vip_level;
         $this->account = $model->account;
         $this->phone = $model->phone;
         $this->avatar = $model->avatar;
@@ -64,6 +68,7 @@ final class MemberSchema implements \JsonSerializable
     {
         return [
             'id' => $this->id,
+            'vip_level' => $this->vip_level,
             'account' => $this->account,
             'phone' => $this->phone,
             'avatar' => $this->avatar,

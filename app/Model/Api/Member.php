@@ -55,12 +55,18 @@ final class Member extends Model
      */
     protected array $casts = [
         'id' => 'integer',
+        'vip_level_id' => 'integer',
         'status' => Status::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
 
     public array $appends = ['balance', 'total_profit'];
+
+    public function getVipLevelAttribute()
+    {
+        return $this->attributes['vip_level'] ?? 0;
+    }
 
     public function getBalanceAttribute()
     {

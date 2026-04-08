@@ -160,7 +160,9 @@ final class MemberController extends AbstractController
     public function getInfo(): Result
     {
         $id = $this->currentMember->member()?->id ?: 0;
-        return $this->success($this->memberService->getInfo($id));
+        $member = $this->memberService->getInfo($id);
+        $schema = new MemberSchema($member);
+        return $this->success($schema);
     }
 
     #[Post(
