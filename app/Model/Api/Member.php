@@ -60,7 +60,7 @@ final class Member extends Model
         'updated_at' => 'datetime',
     ];
 
-    protected $appends = ['balance', 'total_profit'];
+    protected array $appends = ['balance', 'total_profit'];
 
     public function setPasswordAttribute($value): void
     {
