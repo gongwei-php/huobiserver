@@ -41,15 +41,6 @@ final class MemberSchema implements \JsonSerializable
     #[Property(property: 'login_time', title: '最后登陆时间', type: 'string')]
     public mixed $loginTime;
 
-    #[Property(property: 'updated_by', title: '操作员id', type: 'int')]
-    public ?int $updated_by;
-
-    #[Property(property: 'created_at', title: '创建时间', type: 'string')]
-    public mixed $createdAt;
-
-    #[Property(property: 'updated_at', title: '更新时间', type: 'string')]
-    public mixed $updatedAt;
-
     #[Property(property: 'balance', title: '余额', type: 'string')]
     public ?string $balance;
 
@@ -65,9 +56,6 @@ final class MemberSchema implements \JsonSerializable
         $this->status = $model->status;
         $this->loginIp = $model->login_ip;
         $this->loginTime = $model->login_time;
-        $this->createdAt = $model->created_at;
-        $this->updatedAt = $model->updated_at;
-        $this->updated_by = $model->updated_by;
         $this->balance = $model->balance;
         $this->total_profit = $model->total_profit;
     }
@@ -82,9 +70,6 @@ final class MemberSchema implements \JsonSerializable
             'status' => $this->status,
             'login_ip' => $this->loginIp,
             'login_time' => $this->loginTime,
-            'created_at' => $this->createdAt,
-            'updated_at' => $this->updatedAt,
-            'updated_by' => $this->updated_by,
             'balance' => $this->balance,
             'total_profit' => $this->total_profit
         ];
