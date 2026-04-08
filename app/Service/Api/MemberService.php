@@ -177,6 +177,7 @@ final class MemberService extends IService implements CheckTokenInterface
             echo 'member balance:' . $member->balance;
             $member->setAttribute('balance', $member->balance ?? 0);
             $member->setAttribute('total_profit', $member->total_profit ?? 0);
+            var_dump($member);
             return $member;
         }
         $member = $this->repository->findById((string) $id);
@@ -187,6 +188,7 @@ final class MemberService extends IService implements CheckTokenInterface
         $total_profit = $wallet->total_profit ?? 0;
         $member->setAttribute('balance', $balance);
         $member->setAttribute('total_profit', $total_profit);
+        var_dump($member);
         $this->cache->set((string) $id, $member, 60);
         return $member;
     }
