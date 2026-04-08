@@ -19,4 +19,7 @@ return [
         'collectors' => [],
         'ignore_annotations' => [],
     ],
+    'include_functions' => [
+        BASE_PATH . '/app/Common/functions.php',
+    ],
 ];
