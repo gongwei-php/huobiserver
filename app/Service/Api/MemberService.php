@@ -183,7 +183,7 @@ final class MemberService extends IService implements CheckTokenInterface
         }
 
         $vip_level_id = $member->vip_level_id;
-        $vip = MemberVip::where('vip_level_id', $vip_level_id)->first();
+        $vip = MemberVip::where('level', $vip_level_id)->where('status', 1)->first();
         $vip_level = $vip->level;
         $wallet = MemberWallet::where('member_id', $member->id)->first();
         $balance = $wallet->balance ?? 0;
