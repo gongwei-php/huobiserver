@@ -71,16 +71,14 @@ final class MemberService extends IService implements CheckTokenInterface
         ];
         $member = Db::transaction(function () use ($params) {
             /** @var Member $entity */
+            $entity = $this->repository->create($params);
             $balance = 0;
             $profit = 0;
             $o_wallet = new MemberWallet();
+            $o_wallet->member_id = $entity->id;
             $o_wallet->balance = $balance;
             $o_wallet->total_profit = $profit;
             $o_wallet->save();
-            $wallet_id = $o_wallet->id;
-            $params['wallet_id'] = $wallet_id;
-
-            $entity = $this->repository->create($params);
             return $entity;
         });
 
