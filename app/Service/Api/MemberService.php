@@ -199,6 +199,7 @@ final class MemberService extends IService implements CheckTokenInterface
         $total_profit = rtrim(rtrim($total_profit, '0'), '.');
 
         $data = [
+            'id'             => $id,
             'vip_level'      => $vip_level,
             'account'        => $member->account,
             'phone'          => $member->phone,

@@ -17,19 +17,6 @@ final class CurrentMember
         private readonly MemberService $memberService
     ) {}
 
-    /**
-     * @throws InvalidArgumentException
-     */
-    public function member(): ?array
-    {
-        if (Context::has('current_member')) {
-            return Context::get('current_member');
-        }
-        $a_member = $this->memberService->getInfo($this->id());
-        Context::set('current_member', $a_member);
-        return $a_member;
-    }
-
     public function refresh(): array
     {
         return $this->memberService->refreshToken($this->getToken());

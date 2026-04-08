@@ -43,7 +43,7 @@ final class MemberController extends AbstractController
         path: '/register',
         operationId: 'ApiV1Register',
         summary: '用户注册',
-        tags: ['api'],
+        tags: ['api:v1:register'],
     )]
     #[ResultResponse(
         instance: new Result(data: new MemberLoginVo()),
@@ -104,7 +104,7 @@ final class MemberController extends AbstractController
         path: '/login',
         operationId: 'ApiV1Login',
         summary: '用户登录',
-        tags: ['api'],
+        tags: ['api:v1:login'],
     )]
     #[ResultResponse(
         instance: new Result(data: new MemberLoginVo()),
@@ -137,7 +137,7 @@ final class MemberController extends AbstractController
         operationId: 'ApiV1Logout',
         summary: '退出',
         security: [['Bearer' => [], 'ApiKey' => []]],
-        tags: ['admin:passport']
+        tags: ['api:v1:logout']
     )]
     #[ResultResponse(instance: new Result(), example: '{"code":200,"message":"成功","data":[]}')]
     public function logout(): Result
@@ -151,7 +151,7 @@ final class MemberController extends AbstractController
         operationId: 'getInfo',
         summary: '获取用户信息',
         security: [['Bearer' => [], 'ApiKey' => []]],
-        tags: ['admin:passport']
+        tags: ['api:v1:getInfo']
     )]
     #[Middleware(TokenMiddleware::class)]
     #[ResultResponse(
@@ -159,8 +159,7 @@ final class MemberController extends AbstractController
     )]
     public function getInfo(): Result
     {
-        $a_member = $this->currentMember->member();
-        $id = $a_member ? $a_member['id'] : 0;
+        $id = $this->currentMember->id();
         $member = $this->memberService->getInfo($id);
         return $this->success($member);
     }
@@ -170,7 +169,7 @@ final class MemberController extends AbstractController
         operationId: 'refresh',
         summary: '刷新token',
         security: [['Bearer' => [], 'ApiKey' => []]],
-        tags: ['admin:passport']
+        tags: ['api:v1:refresh']
     )]
     #[Middleware(TokenMiddleware::class)]
     #[ResultResponse(
