@@ -60,7 +60,15 @@ final class Member extends Model
         'updated_at' => 'datetime',
     ];
 
-    protected array $appends = ['balance', 'total_profit'];
+    public function getBalanceAttribute()
+    {
+        return $this->attributes['balance'] ?? 0;
+    }
+
+    public function getTotalProfitAttribute()
+    {
+        return $this->attributes['total_profit'] ?? 0;
+    }
 
     public function setPasswordAttribute($value): void
     {
