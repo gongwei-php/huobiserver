@@ -59,9 +59,6 @@ final class Member extends Model
         'updated_at' => 'datetime',
     ];
 
-    public $balance;
-    public $total_profit;
-
     public function setPasswordAttribute($value): void
     {
         $this->attributes['password'] = password_hash((string) $value, \PASSWORD_DEFAULT);
