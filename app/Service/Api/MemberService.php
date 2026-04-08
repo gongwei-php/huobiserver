@@ -173,19 +173,23 @@ final class MemberService extends IService implements CheckTokenInterface
     public function getInfo(int $id): ?Member
     {
         if ($this->cache->has((string) $id)) {
-            $member = $this->cache->get((string) $id);
-            $member->setAttribute('balance', $member->balance ?? 0);
-            $member->setAttribute('total_profit', $member->total_profit ?? 0);
-            return $member;
+            return $this->cache->get((string) $id);
         }
+
         $member = $this->repository->findById((string) $id);
-        $member_id = $member->id;
-        $wallet = MemberWallet::where('member_id', $member_id)->first();
+        if (! $member) {
+            return null;
+        }
+
+        $wallet = MemberWallet::where('member_id', $member->id)->first();
         $balance = $wallet->balance ?? 0;
         $total_profit = $wallet->total_profit ?? 0;
+
         $member->setAttribute('balance', $balance);
         $member->setAttribute('total_profit', $total_profit);
+
         $this->cache->set((string) $id, $member, 60);
+
         return $member;
     }
 
