@@ -24,8 +24,6 @@ use Hyperf\Swagger\Annotation\Post;
 use Hyperf\Swagger\Annotation as OA;
 use Mine\Swagger\Attributes\ResultResponse;
 use App\Service\Api\MemberService;
-use Hyperf\Collection\Arr;
-use Hyperf\Engine\Contract\Http\V2\RequestInterface;
 use Hyperf\HttpServer\Annotation\Middleware;
 use Psr\Log\LoggerInterface;
 use Mine\Jwt\Traits\RequestScopedTokenTrait;
@@ -37,7 +35,7 @@ final class MemberController extends AbstractController
 
     public function __construct(
         private readonly MemberService   $memberService,
-        private readonly CurrentMember   $currentMember,
+        private readonly CurrentMember $currentMember,
         private readonly LoggerInterface $logger,
     ) {}
 
@@ -161,12 +159,16 @@ final class MemberController extends AbstractController
     )]
     public function getInfo(): Result
     {
-        return $this->success(
-            Arr::only(
-                $this->currentMember->member()?->toArray() ?: [],
-                ['account', 'avatar', 'phone', 'vip_level_id', 'login_ip', 'login_time']
-            )
-        );
+        // return $this->success(
+        //     Arr::only(
+        //         $this->currentMember->member()?->toArray() ?: [],
+        //         ['account', 'avatar', 'phone', 'vip_level_id', 'login_ip', 'login_time']
+        //     )
+        // );
+
+        $id = $this->currentMember->member()?->id ?: 0;
+        $member = $this->memberService->getInfo($id);
+        return $this->success($member->toArray());
     }
 
     #[Post(

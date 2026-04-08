@@ -172,7 +172,6 @@ final class MemberService extends IService implements CheckTokenInterface
      */
     public function getInfo(int $id): ?Member
     {
-        $this->cache->delete((string)$id);
 
         if ($this->cache->has((string) $id)) {
             return $this->cache->get((string) $id);
