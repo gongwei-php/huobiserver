@@ -189,8 +189,11 @@ final class MemberService extends IService implements CheckTokenInterface
         $balance = $wallet->balance ?? 0;
         $total_profit = $wallet->total_profit ?? 0;
 
-        $balance = floatval(bcadd($balance ?? 0, 0, 3));
-        $total_profit = floatval(bcadd($total_profit ?? 0, 0, 3));
+        $balance = bcadd((string)$balance, '0', 3);
+        $total_profit = bcadd((string)$total_profit, '0', 3);
+
+        $balance = rtrim(rtrim($balance, '0'), '.');
+        $total_profit = rtrim(rtrim($total_profit, '0'), '.');
 
         $member->setAttribute('vip_level', $vip_level);
         $member->setAttribute('balance', $balance);
