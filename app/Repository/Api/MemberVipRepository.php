@@ -26,16 +26,21 @@ final class MemberVipRepository extends IRepository
         return $is_exist;
     }
 
-    public function getVipByLevels(array $a_levels): array|bool
+    public function getVipByLevels(array $a_levels): array
     {
-        $o_vips = $this->model->newQuery()
-            ->whereIn('level', $a_levels)
-            ->get();
-        if (!$o_vips) {
-            return false;
+        // 1. 过滤空、无效值
+        $a_levels = array_filter($a_levels);
+
+        // 2. 如果空数组，直接返回空，不查库
+        if (empty($a_levels)) {
+            return [];
         }
 
-        return $o_vips->toArray();
+        // 3. 安全查询
+        return $this->model
+            ->whereIn('level', $a_levels)
+            ->get()
+            ->toArray();
     }
 
     public function handleSearch(Builder $query, array $params): Builder
