@@ -17,7 +17,7 @@ export default function getSearchItems(t: any, levelData: any): MaSearchItem[] {
     },
     {
       label: () => t('baseMemberManage.vip_level'),
-      prop: 'vip_level',
+      prop: 'vip_level_id',
       render: () => <el-tree-select />,
       renderProps: {
         data: levelData,

@@ -39,9 +39,12 @@ export default function getTableColumns(dialog: UseDialogExpose, formRef: any, t
     },
     { label: () => t('baseMemberManage.account'), prop: 'account' },
     { label: () => t('baseMemberManage.phone'), prop: 'phone' },
-    { label: () => t('baseMemberManage.vip_level'), prop: 'vip_level' },
+    {
+      label: () => t('baseMemberManage.vip_level'), prop: 'vip_level',
+      cellRender: ({ row }) => 'vip' + row.vip_level,
+    },
     { label: () => t('baseMemberManage.balance'), prop: 'balance' },
-    { label: () => t('baseMemberManage.total_profit'), prop: 'total_profit' },
+    { label: () => t('baseMemberManage.total_profit'), prop: 'total_profit', },
     {
       label: () => t('crud.status'), prop: 'status',
       cellRender: ({ row }) => (
