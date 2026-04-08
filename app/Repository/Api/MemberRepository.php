@@ -23,7 +23,7 @@ final class MemberRepository extends IRepository
         $a_vips = $vip_repository->getVipByLevels($a_vip_levels);
         $a_vips = array_combine(array_column($a_vips, 'level'), $a_vips);
 
-        $a_member_ids = collect($items)->keyBy('id')->toArray();
+        $a_member_ids = collect($items)->pluck('id')->toArray();
         $o_wallets = MemberWallet::whereIn('member_id', $a_member_ids)
             ->get();
         $a_walltes = $o_wallets ? $o_wallets->toArray() : [];
