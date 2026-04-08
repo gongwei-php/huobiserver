@@ -2,12 +2,9 @@
 
 namespace App\Http;
 
-use Hyperf\Context\Context;
-use App\Model\Api\Member;
 use App\Service\Api\MemberService;
 use Lcobucci\JWT\Token\RegisteredClaims;
 use Mine\Jwt\Traits\RequestScopedTokenTrait;
-use Psr\SimpleCache\InvalidArgumentException;
 
 final class CurrentMember
 {
