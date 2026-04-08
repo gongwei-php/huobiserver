@@ -69,10 +69,23 @@ final class MemberService extends IService implements CheckTokenInterface
             'login_ip' => $ip,
             'login_time' => date('Y-m-d H:i:s'),
         ];
-        $member = parent::create($params);
+        $member = Db::transaction(function () use ($params) {
+            /** @var Member $entity */
+            $balance = 0;
+            $profit = 0;
+            $o_wallet = new MemberWallet();
+            $o_wallet->balance = $balance;
+            $o_wallet->total_profit = $profit;
+            $o_wallet->save();
+            $wallet_id = $o_wallet->id;
+            $params['wallet_id'] = $wallet_id;
+
+            $entity = $this->repository->create($params);
+            return $entity;
+        });
+
 
         $jwt = $this->getJwt();
-
         $code = 1;
         $msg = '';
         return [
@@ -171,23 +184,6 @@ final class MemberService extends IService implements CheckTokenInterface
         $member->total_profit = $wallet->total_profit ?? 0;
         $this->cache->set((string) $id, $member, 60);
         return $member;
-    }
-
-    public function create(array $data): mixed
-    {
-        return Db::transaction(function () use ($data) {
-            /** @var Member $entity */
-            $balance = 0;
-            $profit = 0;
-            $o_wallet = new MemberWallet();
-            $o_wallet->balance = $balance;
-            $o_wallet->total_profit = $profit;
-            $o_wallet->save();
-            $wallet_id = $o_wallet->id;
-            $data['wallet_id'] = $wallet_id;
-            $entity = parent::create($data);
-            return $entity;
-        });
     }
 
     public function updateById(mixed $id, array $data): mixed

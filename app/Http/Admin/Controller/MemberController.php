@@ -66,46 +66,6 @@ class MemberController extends AbstractController
         );
     }
 
-    #[Post(
-        path: '/admin/member/add',
-        operationId: 'memberCreate',
-        summary: '创建会员',
-        security: [['Bearer' => [], 'ApiKey' => []]],
-        tags: ['会员管理'],
-    )]
-    #[RequestBody(
-        content: new JsonContent(ref: MemberRequest::class)
-    )]
-    #[Permission(code: 'member:save')]
-    #[ResultResponse(instance: new Result())]
-    public function create(MemberRequest $request): Result
-    {
-        $this->service->create(array_merge($request->validated(), [
-            'updated_by' => $this->currentUser->id(),
-        ]));
-        return $this->success();
-    }
-
-    #[Put(
-        path: '/admin/member/update/{id}',
-        operationId: 'memberSave',
-        summary: '保存会员',
-        security: [['Bearer' => [], 'ApiKey' => []]],
-        tags: ['会员管理'],
-    )]
-    #[RequestBody(
-        content: new JsonContent(ref: MemberRequest::class)
-    )]
-    #[Permission(code: 'member:update')]
-    #[ResultResponse(instance: new Result())]
-    public function save(int $id, MemberRequest $request): Result
-    {
-        $this->service->updateById($id, array_merge($request->validated(), [
-            'updated_by' => $this->currentUser->id(),
-        ]));
-        return $this->success();
-    }
-
     #[Put(
         path: '/admin/member/password',
         operationId: 'updatePassword',
@@ -120,20 +80,5 @@ class MemberController extends AbstractController
         return $this->service->resetPassword($this->getRequest()->input('id'))
             ? $this->success()
             : $this->error();
-    }
-
-    #[Delete(
-        path: '/admin/member/delete',
-        operationId: 'memberDelete',
-        summary: '删除会员',
-        security: [['Bearer' => [], 'ApiKey' => []]],
-        tags: ['会员管理'],
-    )]
-    #[ResultResponse(instance: new Result())]
-    #[Permission(code: 'member:delete')]
-    public function delete(): Result
-    {
-        $this->service->deleteById($this->getRequestData());
-        return $this->success();
     }
 }
