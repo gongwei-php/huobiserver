@@ -18,11 +18,12 @@ use Hyperf\Database\Model\Events\Creating;
 use Hyperf\DbConnection\Model\Model;
 
 /**
- * @property int $id 用户ID，主键
- * @property int $vip_level_id 用户vip等级id
- * @property string $account 用户账号
+ * 会员模型
+ * @property int $id 会员ID，主键
+ * @property int $vip_level_id 会员vip等级id
+ * @property string $account 会员账号
  * @property string $phone 手机
- * @property string $avatar 用户头像
+ * @property string $avatar 会员头像
  * @property Status $status 状态 (1正常 2停用)
  * @property string $login_ip 最后登陆IP
  * @property string $login_time 最后登陆时间
@@ -59,7 +60,7 @@ final class Member extends Model
         'updated_at' => 'datetime',
     ];
 
-    protected $appends = ['balance', 'total_profit'];
+    protected array $appends = ['balance', 'total_profit'];
 
     public function setPasswordAttribute($value): void
     {
