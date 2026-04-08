@@ -50,6 +50,12 @@ final class MemberSchema implements \JsonSerializable
     #[Property(property: 'updated_at', title: '更新时间', type: 'string')]
     public mixed $updatedAt;
 
+    #[Property(property: 'balance', title: '余额', type: 'string')]
+    public ?string $balance;
+
+    #[Property(property: 'total_profit', title: '总收益', type: 'string')]
+    public ?string $total_profit;
+
     public function __construct(Member $model)
     {
         $this->id = $model->id;
@@ -62,10 +68,25 @@ final class MemberSchema implements \JsonSerializable
         $this->createdAt = $model->created_at;
         $this->updatedAt = $model->updated_at;
         $this->updated_by = $model->updated_by;
+        $this->balance = $model->balance;
+        $this->total_profit = $model->total_profit;
     }
 
     public function jsonSerialize(): mixed
     {
-        return ['id' => $this->id, 'account' => $this->account, 'phone' => $this->phone, 'avatar' => $this->avatar, 'status' => $this->status, 'login_ip' => $this->loginIp, 'login_time' => $this->loginTime, 'created_at' => $this->createdAt, 'updated_at' => $this->updatedAt, 'updated_by' => $this->updated_by];
+        return [
+            'id' => $this->id,
+            'account' => $this->account,
+            'phone' => $this->phone,
+            'avatar' => $this->avatar,
+            'status' => $this->status,
+            'login_ip' => $this->loginIp,
+            'login_time' => $this->loginTime,
+            'created_at' => $this->createdAt,
+            'updated_at' => $this->updatedAt,
+            'updated_by' => $this->updated_by,
+            'balance' => $this->balance,
+            'total_profit' => $this->total_profit
+        ];
     }
 }

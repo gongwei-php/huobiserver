@@ -159,16 +159,8 @@ final class MemberController extends AbstractController
     )]
     public function getInfo(): Result
     {
-        // return $this->success(
-        //     Arr::only(
-        //         $this->currentMember->member()?->toArray() ?: [],
-        //         ['account', 'avatar', 'phone', 'vip_level_id', 'login_ip', 'login_time']
-        //     )
-        // );
-
         $id = $this->currentMember->member()?->id ?: 0;
-        $member = $this->memberService->getInfo($id);
-        return $this->success($member->toArray());
+        return $this->success($this->memberService->getInfo($id));
     }
 
     #[Post(
