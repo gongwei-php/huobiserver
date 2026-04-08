@@ -132,6 +132,7 @@ final class MemberController extends AbstractController
         security: [['Bearer' => [], 'ApiKey' => []]],
         tags: ['api:v1:logout']
     )]
+    #[Middleware(TokenMiddleware::class)]
     #[ResultResponse(instance: new Result(), example: '{"code":200,"message":"成功","data":[]}')]
     public function logout(): Result
     {

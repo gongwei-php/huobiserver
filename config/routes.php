@@ -17,14 +17,14 @@ Router::addGroup('/api/v1', function () {
     Router::post('/login', [\App\Http\Api\Controller\V1\MemberController::class, 'login']);
     // 刷新会员Token
     Router::post('/refresh', [\App\Http\Api\Controller\V1\MemberController::class, 'refresh']);
-    // 会员退出登录
-    Router::post('/logout', [\App\Http\Api\Controller\V1\MemberController::class, 'logout']);
 });
 
 // 【需要 Token】的接口：
 Router::addGroup('/api/v1', function () {
     // 获取会员信息
     Router::get('/getInfo', [\App\Http\Api\Controller\V1\MemberController::class, 'getInfo']);
+    // 会员退出登录
+    Router::post('/logout', [\App\Http\Api\Controller\V1\MemberController::class, 'logout']);
 }, [
     'middleware' => [\App\Http\Common\Middleware\AccessTokenMiddleware::class]
 ]);
